@@ -1,7 +1,7 @@
 package primitives;
 //to do - function add/subtract, constructor, documentation, 
 //questions - still need distance and distance squared?
-
+import java.lang.Math;
 
 public class Point {
 	
@@ -52,4 +52,20 @@ public class Point {
 		return new Vector(this.xyz.subtract(vector.xyz));
 		//to do
 	}
+	
+	public double distanceSquared(Point point) {
+		//x1-x2,y1-y2,1-z2 is the new double3
+		Double3 temp1 = new Double3(this.xyz.subtract(point.xyz));
+		//x*x,y*y,z*z using double3 product function
+		Double3 temp2 = new Double3(temp1.product(temp1));
+		//need to typecast from int to double?
+		double temp3 = (double)temp2.hashCode();
+		return temp3;
+	}
+	
+	public double distance(Point point) {
+		double temp1 = Math.sqrt(distanceSquared(point));
+		return temp1;
+	}
+	
 }
