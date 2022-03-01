@@ -17,8 +17,9 @@ public class Vector extends Point {
 	
 	//@Override
 	public Vector add(Vector vector) {
-		return vector;
-		//to do
+		
+		return super.add(vector);
+
 	}
 	
 	public Vector scale(double num) {
