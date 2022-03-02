@@ -13,7 +13,7 @@ public final class Main {
 	 * Main program to tests initial functionality of the 1st stage
 	 * 
 	 * @param args irrelevant here
-	 * @throws Exception 
+	 * @throws Exception - we added this part
 	 */
 	public static void main(String[] args) throws Exception {
 
@@ -27,7 +27,7 @@ public final class Main {
 		Vector v2 = new Vector(-2, -4, -6);
 		Vector v3 = new Vector(0, 3, -2);
 
-		// test length..
+		// test length
 		if (!isZero(v1.lengthSquared() - 14))
 			out.println("ERROR: lengthSquared() wrong value");
 		if (!isZero(new Vector(0, 3, 4).length() - 5))
