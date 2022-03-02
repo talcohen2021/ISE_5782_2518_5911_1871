@@ -6,7 +6,7 @@ public class Cylinder extends Tube{
 	
 	@Override
 	public Vector getNormal(Point point) {
-		
+		return null;
 	}
 
 }

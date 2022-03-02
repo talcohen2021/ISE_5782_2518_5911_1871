@@ -26,6 +26,7 @@ public class Point {
 	 */
 	protected Point(double d1, double d2, double d3) {
 		this.xyz(d1, d2, d3);
+
 	}
 	
 	@Override
@@ -52,7 +53,7 @@ public class Point {
 	 */
 	public Point add(Vector vector) {
 		return new Point(this.xyz.add(vector.xyz));
-		//to do
+		
 	}
 	
 	/**
@@ -76,12 +77,12 @@ public class Point {
 	 */
 	public double distanceSquared(Point point) {
 		
-		Double3 temp1 = new Double3(this.xyz.subtract(point.xyz));
+		Point temp1 = new Point(this.xyz.subtract(point.xyz));
 		//x*x,y*y,z*z using double3 product function
-		Double3 temp2 = new Double3(temp1.product(temp1));
+		Point temp2 = new Point(temp1.product(temp1));
 		//need to typecast from int to double?
-		double temp3 = (double)temp2.hashCode();
-		return temp3;
+		//double temp3 = (double)temp2.hashCode();
+		return (double) temp2.xyz.hashCode();
 	}
 	
 	/**
