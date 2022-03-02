@@ -2,6 +2,13 @@ import primitives.*;
 import static java.lang.System.out;
 import static primitives.Util.*;
 
+/*
+ * Submitters:
+ * Meira Grafstein meiragrafstein@gmail.com 328775911
+ * Tali Cohen talcohen@g.jct.ac.il 329651871
+ * Yaakovah Bacharach yakovahb@gmail.com 340912518
+ */
+
 /**
  * Test program for the 1st stage
  *
