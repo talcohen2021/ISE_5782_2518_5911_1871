@@ -14,7 +14,7 @@ public class Point {
 	 * 
 	 * @param double3 coordinate values
 	 */
-	protected Point(Double3 double3) {
+	public Point(Double3 double3) {
 		this.xyz = double3;
 	}
 	/**
@@ -24,8 +24,8 @@ public class Point {
 	 * @param d2 second number value
 	 * @param d3 third number value
 	 */
-	protected Point(double d1, double d2, double d3) {
-		this.xyz(d1, d2, d3);
+	public Point(double d1, double d2, double d3) {
+		this.xyz = new Double3(d1, d2, d3);
 
 	}
 	
@@ -36,7 +36,7 @@ public class Point {
 		if (obj == null || !(obj instanceof Point))
 			return false;
 		Point other = (Point) obj;
-		return xyz.equals(obj);
+		return xyz.equals(other.xyz);
 	}
 	
 	
@@ -63,7 +63,7 @@ public class Point {
 	 * @return result of substract
 	 */
 	public Vector subtract(Point point) {
-		return new Vector(this.xyz.subtract(vector.xyz));
+		return new Vector(this.xyz.subtract(point.xyz));
 		//to do
 	}
 	
@@ -79,7 +79,7 @@ public class Point {
 		
 		Point temp1 = new Point(this.xyz.subtract(point.xyz));
 		//x*x,y*y,z*z using double3 product function
-		Point temp2 = new Point(temp1.product(temp1));
+		Point temp2 = new Point(temp1.xyz.product(temp1.xyz));
 		//need to typecast from int to double?
 		//double temp3 = (double)temp2.hashCode();
 		return (double) temp2.xyz.hashCode();

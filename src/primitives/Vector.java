@@ -25,7 +25,7 @@ public class Vector extends Point {
 		if (obj == null || !(obj instanceof Vector))
 			return false;
 		Vector other = (Vector) obj;
-		return this.equals(obj);
+		return super.equals(other);
 	
 	}
 	
@@ -41,7 +41,7 @@ public class Vector extends Point {
 	 */
 	@Override
 	public Vector add(Vector vector) {
-		return super.add(vector);
+		return (Vector) super.add(vector);
 	}
 	
 	/**
@@ -49,7 +49,7 @@ public class Vector extends Point {
 	 * @param num is the number were scaling our vector by
 	 */
 	public Vector scale(double num) {
-		return this.xyz.scale(num);
+		return new Vector(this.xyz.scale(num));
 		
 	}
 	
@@ -84,11 +84,11 @@ public class Vector extends Point {
 	 * method to normalize a vector
 	 */
 	public Vector normalize() {
-		Vector v = new Vector();
-		len = this.length();
+		Point p = new Point(this.xyz);
+		double len = this.length();
 		if(len == 1)
 			return this;
-		v.xyz = v.xyz.reduce(len);
+		Vector v = new Vector(p.xyz.reduce(len));
 		return v;
 		
 	}

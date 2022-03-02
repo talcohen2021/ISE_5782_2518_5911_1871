@@ -17,9 +17,9 @@ public class Ray {
 	 * @param point coordinate value start of ray
 	 * @param vector direction of ray (normalised)
 	 */
-	protected Ray(Point point, Vector vector) {
+	public Ray(Point point, Vector vector) {
 		this.p0 = point;
-		this.dir = vector.normalize()
+		this.dir = vector.normalize();
 	}
 	
 	@Override
