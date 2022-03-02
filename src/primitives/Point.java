@@ -52,7 +52,7 @@ public class Point {
 	 * @return result of add
 	 */
 	public Point add(Vector vector) {
-		return new Point(this.xyz.add(vector.xyz));
+		return new Point(vector.xyz.add(this.xyz));
 		
 	}
 	
