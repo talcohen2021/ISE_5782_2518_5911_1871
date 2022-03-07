@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 /**
- * @author meira
+ * @author Merekat
  *
  */
 class SphereTests {
@@ -19,6 +19,9 @@ class SphereTests {
 	@Test
 	void testGetNormal() {
 		fail("Not yet implemented");
+		// ============ Equivalence Partitions Tests ==============
+		
+		
 	}
 
 }

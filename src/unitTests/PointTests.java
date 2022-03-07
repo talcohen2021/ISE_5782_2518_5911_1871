@@ -2,31 +2,39 @@
  * 
  */
 package unitTests;
-
+import primitives.Point;
+import primitives.Vector;
 import static org.junit.jupiter.api.Assertions.*;
+
 
 import org.junit.jupiter.api.Test;
 
 /**
- * @author Yaakovah
+ * @author Merekat
  *
  */
 class PointTests {
 
 	/**
 	 * Test method for {@link primitives.Point#add(primitives.Vector)}.
+	 * @throws Exception 
 	 */
 	@Test
-	void testAdd() {
-		fail("Not yet implemented");
+	void testAdd() throws Exception {
+		//fail("Not yet implemented");
+		Point p = new Point(1,2,3);
+		assert(p.add(new Vector(-1, -2, -3)).equals(new Point(0, 0, 0)));	
 	}
 
 	/**
 	 * Test method for {@link primitives.Point#subtract(primitives.Point)}.
+	 * @throws Exception 
 	 */
 	@Test
-	void testSubtract() {
-		fail("Not yet implemented");
+	void testSubtract() throws Exception {
+		//fail("Not yet implemented");
+		Point p = new Point(1,2,3);
+		assert(new Vector(1, 1, 1).equals(new Point(2, 3, 4).subtract(p)));
 	}
 
 	/**
@@ -34,7 +42,10 @@ class PointTests {
 	 */
 	@Test
 	void testDistanceSquared() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
+		Point p = new Point(1,2,3);
+		assertEquals(p.distanceSquared(new Point(1,2,3)),0);
+		assertEquals(p.distanceSquared(new Point(3,6,7)),36);
 	}
 
 	/**
@@ -42,7 +53,10 @@ class PointTests {
 	 */
 	@Test
 	void testDistance() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
+		Point p = new Point(1,2,3);
+		assertEquals(p.distance(new Point(1,2,3)),0);
+		assertEquals(p.distance(new Point(3,6,7)),6);
 	}
 
 }
