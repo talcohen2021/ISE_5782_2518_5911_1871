@@ -25,7 +25,7 @@ public class Sphere implements Geometry {
 		return this.centre;
 	}
 
-	public double getDouble() {
+	public double getRadius() {
 		return this.radius;
 	}
 }
