@@ -1,7 +1,7 @@
 package geometries;
 
-import java.awt.Point;
-import java.util.Vector;
+import primitives.Point;
+import primitives.Vector;
 
 /**
  * defined by a point and the orthogonal vector 
