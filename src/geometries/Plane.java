@@ -15,7 +15,12 @@ public class Plane implements Geometry {
 	{
 		
 		this.q0 = q0;
-		this.normal = null;
+		
+		Vector vector1 = q0.subtract(q1);
+		Vector vector2 = q2.subtract(q1);
+		Vector crossProduct = vector1.crossProduct(vector2);
+		
+		this.normal = crossProduct;
 	}
 	
 	
@@ -44,9 +49,13 @@ public class Plane implements Geometry {
 		return normal;
 	}
 	
-	public Vector getNormal(Point point, Point point, Point point) {
+	public Vector getNormal(Point point1, Point point2, Point point3) {
 		
-		return null;
+		Vector vector1 = point1.subtract(point2);
+		Vector vector2 = point3.subtract(point2);
+		Vector crossProduct = vector1.crossProduct(vector2);
+		
+		return crossProduct;
 	}
 	
 	@Override
