@@ -16,8 +16,9 @@ public class Ray {
 	 * 
 	 * @param point coordinate value start of ray
 	 * @param vector direction of ray (normalised)
+	 * @throws Exception 
 	 */
-	public Ray(Point point, Vector vector) {
+	public Ray(Point point, Vector vector) throws Exception {
 		this.p0 = point;
 		this.dir = vector.normalize();
 	}
