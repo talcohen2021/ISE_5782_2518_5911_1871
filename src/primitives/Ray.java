@@ -38,11 +38,11 @@ public class Ray {
 		return p0.toString() + dir.toString();
 	}
 	
-	public Point getPoint() {
+	public Point getP0() {
 		return this.p0;
 	}
 	
-	public Vector getVector() {
+	public Vector getDir() {
 		return this.dir;
 	}
 
