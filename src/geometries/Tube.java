@@ -1,21 +1,23 @@
 package geometries;
 
-import java.awt.Point;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 public class Tube implements Geometry{
 	
-	final Ray axisRay;
-	final double radius;
+	final Ray axisRay = null;
+	final double radius = 0;
 	
 	
-	Public Ray getAxisRay()
+	public Ray getAxisRay()
 	{
 		return axisRay;
 	}
 	
 	public double getRadius()
 	{
-		retyrn radius
+		return radius;
 	}
 	
 	public Vector getNormal(Point point) {

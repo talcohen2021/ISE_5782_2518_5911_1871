@@ -1,4 +1,7 @@
 package geometries;
+
+import primitives.Point;
+
 /**
  * Class Triangle is the class representing a Triangle in Euclidean Geometry in Cartesian
  * 3-Dimensional coordinate system
