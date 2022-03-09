@@ -24,6 +24,7 @@ public class Plane implements Geometry {
 	}
 	
 	
+	
 	public Plane(Point q0, Vector normal) throws Exception
 	{
 		this.q0 = q0;
