@@ -11,7 +11,7 @@ public class Plane implements Geometry {
 	final Point q0;
 	final Vector normal;
 	
-	Plane(Point q0, Point q1, Point q2) throws Exception
+	public Plane(Point q0, Point q1, Point q2) throws Exception
 	{
 		
 		this.q0 = q0;
@@ -24,7 +24,7 @@ public class Plane implements Geometry {
 	}
 	
 	
-	Plane(Point q0, Vector normal) throws Exception
+	public Plane(Point q0, Vector normal) throws Exception
 	{
 		this.q0 = q0;
 		this.normal = normal.normalize();
