@@ -39,7 +39,7 @@ class TubeTests {
 	 */
 	@Test
 	void testGetNormal() throws Exception {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 		
 		// =============== Boundary Values Tests ==================
 		// connection between the point on the body and the ray’s head creates a 90 degrees with the ray

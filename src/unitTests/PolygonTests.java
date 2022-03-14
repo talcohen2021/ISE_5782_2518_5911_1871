@@ -1,7 +1,7 @@
 /**
  * 
  */
-package unittests.geometries;
+package unitTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
@@ -68,9 +68,10 @@ public class PolygonTests {
 
 	/**
 	 * Test method for {@link geometries.Polygon#getNormal(primitives.Point)}.
+	 * @throws Exception 
 	 */
 	@Test
-	public void testGetNormal() {
+	public void testGetNormal() throws Exception {
 		// ============ Equivalence Partitions Tests ==============
 		// TC01: There is a simple single test here
 		Polygon pl = new Polygon(new Point(0, 0, 1), new Point(1, 0, 0), new Point(0, 1, 0), new Point(-1, 1, 1));
