@@ -25,7 +25,7 @@ class TubeTests {
 	@Test
 	public void testConstructor() throws Exception {
 	
-		// =============== Boundary Values Tests ==================
+		// ============ Equivalence Partitions Tests ==============
 		//radius: does not equal 0
 
 
@@ -41,13 +41,14 @@ class TubeTests {
 	void testGetNormal() throws Exception {
 		fail("Not yet implemented");
 		
-		// ============ Equivalence Partitions Tests ==============
+		// =============== Boundary Values Tests ==================
 		// connection between the point on the body and the ray’s head creates a 90 degrees with the ray
 
 		Tube t = new Tube(new Ray(new Point(0,0,0), new Vector(1,1,1)), 1);
-		double lengthV = t.getAxisRay().getDir().length();
-		double lengthNormal = t.getNormal(new Point(0,0,1)).length();
-		assertEquals(lengthV*lengthNormal, t.getAxisRay().getDir().crossProduct(new Point(0,0,1).subtract(t.getAxisRay().getP0())), "Bad normal to tube");
+		
+		Vector v = new Vector(-1/Math.sqrt(2),-1/Math.sqrt(2),0);
+		
+		assert(v.equals(t.getNormal(new Point(0,0,1))));
 	
 	}
 
