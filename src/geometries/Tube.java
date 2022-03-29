@@ -1,5 +1,7 @@
 package geometries;
 
+import java.util.List;
+
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
@@ -40,6 +42,12 @@ public class Tube implements Geometry{
 		double t = this.axisRay.getDir().dotProduct(this.axisRay.getP0().subtract(point));
 		Point o = this.axisRay.getP0().add(this.axisRay.getDir().scale(t));
 		return point.subtract(o).normalize();
+	}
+
+	@Override
+	public List<Point> findIntsersections(Ray ray) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

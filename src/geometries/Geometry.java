@@ -1,11 +1,13 @@
 package geometries;
 
-import primitives.Point;
+import java.util.List;
 
+import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
 
 //?import primitives;
-public interface Geometry {
+public interface Geometry extends Intersectable{
 	
 	/**
 	 * @param Point point on the geometry
@@ -13,5 +15,7 @@ public interface Geometry {
 	 * @throws Exception 
 	 */
 	public Vector getNormal(Point p) throws Exception;
+
+	
 	
 }

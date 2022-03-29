@@ -45,5 +45,10 @@ public class Ray {
 	public Vector getDir() {
 		return this.dir;
 	}
+	
+	public Point getPoint(double t) throws Exception {
+		// P=P_0+t∙v
+		return p0.add(dir.scale(t));
+	}
 
 }

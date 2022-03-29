@@ -1,6 +1,9 @@
 package geometries;
 
+import java.util.List;
+
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
 
 /**
@@ -54,6 +57,14 @@ public class Plane implements Geometry {
 	@Override
 	public String toString() {
 		return "q0: " + q0.toString() + "normal: " + normal.toString();
+	}
+
+
+
+	@Override
+	public List<Point> findIntsersections(Ray ray) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
