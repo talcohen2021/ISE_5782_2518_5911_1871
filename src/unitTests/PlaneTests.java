@@ -63,7 +63,7 @@ class PlaneTests {
      * Test method for {@link geometries.Sphere#findIntersections(primitives.Ray)}.
 	 * @throws Exception 
      */
-    @Test
+    @Test 
     public void testFindIntersections() throws Exception {
     	
     	Point predictedPoint;
