@@ -3,12 +3,20 @@
  */
 package unitTests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import geometries.Plane;
+import geometries.Sphere;
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
 
 /**
@@ -50,4 +58,36 @@ class PlaneTests {
 		} catch(Exception e) {}
 	}
 	
+
+	/**
+     * Test method for {@link geometries.Sphere#findIntersections(primitives.Ray)}.
+	 * @throws Exception 
+     */
+    @Test
+    public void testFindIntersections() throws Exception {
+    	
+    	Point predictedPoint;
+        List<Point> result;
+        Plane plane = new Plane(new Point(0, 0, 10), new Point(10, 0, 0), new Point(0, 10, 0));
+
+        // ============ Equivalence Partitions Tests ==============
+    	
+    	// TC01: Ray intersects the plane (The Ray must be neither orthogonal nor parallel to the plane)
+        Ray ray = new Ray(new Point(0, 0, 1), new Vector(0, 0, 1));
+        predictedPoint = new Point(0, 0, 10);
+        result = plane.findIntsersections(ray);
+        assertEquals("Did not find the correct intersection point", predictedPoint, result.get(0));
+        
+    	//TC02: Ray does not intersect the plane (The Ray must be neither orthogonal nor parallel to the plane )
+        ray = new Ray(new Point(0, 0, 11), new Vector(0, 0, 1));
+        result = plane.findIntsersections(ray);
+        assertNull("There should not be an intersection", result);
+
+        // =============== Boundary Values Tests ==================
+
+    
+    }
+
+	
 }
+
