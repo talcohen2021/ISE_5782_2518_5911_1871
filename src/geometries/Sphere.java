@@ -35,7 +35,8 @@ public class Sphere implements Geometry {
 
 	@Override
 	public List<Point> findIntsersections(Ray ray) {
-		// TODO Auto-generated method stub
+		Vector u = new Vector()
 		return null;
 	}
+
 }

@@ -33,7 +33,7 @@ public class Geometries implements Intersectable {
 	@Override
 	public List<Point> findIntsersections(Ray ray) {
 		
-		List<Point> listOfIntersections = new LinkedList<Point>(); //bc we are mainly adding?
+		List<Point> listOfIntersections = new LinkedList<Point>(); //bc we are mainly adding
 
 		Iterator<Intersectable> geometryIterator = geometries.iterator();
 		while(geometryIterator.hasNext())
