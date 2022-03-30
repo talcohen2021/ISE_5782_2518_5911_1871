@@ -43,8 +43,7 @@ public class Geometries implements Intersectable {
 			listOfIntersections.addAll((Collection<? extends Point>) i.findIntsersections(ray));
 			return listOfIntersections;
 		}
-		//The method shall return a collection of intersection points for all the shapes in the collection.
-		//If there are no intersection points, it should return null.
+		
 		return null;
 	}
  
