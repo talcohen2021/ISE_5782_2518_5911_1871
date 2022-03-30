@@ -106,7 +106,7 @@ class PlaneTests {
         ray = new Ray(new Point(0, 0, 9), new Vector(-10, -10, -10));
         result = plane.findIntsersections(ray);
         assertEquals("There should not be an intersection.", result);
-        
+         
 		//TC21 𝑃0 in the plane
         ray = new Ray(new Point(0, 0, 10), new Vector(-10, -10, -10));
         result = plane.findIntsersections(ray);
