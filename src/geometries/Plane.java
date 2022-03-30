@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import primitives.Point;
@@ -62,8 +63,16 @@ public class Plane implements Geometry {
 
 
 	@Override
-	public List<Point> findIntsersections(Ray ray) {
-		// TODO Auto-generated method stub
+	public List<Point> findIntsersections(Ray ray) throws Exception {
+		List<Point> results = new LinkedList<Point>();
+		Vector u = q0.subtract(ray.getP0());
+		//(normal*u)/(normal*v)
+		double t = normal.dotProduct(u) / normal.dotProduct(ray.getDir());
+		//p = p0+tv
+		if(t > 0 && !Double.isInfinite(t)) {
+			results.add(ray.getPoint(t));
+			return results;
+		}
 		return null;
 	}
 
