@@ -46,7 +46,6 @@ class PlaneTests {
 	 */
 	@Test
 	void testGetNormalPointPointPoint() throws Exception {
-		//fail("Not yet implemented");
 		
 		// ============ Equivalence Partitions Tests ==============
 		
@@ -91,29 +90,29 @@ class PlaneTests {
         //*** Ray is parallel to the plane - Two cases: 
         
         //TC10 the ray included in the plane
-        ray = new Ray(new Point(0, 0, 10), new Vector(10, 0, 10));
+        ray = new Ray(new Point(0, 0, 10), new Vector(10, 0, -10));
         result = plane.findIntsersections(ray);
         assertNull("There should not be an intersection because the ray is inside the plane", result);
         
 		// TC11 the ray is not included in the plane
-        ray = new Ray(new Point(-1, 0, 0), new Vector(10, 0, 10));
+        ray = new Ray(new Point(10, 0, 10), new Vector(10, 0, -10));
         result = plane.findIntsersections(ray);
         assertNull("There should not be an intersection because the ray is parallel to the plane", result);
         
 		//*** Ray is orthogonal to the plane - Three cases:
         
 		//TC20 𝑃0 before the plane
-        ray = new Ray(new Point(0, 0, 9), new Vector(-10, -10, -10));
+        ray = new Ray(new Point(-1,-1,-1), new Vector(-5, -5, -5));
         result = plane.findIntsersections(ray);
         assertEquals("There should not be an intersection.", result);
          
 		//TC21 𝑃0 in the plane
-        ray = new Ray(new Point(0, 0, 10), new Vector(-10, -10, -10));
+        ray = new Ray(new Point(0, 0, 10), new Vector(-5, -5, -5));
         result = plane.findIntsersections(ray);
         assertNull("There should not be an intersection.", result);
 
 		//TC22 𝑃0 after the plane :)
-        ray = new Ray(new Point(0, 0, 11), new Vector(10, 10, 10));
+        ray = new Ray(new Point(0, 0, 11), new Vector(5, 5, 5));
         result = plane.findIntsersections(ray);
         assertNull("There should not be an intersection. Ray starts after the plane", result);
 
