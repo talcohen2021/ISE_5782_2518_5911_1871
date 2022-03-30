@@ -112,7 +112,7 @@ class PlaneTests {
         result = plane.findIntsersections(ray);
         assertNull("There should not be an intersection.", result);
 
-		//TC22 𝑃0 after the plane
+		//TC22 𝑃0 after the plane :)
         ray = new Ray(new Point(0, 0, 11), new Vector(10, 10, 10));
         result = plane.findIntsersections(ray);
         assertNull("There should not be an intersection. Ray starts after the plane", result);
