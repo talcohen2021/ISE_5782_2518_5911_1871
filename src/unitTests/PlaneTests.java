@@ -60,7 +60,7 @@ class PlaneTests {
 	
 
 	/**
-     * Test method for {@link geometries.Sphere#findIntersections(primitives.Ray)}.
+     * Test method for {@link geometries.Plane#findIntersections(primitives.Ray)}.
 	 * @throws Exception 
      */
     @Test 
@@ -68,12 +68,14 @@ class PlaneTests {
     	
     	Point predictedPoint;
         List<Point> result;
+        Ray ray;
         Plane plane = new Plane(new Point(0, 0, 10), new Point(10, 0, 0), new Point(0, 10, 0));
-        Ray ray = new Ray(new Point(0, 0, 1), new Vector(0, 0, 1));
+       
         
         // ============ Equivalence Partitions Tests ==============
     	
     	// TC01: Ray intersects the plane (The Ray must be neither orthogonal nor parallel to the plane)
+        ray = new Ray(new Point(0, 0, 1), new Vector(0, 0, 1));
         predictedPoint = new Point(0, 0, 10);
         result = plane.findIntsersections(ray);
         assertEquals("Did not find the correct intersection point", predictedPoint, result.get(0));
@@ -120,47 +122,4 @@ class PlaneTests {
 
 	
 }
-
-/*
- * 
- * 
-   
-    @Test
-    public void testFindGeoIntersections() {
-        List<GeoPoint> expected;
-        List<GeoPoint> actual;
-        Plane plane = new Plane(new Point3D(0, 1, 0), new Point3D(2, 0, 0), new Point3D(0, 2, 0));
-      
-
-        
-
-        // **** group: orthogonal rays
-
-        // ray has origin on the plane and is orthogonal to the plane
-       
-        // ray starts before the plane and is orthogonal to the plane
-        Ray ray6 = new Ray(new Point3D(0, 1, -1), new Vector(0, 0, 1));
-        expected = List.of(new GeoPoint(plane, new Point3D(0, 1, 0)));
-        actual = plane.findGeoIntersections(ray6);
-        assertEquals("orthogonal before failed", expected, actual);
-
-        // ray starts after the plane and is orthogonal to the plane
-        Ray ray7 = new Ray(new Point3D(0, 1, 2), new Vector(0, 0, 1));
-        actual = plane.findGeoIntersections(ray7);
-        assertNull("orthogonal after should not intersect", actual);
-
-        // ray has origin on plane and is not orthogonal or parallel
-        Ray ray8 = new Ray(new Point3D(0, 1, 0), new Vector(0, 1, 1));
-        actual = plane.findGeoIntersections(ray8);
-        assertNull("Origin on plane and not orthogonal failed", actual);
-
-        // ray does not start on plane and is not orthogonal or parallel
-        Ray ray9 = new Ray(new Point3D(0, 1, -1), new Vector(0, 1, 1));
-        expected = List.of(new GeoPoint(plane, new Point3D(0, 2, 0)));
-        actual = plane.findGeoIntersections(ray9);
-        assertEquals("not orthogonal or parallel failed", expected, actual);
-    
- * 
- * 
- * */
 
