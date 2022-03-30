@@ -78,17 +78,17 @@ class SphereTests {
 
         // **** Group: Ray's line crosses the sphere (but not the center)
         // TC11: Ray starts at sphere and goes inside (1 points)
-        result = sphere.findIntsersections(new Ray(new Point(1, 0 ,1), new Vector(1, 0, 0 )));
+        result = sphere.findIntsersections(new Ray(new Point(1, 0 ,1), new Vector(1, 0, -2 )));
         assertEquals("There should be one intersection. Ray starts at sphere and goes inside", result.size(), 1);
         
         
         // TC12: Ray starts at sphere and goes outside (0 points)
-        result = sphere.findIntsersections(new Ray(new Point(1, 0, 1), new Vector(-1, 0, 0)));
+        result = sphere.findIntsersections(new Ray(new Point(1, 0, 1), new Vector(-1, 0, 1)));
         assertNull("There should be no intersections. Ray starts at sphere and goes outside", result);
         
         // **** Group: Ray's line goes through the center
         // TC13: Ray starts before the sphere (2 points)
-        result = sphere.findIntsersections(new Ray(new Point(1, 0, 3), new Vector(1, 0, -3)));
+        result = sphere.findIntsersections(new Ray(new Point(1, 0, 3), new Vector(0, 0, -6)));
         assertEquals("There should be 2 intersections. Ray starts before the sphere", result.size(), 2);
         
         // TC14: Ray starts at sphere and goes inside (1 points)
@@ -96,7 +96,7 @@ class SphereTests {
         assertEquals("There should be one intersection. Ray starts at sphere and goes inside", result.size(), 1);
         
         // TC15: Ray starts inside (1 points)
-        result = sphere.findIntsersections(new Ray(new Point(1, 0, .5), new Vector(1, 0, -2)));
+        result = sphere.findIntsersections(new Ray(new Point(1, 0, .5), new Vector(0, 0, -2.5)));
         assertEquals("There should be one intersection. Ray starts inside", result.size(), 1);
 
         // TC16: Ray starts at the center (1 points)
