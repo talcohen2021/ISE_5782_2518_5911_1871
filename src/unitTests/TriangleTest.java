@@ -32,7 +32,7 @@ class TriangleTest {
 	}
 	
 	/**
-     * Test method for {@link geometries.Plane#findIntersections(primitives.Ray)}.
+     * Test method for {@link geometries.Triangle#findIntersections(primitives.Ray)}.
 	 * @throws Exception 
      */
     @Test 
@@ -48,30 +48,39 @@ class TriangleTest {
     	
     	//TC00: Ray intersects the triangle in the body
         ray = new Ray(new Point(0, 0, 9), new Vector(0, 0, 10));
-        expected = List.of(new GeoPoint(triangle, new Point3D(0.25, 0.25, 1)));
-        actual = triangle.findGeoIntersections(ray1);
-        assertEquals("has intersection failed", expected, actual);
+        predictedPoint = new Point(0, 0, 10);
+        result = triangle.findIntsersections(ray);
+        assertEquals("Incorrect intersection point", predictedPoint, result.get(0));
         
     	//TC10: Ray does not intersect the triangle - intersects in the edge wedge
-     
-        //TC10: Ray does not intersect the triangle - intersects in the corner wedge
+        ray = new Ray(new Point(0, 0, 9), new Vector(0, -1, 10));
+        result = triangle.findIntsersections(ray);
+        assertNull("There should be no intersection points", result);
+        
+        //TC20: Ray does not intersect the triangle - intersects in the corner wedge
+        //didnt calculate this one
+        ray = new Ray(new Point(0, 0, 9), new Vector(0, -1, 10));
+        result = triangle.findIntsersections(ray);
+        assertNull("There should be no intersection points", result);
         
         // =============== Boundary Values Tests ==================
-        
-        
-        //*** Ray is parallel to the plane - Two cases: 
-        
-       
-		// TC11 the ray is not included in the plane
-       
-		//*** Ray is orthogonal to the plane - Three cases:
-        
-		//TC20 𝑃0 before the plane
-        
-		//TC21 𝑃0 in the plane
       
-		//TC22 𝑃0 after the plane
-      
+		//TC30 Ray does not intersect the triangle. it intersects the line that the edge of the triangle is on
+        //didnt calculate this point
+        ray = new Ray(new Point(0, -20, 10), new Vector(0, 0, 10));
+        result = triangle.findIntsersections(ray);
+        assertNull("There should be no intersection points", result);
+        
+		//TC40 Ray intersects on the edge of the triangle - results in no intersection points
+        //didnt calculate this point
+        ray = new Ray(new Point(0, 0, 9), new Vector(0, -1, 10));
+        result = triangle.findIntsersections(ray);
+        assertNull("There should be no intersection points", result);
+        
+		//TC50 Ray intersects on the corner of the triangle - results in no intersection points
+        ray = new Ray(new Point(0, 0, 9), new Vector(0, 0, 9));
+        result = triangle.findIntsersections(ray);
+        assertNull("There should be no intersection points", result);
 	
     }
 
