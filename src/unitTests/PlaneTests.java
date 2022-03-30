@@ -69,11 +69,11 @@ class PlaneTests {
     	Point predictedPoint;
         List<Point> result;
         Plane plane = new Plane(new Point(0, 0, 10), new Point(10, 0, 0), new Point(0, 10, 0));
-
+        Ray ray = new Ray(new Point(0, 0, 1), new Vector(0, 0, 1));
+        
         // ============ Equivalence Partitions Tests ==============
     	
     	// TC01: Ray intersects the plane (The Ray must be neither orthogonal nor parallel to the plane)
-        Ray ray = new Ray(new Point(0, 0, 1), new Vector(0, 0, 1));
         predictedPoint = new Point(0, 0, 10);
         result = plane.findIntsersections(ray);
         assertEquals("Did not find the correct intersection point", predictedPoint, result.get(0));
@@ -84,10 +84,83 @@ class PlaneTests {
         assertNull("There should not be an intersection", result);
 
         // =============== Boundary Values Tests ==================
+        
+        
+        //*** Ray is parallel to the plane - Two cases: 
+        
+        //TC10 the ray included in the plane
+        ray = new Ray(new Point(0, 0, 10), new Vector(10, 0, 10));
+        result = plane.findIntsersections(ray);
+        assertNull("There should not be an intersection because the ray is inside the plane", result);
+        
+		// TC11 the ray is not included in the plane
+        ray = new Ray(new Point(-1, 0, 0), new Vector(10, 0, 10));
+        result = plane.findIntsersections(ray);
+        assertNull("There should not be an intersection because the ray is parallel to the plane", result);
+        
+		//*** Ray is orthogonal to the plane - Three cases:
+        
+		//TC20 𝑃0 before the plane
+        ray = new Ray(new Point(0, 0, 9), new Vector(-10, -10, -10));
+        result = plane.findIntsersections(ray);
+        assertEquals("There should not be an intersection.", result);
+        
+		//TC21 𝑃0 in the plane
+        ray = new Ray(new Point(0, 0, 10), new Vector(-10, -10, -10));
+        result = plane.findIntsersections(ray);
+        assertNull("There should not be an intersection.", result);
 
-    
+		//TC22 𝑃0 after the plane
+        ray = new Ray(new Point(0, 0, 11), new Vector(10, 10, 10));
+        result = plane.findIntsersections(ray);
+        assertNull("There should not be an intersection. Ray starts after the plane", result);
+
+	
     }
 
 	
 }
+
+/*
+ * 
+ * 
+   
+    @Test
+    public void testFindGeoIntersections() {
+        List<GeoPoint> expected;
+        List<GeoPoint> actual;
+        Plane plane = new Plane(new Point3D(0, 1, 0), new Point3D(2, 0, 0), new Point3D(0, 2, 0));
+      
+
+        
+
+        // **** group: orthogonal rays
+
+        // ray has origin on the plane and is orthogonal to the plane
+       
+        // ray starts before the plane and is orthogonal to the plane
+        Ray ray6 = new Ray(new Point3D(0, 1, -1), new Vector(0, 0, 1));
+        expected = List.of(new GeoPoint(plane, new Point3D(0, 1, 0)));
+        actual = plane.findGeoIntersections(ray6);
+        assertEquals("orthogonal before failed", expected, actual);
+
+        // ray starts after the plane and is orthogonal to the plane
+        Ray ray7 = new Ray(new Point3D(0, 1, 2), new Vector(0, 0, 1));
+        actual = plane.findGeoIntersections(ray7);
+        assertNull("orthogonal after should not intersect", actual);
+
+        // ray has origin on plane and is not orthogonal or parallel
+        Ray ray8 = new Ray(new Point3D(0, 1, 0), new Vector(0, 1, 1));
+        actual = plane.findGeoIntersections(ray8);
+        assertNull("Origin on plane and not orthogonal failed", actual);
+
+        // ray does not start on plane and is not orthogonal or parallel
+        Ray ray9 = new Ray(new Point3D(0, 1, -1), new Vector(0, 1, 1));
+        expected = List.of(new GeoPoint(plane, new Point3D(0, 2, 0)));
+        actual = plane.findGeoIntersections(ray9);
+        assertEquals("not orthogonal or parallel failed", expected, actual);
+    
+ * 
+ * 
+ * */
 
