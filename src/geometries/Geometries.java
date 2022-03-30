@@ -1,6 +1,7 @@
 package geometries;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class Geometries implements Intersectable {
 	}
 
 	@Override
-	public List<Point> findIntsersections(Ray ray) {
+	public List<Point> findIntsersections(Ray ray) throws Exception {
 		
 		List<Point> listOfIntersections = new LinkedList<Point>(); //bc we are mainly adding
 
@@ -39,7 +40,8 @@ public class Geometries implements Intersectable {
 		while(geometryIterator.hasNext())
 		{
 			Intersectable i = (Intersectable)geometryIterator.next();
-			return listOfIntersections.add(i.findIntsersections(ray));
+			listOfIntersections.addAll((Collection<? extends Point>) i.findIntsersections(ray));
+			return listOfIntersections;
 		}
 		//The method shall return a collection of intersection points for all the shapes in the collection.
 		//If there are no intersection points, it should return null.
