@@ -23,10 +23,6 @@ public class Triangle extends Polygon{
 		super(p1, p2, p3);
 	}
 	
-	public Vector getNormal(Point p) {
-		return plane.getNormal(p);
-	}
-	
 	@Override
 	public List<Point> findIntsersections(Ray ray) {
 		 try {

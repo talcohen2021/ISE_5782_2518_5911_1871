@@ -39,7 +39,7 @@ public class Plane implements Geometry {
 	{
 		return q0;
 	}
-	
+
 	@Override
 	public Vector getNormal(Point point) {
 		
