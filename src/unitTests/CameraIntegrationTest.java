@@ -17,16 +17,17 @@ class CameraIntegrationTest {
 		cam.setVPDistance(dist);
 		cam.setVPSize(width, height);
 	}
+	
 	/**
-	 * 
 	 * @param cam the camera
 	 * @param geometry the geometry we're intersecting
-	 * @return the number of intersections between the cameras rays and the geometry
+	 * @return the number of intersections between the cameras rays of a 3x3 view plane
+	 *  and the geometry
 	 * @throws Exception 
 	 */
 	public int intersectionCalculator(Camera cam, Intersectable geometry) throws Exception {
 		int count = 0;
-		for(int i = 0; i < 3; ++i) {
+		for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < 3; j++) {
 				Ray ray = cam.constructRay(3, 3, j, i);
 				List<Point> intersections = geometry.findIntsersections(ray);
@@ -35,8 +36,7 @@ class CameraIntegrationTest {
 		}
 	return count;
 	}
-	
-	//public void helperIntersection()
+
 
 	@Test
 	void integrationTest() throws Exception {
@@ -44,14 +44,15 @@ class CameraIntegrationTest {
 		cameraSetUp(cam, 1, 3, 3);
 		
 		/*---- sphere tests------*/
+		
 		Sphere sphere = new Sphere(new Point(0,0,-3), 1);
-		//tc 0 
+		//tc 1
 		assertEquals("there should be 2 intersections ", intersectionCalculator(cam, sphere), 2);
 	
 		sphere = new Sphere(new Point(0,0,-2.5), 2.5);
 		cam.setP0(new Point(0,0,0.5));
 		
-		//tc 1
+		//tc 2
 		assertEquals("there should be 18 intersections", intersectionCalculator(cam, sphere), 18);
 		
 		//tc 3

@@ -35,6 +35,7 @@ public class Camera {
 			System.out.println("Can't have a zero vector");
 		}
 	}
+	
 	/**
 	 * 
 	 * @param width width of the view plane
@@ -72,7 +73,9 @@ public class Camera {
 		 */
 		public Ray constructRayPixel() {
 			return null;
-		}/**
+		}
+		
+		/**
 		 * 
 		 * @param nX width - # of rows
 		 * @param nY height - # of columns
