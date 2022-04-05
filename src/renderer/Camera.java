@@ -47,6 +47,14 @@ public class Camera {
 		return this;
 	}
 	
+	/**
+	 * 
+	 * @param p0
+	 */
+	public void setP0(Point p0) {
+		this.p0 = p0;
+	}
+	
 	
 	/**
 	 * 
@@ -64,8 +72,7 @@ public class Camera {
 		 */
 		public Ray constructRayPixel() {
 			return null;
-		}
-		/**
+		}/**
 		 * 
 		 * @param nX width - # of rows
 		 * @param nY height - # of columns
@@ -74,7 +81,25 @@ public class Camera {
 		 * @return ray from camera to pixel
 		 */
 		public Ray constructRay(int nX, int nY, int j, int i) {
-		
+			try {
+				Point pc = p0.add(vTo.scale(distance));
+				double pixelWidth = width/nX;
+				double pixelHeight = height/nY;
+				
+				double yi = -(i - (nY-1)/2) * pixelHeight;
+				double xj = (j - (nX-1)/2) * pixelWidth;
+				
+				Point pIJ = pc;
+				if(!isZero(yi))
+					pIJ = pIJ.add(vUp.scale(yi));
+				if(!isZero(xj))
+					pIJ = pIJ.add(vRight.scale(xj));
+				Vector dir = pIJ.subtract(p0).normalize();
+				return new Ray(p0, dir);
+				
+			} catch (Exception e) {
+				System.out.println("Can't have zero vector");
+			}
 			return null;
 		}
 		
