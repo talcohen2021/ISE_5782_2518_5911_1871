@@ -7,11 +7,13 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import geometries.Intersectable;
+import geometries.Plane;
 import geometries.Sphere;
+import geometries.Triangle;
 import primitives.*;
 import renderer.Camera;
 
-class CameraIntegrationTest {
+class CameraIntegrationTests {
 	
 	public void cameraSetUp (Camera cam, double dist, double width, double height) {
 		cam.setVPDistance(dist);
@@ -39,13 +41,14 @@ class CameraIntegrationTest {
 
 
 	@Test
-	void integrationTest() throws Exception {
+	void SphereintegrationTest() throws Exception {
 		Camera cam = new Camera(new Point(Double3.ZERO), new Vector(0,1,0), new Vector(0,0,-1));
 		cameraSetUp(cam, 1, 3, 3);
 		
 		/*---- sphere tests------*/
 		
 		Sphere sphere = new Sphere(new Point(0,0,-3), 1);
+		
 		//tc 1
 		assertEquals("there should be 2 intersections ", intersectionCalculator(cam, sphere), 2);
 	
@@ -68,6 +71,45 @@ class CameraIntegrationTest {
 		assertEquals("there should be 0 intersections ", intersectionCalculator(cam, sphere), 0);
 		
 		
+	}
+	
+	@Test
+	void PlaneintegrationTest() throws Exception {
+		Camera cam = new Camera(new Point(Double3.ZERO), new Vector(0,-1, 0), new Vector(0,0, -1));
+		cameraSetUp(cam, 1, 3, 3);
+		
+		Plane plane = new Plane(new Point(0,0,-10), new Vector(0,0,1));
+		
+		//tc 1
+		assertEquals("there should be 9 intersections ", intersectionCalculator(cam, plane), 9);
+		
+		plane = new Plane(new Point(0,0,-10), new Vector(0,1, 2)); 
+		
+		//tc 2
+		assertEquals("there should be 9 intersections ", intersectionCalculator(cam, plane), 9);
+		
+		plane = new Plane(new Point(0,0,-10), new Vector(0,1,1));
+		
+		//tc 3
+		assertEquals("there should be 6 intersections ", intersectionCalculator(cam, plane), 6);
+		
+	}
+	
+	@Test
+	void TriangleintegrationTest() throws Exception {
+		
+		Camera cam = new Camera(new Point(Double3.ZERO), new Vector(0,1,0), new Vector(0,0,-1));
+		cameraSetUp(cam, 1, 3, 3);
+		
+		Triangle triangle = new Triangle(new Point(0,1,-2), new Point(1,-1,-2), new Point(-1,-1,-2));
+		
+		//tc 1
+		assertEquals("there should be 1 intersection ", intersectionCalculator(cam, triangle), 1);
+		
+		triangle = new Triangle(new Point(0,20,-2), new Point(1,-1,-2), new Point(-1,-1,-2));
+		
+		//tc 2
+		assertEquals("there should be 2 intersections ", intersectionCalculator(cam, triangle), 2);
 	}
 
 }
