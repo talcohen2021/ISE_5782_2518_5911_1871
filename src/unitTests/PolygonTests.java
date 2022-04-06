@@ -19,9 +19,10 @@ public class PolygonTests {
 
 	/**
 	 * Test method for {@link geometries.Polygon#Polygon(primitives.Point...)}.
+	 * @throws Exception 
 	 */
 	@Test
-	public void testConstructor() {
+	public void testConstructor() throws Exception {
 		// ============ Equivalence Partitions Tests ==============
 
 		// TC01: Correct concave quadrangular with vertices in correct order
