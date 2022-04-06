@@ -18,7 +18,7 @@ import org.junit.runner.notification.Failure;
 
 public class Main {
 	public static void main(String[] args) {
-	      Result result = JUnitCore.runClasses(GeometriesTests.class);
+	      Result result = JUnitCore.runClasses(SphereTests.class);
 			
 	      for (Failure failure : result.getFailures()) {
 	         System.out.println(failure.toString());

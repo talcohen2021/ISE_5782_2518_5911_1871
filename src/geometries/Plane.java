@@ -67,7 +67,7 @@ public class Plane implements Geometry {
 
 
 	@Override
-	public List<Point> findIntsersections(Ray ray) throws Exception {
+	public List<Point> findIntersections(Ray ray) throws Exception {
 		List<Point> results = new LinkedList<Point>();
 		Vector u = q0.subtract(ray.getP0());
 		//(normal*u)/(normal*v)

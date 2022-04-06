@@ -17,5 +17,5 @@ public interface Intersectable {
 	 * @return - a list of all of the points of intersection or null (in the case that there is no intersection points)
 	 * @throws Exception 
 	 */
-	List<Point> findIntsersections(Ray ray) throws Exception;
+	List<Point> findIntersections(Ray ray) throws Exception;
 }

@@ -38,7 +38,7 @@ public class Sphere implements Geometry {
 	 * @returns the list of intersections bw the ray and sphere if there are any
 	 */
 	@Override
-	public List<Point> findIntsersections(Ray ray) throws Exception {
+	public List<Point> findIntersections(Ray ray) throws Exception {
 		
 		//u = O - P0
 		Vector u = centre.subtract(ray.getP0());

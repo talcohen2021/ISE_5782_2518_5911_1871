@@ -73,12 +73,12 @@ public class PlaneTests {
     	// TC01: Ray intersects the plane (The Ray must be neither orthogonal nor parallel to the plane)
         ray = new Ray(new Point(0, 0, 1), new Vector(0, 0, 1));
         predictedPoint = new Point(0, 0, 10);
-        result = plane.findIntsersections(ray);
+        result = plane.findIntersections(ray);
         assertEquals("Did not find the correct intersection point", predictedPoint, result.get(0));
         
     	//TC02: Ray does not intersect the plane (The Ray must be neither orthogonal nor parallel to the plane )
         ray = new Ray(new Point(0, 0, 11), new Vector(0, 0, 1));
-        result = plane.findIntsersections(ray);
+        result = plane.findIntersections(ray);
         assertNull("There should not be an intersection." , result);
 
         // =============== Boundary Values Tests ==================
@@ -88,12 +88,12 @@ public class PlaneTests {
         
         //TC10 the ray included in the plane
         ray = new Ray(new Point(0, 0, 10), new Vector(10, 0, -10));
-        result = plane.findIntsersections(ray);
+        result = plane.findIntersections(ray);
         assertNull("There should not be an intersection because the ray is inside the plane", result);
         
 		// TC11 the ray is not included in the plane
         ray = new Ray(new Point(10, 0, 10), new Vector(10, 0, -10));
-        result = plane.findIntsersections(ray);
+        result = plane.findIntersections(ray);
         assertNull("There should not be an intersection because the ray is parallel to the plane", result);
         
 		//*** Ray is orthogonal to the plane - Three cases:
@@ -101,17 +101,17 @@ public class PlaneTests {
 		//TC20  P0 before the plane
         
         ray = new Ray(new Point(-1,-1,-1), new Vector(-5, -5, -5));
-        result = plane.findIntsersections(ray);
+        result = plane.findIntersections(ray);
         assertNull("There should not be an intersection", result);
          
 		//TC21  P0 in the plane
         ray = new Ray(new Point(0, 0, 10), new Vector(-5, -5, -5));
-        result = plane.findIntsersections(ray);
+        result = plane.findIntersections(ray);
         assertNull("There should not be an intersection.", result);
 
 		//TC22  P0 after the plane :)
         ray = new Ray(new Point(0, 0, 11), new Vector(5, 5, 5));
-        result = plane.findIntsersections(ray);
+        result = plane.findIntersections(ray);
         assertNull("There should not be an intersection. Ray starts after the plane", result);
 
 	
