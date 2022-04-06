@@ -31,15 +31,15 @@ public class GeometriesTests {
 		 
 		 intersectables.add(triangle);
 		 intersectables.add(sphere);
-		 /*
+		 
 		 result = intersectables.findIntsersections(ray);
 		 assertNull("There should be no intersection", result);
-		 */
+		 
 		//only one shape intersects (BVA)
 		 ray = new Ray(new Point(0,0,1), new Vector(2,5,6));
 		 result = intersectables.findIntsersections(ray);
 		 assertEquals("there should only be one intersection. Ray with triangle", result.size(), 1);
-		 /*
+		 
 		//all shapes intersects (BVA)
 		 ray = new Ray(new Point(-12.52,-5.09,-10.63), new Vector(23.76, 9.7, 18.37));
 		 result = intersectables.findIntsersections(ray);
@@ -50,7 +50,7 @@ public class GeometriesTests {
 		 ray = new Ray(new Point(0,0,1), new Vector(2,5,6));
 		 result = intersectables.findIntsersections(ray);
 		 assertEquals("there should only be one intersection. Ray with triangle", result.size(), 1);
-		 */
+		 
 	}
 	
 }

@@ -41,10 +41,12 @@ public class Geometries implements Intersectable {
 		{
 			Intersectable i = (Intersectable)geometryIterator.next();
 			listOfIntersections.addAll((Collection<? extends Point>) i.findIntsersections(ray));
-			return listOfIntersections;
 		}
 		
-		return null;
+		if(listOfIntersections.isEmpty())
+			return null;
+		return listOfIntersections;
+		
 	}
  
 }
