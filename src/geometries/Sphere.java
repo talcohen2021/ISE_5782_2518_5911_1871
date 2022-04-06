@@ -1,11 +1,10 @@
 package geometries;
 
 import java.util.LinkedList;
+
 import java.util.List;
 
-import primitives.Point;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 public class Sphere implements Geometry {
 	final Point centre;
@@ -18,11 +17,9 @@ public class Sphere implements Geometry {
 	
 	@Override
 	public Vector getNormal(Point point) throws Exception {
-		//return null; 
 		Vector v ;
 		v = point.subtract(centre);
-		Vector u = v.normalize();
-		return u;
+		return v.normalize();
 		   
 	}
 	
@@ -57,7 +54,9 @@ public class Sphere implements Geometry {
 		double t2= tm - th;
 		
 		List<Point> results = new LinkedList<Point>();
-		
+		if(t1 <= 0 && t2 <= 0 ) {
+			return null;
+		}
 		if(t1 > 0)
 			results.add(ray.getP0().add(ray.getDir().scale(t1)));
 		if(t2 > 0)

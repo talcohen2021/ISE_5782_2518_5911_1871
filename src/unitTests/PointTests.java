@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
  * @author Merekat
  *
  */
-class PointTests {
+public class PointTests {
 
 	/**
 	 * Test method for {@link primitives.Point#add(primitives.Vector)}.

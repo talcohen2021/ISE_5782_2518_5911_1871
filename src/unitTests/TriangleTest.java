@@ -2,32 +2,25 @@
  * 
  */
 package unitTests;
-
+import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.List;
-
-import org.junit.jupiter.api.Test;
-
-import geometries.Plane;
 import geometries.Triangle;
-import primitives.Point;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 /**
  * @author meira
  *
  */
-class TriangleTest {
+public class TriangleTest {
 
 	/**
 	 * Test method for {@link geometries.Polygon#getNormal(primitives.Point)}.
 	 */
 	@Test
-	void testGetNormal() {
+	public void testGetNormal() {
 		fail("Not yet implemented");
 	}
 	
@@ -48,7 +41,7 @@ class TriangleTest {
     	
     	//TC00: Ray intersects the triangle in the body
         ray = new Ray(new Point(1, 0, 0), new Vector(5, 5, 5));
-        predictedPoint = new Point(4, 3, 3);
+        predictedPoint = new Point(4.003556313703255,3.0035563137032555,3.0035563137032555);
         result = triangle.findIntsersections(ray);
         assertEquals("Incorrect intersection point", predictedPoint, result.get(0));
         

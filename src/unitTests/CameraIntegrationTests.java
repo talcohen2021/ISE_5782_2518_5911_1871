@@ -13,7 +13,7 @@ import geometries.Triangle;
 import primitives.*;
 import renderer.Camera;
 
-class CameraIntegrationTests {
+public class CameraIntegrationTests {
 	
 	public void cameraSetUp (Camera cam, double dist, double width, double height) {
 		cam.setVPDistance(dist);
@@ -41,7 +41,7 @@ class CameraIntegrationTests {
 
 
 	@Test
-	void SphereintegrationTest() throws Exception {
+	void sphereIntegrationTest() throws Exception {
 		Camera cam = new Camera(new Point(Double3.ZERO), new Vector(0,1,0), new Vector(0,0,-1));
 		cameraSetUp(cam, 1, 3, 3);
 		
@@ -74,7 +74,7 @@ class CameraIntegrationTests {
 	}
 	
 	@Test
-	void PlaneintegrationTest() throws Exception {
+	void planeIntegrationTest() throws Exception {
 		Camera cam = new Camera(new Point(Double3.ZERO), new Vector(0,-1, 0), new Vector(0,0, -1));
 		cameraSetUp(cam, 1, 3, 3);
 		
@@ -96,7 +96,7 @@ class CameraIntegrationTests {
 	}
 	
 	@Test
-	void TriangleintegrationTest() throws Exception {
+	void triangleIntegrationTest() throws Exception {
 		
 		Camera cam = new Camera(new Point(Double3.ZERO), new Vector(0,1,0), new Vector(0,0,-1));
 		cameraSetUp(cam, 1, 3, 3);

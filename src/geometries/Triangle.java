@@ -18,8 +18,9 @@ public class Triangle extends Polygon{
 	 * @param p1 first coordinate value
 	 * @param p2 second coordinate value
 	 * @param p3 third coordinate value
+	 * @throws Exception 
 	 */
-	public Triangle(Point p1, Point p2, Point p3) {
+	public Triangle(Point p1, Point p2, Point p3) throws Exception {
 		super(p1, p2, p3);
 	}
 	

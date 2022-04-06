@@ -1,41 +1,38 @@
-/**
- * 
- */
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
+
+//import org.junit.Assert; 
+import org.junit.Test;
+import static org.junit.Assert.assertNull;
+//import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.Test;
 
 import geometries.Plane;
-import geometries.Sphere;
-import primitives.Point;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 /**
  * @author Yaakovah
  *
  *
  */
-class PlaneTests {
+public class PlaneTests {
+    static final double delta = 0.0000001;
 
 	/**
 	 * Test method for {@link geometries.Plane#getNormal(java.awt.Point)}.
+	 * @throws Exception 
 	 */
 	@Test
-	void testGetNormalPoint() {
+	public void testGetNormalPoint(){
 		//fail("Not yet implemented");
 		
 		try {
-		Plane p = new Plane(new Point(1,1,1), new Vector(5,5,5));
-		assertEquals(p.getNormal(new Point(1,2,3)).length(),1);
+			Plane p = new Plane(new Point(1,1,1), new Vector(5,5,5));
+			assertEquals("should be equal", p.getNormal(new Point(1,2,3)).length(), 1, delta);
 		} catch(Exception e) {}
 		
 	}
@@ -45,15 +42,15 @@ class PlaneTests {
 	 * @throws Exception 
 	 */
 	@Test
-	void testGetNormalPointPointPoint() throws Exception {
+	public void testGetNormalPointPointPoint() {
 		
 		// ============ Equivalence Partitions Tests ==============
 		
-		//Check that the plane’s vector is normalized (is of length 1)
+		//Check that the plane's vector is normalized (is of length 1)
 		
 		try {
 			Plane p = new Plane(new Point(1,1,1), new Point(2,2,2), new Point(3,3,3));
-			assertEquals(p.getNormal(new Point(1,2,3)).length(),1);
+			assertEquals(p.getNormal(new Point(1,2,3)).length(),1, delta);
 		} catch(Exception e) {}
 	}
 	
@@ -82,7 +79,7 @@ class PlaneTests {
     	//TC02: Ray does not intersect the plane (The Ray must be neither orthogonal nor parallel to the plane )
         ray = new Ray(new Point(0, 0, 11), new Vector(0, 0, 1));
         result = plane.findIntsersections(ray);
-        assertNull("There should not be an intersection", result);
+        assertNull("There should not be an intersection." , result);
 
         // =============== Boundary Values Tests ==================
         
@@ -101,17 +98,18 @@ class PlaneTests {
         
 		//*** Ray is orthogonal to the plane - Three cases:
         
-		//TC20 𝑃0 before the plane
+		//TC20  P0 before the plane
+        
         ray = new Ray(new Point(-1,-1,-1), new Vector(-5, -5, -5));
         result = plane.findIntsersections(ray);
-        assertEquals("There should not be an intersection.", result);
+        assertNull("There should not be an intersection", result);
          
-		//TC21 𝑃0 in the plane
+		//TC21  P0 in the plane
         ray = new Ray(new Point(0, 0, 10), new Vector(-5, -5, -5));
         result = plane.findIntsersections(ray);
         assertNull("There should not be an intersection.", result);
 
-		//TC22 𝑃0 after the plane :)
+		//TC22  P0 after the plane :)
         ray = new Ray(new Point(0, 0, 11), new Vector(5, 5, 5));
         result = plane.findIntsersections(ray);
         assertNull("There should not be an intersection. Ray starts after the plane", result);

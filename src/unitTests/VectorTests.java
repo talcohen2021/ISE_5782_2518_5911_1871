@@ -16,7 +16,7 @@ import primitives.Vector;
  * @author Meira
  *
  */
-class VectorTests {
+public class VectorTests {
 
 	/**
 	 * Test method for {@link primitives.Vector#add(primitives.Vector)}.

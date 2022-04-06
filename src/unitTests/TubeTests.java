@@ -17,7 +17,7 @@ import primitives.Vector;
  * @author Yaakovah
  *
  */
-class TubeTests {
+public class TubeTests {
 	
 	/**
 	 * Test method for {@link geometries.Tube#Tube(...)}.

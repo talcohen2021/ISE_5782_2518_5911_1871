@@ -27,6 +27,7 @@ public class Polygon implements Geometry {
 	 * path. The polygon must be convex.
 	 * 
 	 * @param vertices list of vertices according to their order by edge path
+	 * @throws Exception 
 	 * @throws IllegalArgumentException in any case of illegal combination of
 	 *                                  vertices:
 	 *                                  <ul>
@@ -43,7 +44,7 @@ public class Polygon implements Geometry {
 	 *                                  <li>The polygon is concave (not convex)</li>
 	 *                                  </ul>
 	 */
-	public Polygon(Point... vertices) {
+	public Polygon(Point... vertices) throws Exception {
 		if (vertices.length < 3)
 			throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
 		this.vertices = List.of(vertices);
@@ -54,7 +55,7 @@ public class Polygon implements Geometry {
 		if (vertices.length == 3)
 			return; // no need for more tests for a Triangle
 
-		Vector n = plane.getNormal();
+		Vector n = plane.getNormal(new Point(0,0,0));
 
 		// Subtracting any subsequent points will throw an IllegalArgumentException
 		// because of Zero Vector if they are in the same point

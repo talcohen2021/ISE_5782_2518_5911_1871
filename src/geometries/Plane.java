@@ -46,6 +46,10 @@ public class Plane implements Geometry {
 		return normal;
 	}
 	
+//	public Vector getNormal() {
+		
+	//	return normal;
+	//}
 	public Vector getNormal(Point point1, Point point2, Point point3) throws Exception {
 		
 		Vector vector1 = point1.subtract(point2);
