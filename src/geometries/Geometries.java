@@ -17,6 +17,9 @@ public class Geometries implements Intersectable {
 	
 	//??
 	public Geometries (Intersectable... geometries) {
+		if(geometries == null) {
+			return;
+		}
 		for(int i = 0; i < geometries.length; i++) {
 			this.geometriesList.add(geometries[i]);
 		}
@@ -46,38 +49,49 @@ public class Geometries implements Intersectable {
         }
 		
 		List<Point> listOfIntersections = new ArrayList<Point>(); //bc we are mainly adding
-		List<Point> tempPoints = new ArrayList<Point>();
+		//List<Point> tempPoints = new ArrayList<Point>();
 		for(int j = 0; j < geometriesList.size(); j++){
 			//System.out.println("size in find intersections");
 			//System.out.println(listOfIntersections.size());
-			tempPoints.add((Point) geometriesList.get(j).findIntersections(ray));
+			
+			List<Point> tempPoints = geometriesList.get(j).findIntersections(ray);
+			//tempPoints.add((Point) geometriesList.get(j).findIntersections(ray));
 			//System.out.println("size in find of temp");
 			//System.out.println(tempPoints.size());
+			//if (tempPoints == null) { continue;
+			//}
 			if (tempPoints != null) {
-				//System.out.println("in if");
+				//System.out.println("in if temp sixe");
 				//System.out.println(tempPoints.size());
 				for(int i = 0; i < tempPoints.size(); i++) {
                     listOfIntersections.add(tempPoints.get(i));
-                    //System.out.println("in for");
-                    //System.out.println(i);
+                    //System.out.println("in for adding to listofinter");
+                   // System.out.println(i);
+                    //System.out.println(listOfIntersections.size());
                 }
                 
 			}
 		}
-		for(int j = 0; j < listOfIntersections.size(); j++) {
-			//System.out.println(listOfIntersections.get(j));
+		if (listOfIntersections != null) {
+		for(int k = 0; k < listOfIntersections.size(); k++) {
+			//System.out.println("in j loop after first for");
+			//System.out.println(listOfIntersections.get(k));
 			}
+		}
 		boolean allNull = true;
-		for(int j = 0; j < listOfIntersections.size(); j++) {
-			if(listOfIntersections.get(j) != null) {
-				//System.out.println(listOfIntersections.get(j));
+		if (listOfIntersections != null) {
+		for(int i = 0; i < listOfIntersections.size(); i++) {
+			if(listOfIntersections.get(i) != null) {
+				//System.out.println(listOfIntersections.get(i));
 				allNull = false;
+				}
 			}
 		}
 		if((listOfIntersections.size() == 0) || allNull) {
 			//System.out.println("I'm null after all");
 			return null;
-		}	
+		}
+		//System.out.println("returning list");
 		return listOfIntersections;
 	}
  

@@ -1,6 +1,9 @@
 package unitTests;
 import static org.junit.Assert.*;
+
 import org.junit.Test;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import geometries.*;
@@ -40,49 +43,41 @@ public class GeometriesTests {
 
 	@Test
 	public void testfindIntersections() throws Exception {
-		List<Point> result;
+		List<Point> result = new ArrayList<Point>();
 		Geometries intersectables = new Geometries();
 		
 		// =============== Boundary Values Tests ==================
 		//an empty collection (BVA)
 		Ray ray = new Ray(new Point(20, 20, 20), new Vector(0, 0, 2));
 		result = intersectables.findIntersections(ray);
+		System.out.println(" no intersections - empty scene");
 		assertNull("There should be no intersection - the scene is empty", result);
 		
-		//no ray intersects with a geometry (BVA)
-		 Sphere sphere = new Sphere(new Point(1, 0, 0), 1d);
-		 Triangle triangle = new Triangle(new Point(10, 0, 0), new Point(0, 10, 0), new Point(0, 0, 10));
-		 //intersectables = new Geometries(sphere, triangle);
-		 intersectables.add(triangle);
-		 intersectables.add(sphere);
-		 
-		result = intersectables.findIntersections(ray);
-		assertNull("There should be no intersection", result);
+		//no ray intersects with a geometry (BVA)	
+		 Plane plane = new Plane(new Point(0, 1, 0), new Point(2, 0, 0), new Point(0, 2, 0));
+	     Sphere sphere = new Sphere(new Point(0, -2, 3), 1);
+	     intersectables = new Geometries(sphere, plane);
+	     result = intersectables.findIntersections(ray);
+	     System.out.println(" no intersections ");
+		 assertNull("There should be no intersection", result);
 		 
 		//only one shape intersects (BVA)
-		 ray = new Ray(new Point(0,0,1), new Vector(2,5,6));
-	//orig
-		// result = intersectables.findIntersections(ray);
-		// System.out.print("the size of the array should be 1 - " + result.size());
-		//assertEquals("there should only be one intersection. Ray with triangle", result.size(), 1);
-		 //not sure why return is null here - need to check points before reverting to original code above
-		 result = intersectables.findIntersections(ray);
-		 //System.out.print("the size of the array should be 1 - " + result.size());
-		 assertNull("there should only be one intersection. Ray with triangle", result);
+		Ray ray1 = new Ray(new Point(0, 2, 1), new Vector(0, 0, -1));
+		result = intersectables.findIntersections(ray1); 
+		 System.out.println("the size of the array should be 1 - " + result.size());
+		 assertEquals("there should only be one intersection.", result.size(), 1);
 		
 		//all shapes intersects (BVA)
-		 //different error here see line below
-		 //testfindIntersections(unitTests.GeometriesTests): class java.util.LinkedList cannot be cast to class primitives.Point (java.util.LinkedList is in module java.base of loader 'bootstrap'; primitives.Point is in unnamed module of loader 'app')
-		//ray = new Ray(new Point(-12.52,-5.09,-10.63), new Vector(23.76, 9.7, 18.37));
-		//result = intersectables.findIntersections(ray);
-		//assertEquals("there should be three intersections. two with sphere and one with triangle", result.size(), 3);
+		 Ray ray3 = new Ray(new Point(0, -2, -1), new Vector(0, 0, 1));
+		result = intersectables.findIntersections(ray3);
+		System.out.println("the size of the array should be 3 - " + result.size());
+		assertEquals("there should be three intersections. two with sphere and one with plane", result.size(), 3);
 		
 		 // ============ Equivalence Partitions Tests ==============
-         // some shapes but not all intersects (EP)
-		 //same issue here as by note orig
-		 //ray = new Ray(new Point(0,0,1), new Vector(2,5,6));
-		 //result = intersectables.findIntersections(ray);
-		 //assertEquals("there should only be one intersection. Ray with triangle", result.size(), 1);
+          //some shapes but not all intersects (EP)
+		 result = intersectables.findIntersections(ray1);
+		 System.out.println("the size of the array should be 0 < : " + result.size() + " < 3");
+		 assertEquals("there should only be one intersection", result.size(), 1);
 		
 	}
 	

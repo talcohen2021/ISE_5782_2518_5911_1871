@@ -1,5 +1,7 @@
 package geometries;
 
+import java.util.ArrayList;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -68,7 +70,7 @@ public class Plane implements Geometry {
 
 	@Override
 	public List<Point> findIntersections(Ray ray) throws Exception {
-		List<Point> results = new LinkedList<Point>();
+		List<Point> results = new LinkedList<Point>(); //bc mainly adding
 		Vector u = q0.subtract(ray.getP0());
 		//(normal*u)/(normal*v)
 		double t = normal.dotProduct(u) / normal.dotProduct(ray.getDir());
