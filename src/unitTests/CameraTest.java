@@ -1,9 +1,11 @@
 package unitTests;
 
+import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-import org.junit.jupiter.api.Test;
+
+
 
 import renderer.Camera;
 import primitives.*;
@@ -23,7 +25,7 @@ public class CameraTest {
 	 * @throws Exception 
 	 */
 	@Test
-	void testConstructRay() throws Exception {
+	public void testConstructRay() throws Exception {
 		Camera camera = new Camera(ZERO_POINT, new Vector(0, 0, -1), new Vector(0, -1, 0)).setVPDistance(10);
 		String badRay = "Bad ray";
 

@@ -1,6 +1,7 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 import java.util.List;
@@ -23,13 +24,15 @@ public class CameraIntegrationTests {
 	 *  and the geometry
 	 * @throws Exception 
 	 */
-	public int intersectionCalculator(Camera cam, Sphere geometry) throws Exception {
+	public int intersectionCalculator(Camera cam, Geometry geometry) throws Exception {
 		int count = 0;
 		for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < 3; j++) {
 				Ray ray = cam.constructRay(3, 3, j, i);
 				List<Point> intersections = geometry.findIntersections(ray);
-				count += intersections.size();
+				if(intersections != null) {
+					count += intersections.size();
+				}
 			}
 		}
 	return count;
@@ -38,9 +41,9 @@ public class CameraIntegrationTests {
 
 	@Test
 	public void sphereIntegrationTest() throws Exception {
+		//orig
 		Camera cam = new Camera(new Point(Double3.ZERO), new Vector(0,1,0), new Vector(0,0,-1));
 		cameraSetUp(cam, 1, 3, 3);
-		
 		/*---- sphere tests------*/
 		
 		Sphere sphere = new Sphere(new Point(0,0,-3), 1);
@@ -48,10 +51,9 @@ public class CameraIntegrationTests {
 		//tc 1
 		assertEquals("there should be 2 intersections ", intersectionCalculator(cam, sphere), 2);
 	
+		//tc 2
 		sphere = new Sphere(new Point(0,0,-2.5), 2.5);
 		cam.setP0(new Point(0,0,0.5));
-		
-		//tc 2
 		assertEquals("there should be 18 intersections", intersectionCalculator(cam, sphere), 18);
 		
 		//tc 3
@@ -64,6 +66,7 @@ public class CameraIntegrationTests {
 		
 		//tc 5
 		sphere = new Sphere(new Point(0,0,1), 0.5);
+		cam.setP0(new Point(Double3.ZERO));
 		assertEquals("there should be 0 intersections ", intersectionCalculator(cam, sphere), 0);
 		
 		
@@ -90,6 +93,7 @@ public class CameraIntegrationTests {
 		assertEquals("there should be 6 intersections ", intersectionCalculator(cam, plane), 6);
 		
 	}
+	*/
 	
 	@Test
 	public void triangleIntegrationTest() throws Exception {
@@ -97,15 +101,14 @@ public class CameraIntegrationTests {
 		Camera cam = new Camera(new Point(Double3.ZERO), new Vector(0,1,0), new Vector(0,0,-1));
 		cameraSetUp(cam, 1, 3, 3);
 		
-		Triangle triangle = new Triangle(new Point(0,1,-2), new Point(1,-1,-2), new Point(-1,-1,-2));
-		
 		//tc 1
+		Triangle triangle = new Triangle(new Point(0,1,-2), new Point(1,-1,-2), new Point(-1,-1,-2));
 		assertEquals("there should be 1 intersection ", intersectionCalculator(cam, triangle), 1);
 		
-		triangle = new Triangle(new Point(0,20,-2), new Point(1,-1,-2), new Point(-1,-1,-2));
 		
 		//tc 2
+		triangle = new Triangle(new Point(0,20,-2), new Point(1,-1,-2), new Point(-1,-1,-2));
 		assertEquals("there should be 2 intersections ", intersectionCalculator(cam, triangle), 2);
 	}
-*/
+//*/
 }
