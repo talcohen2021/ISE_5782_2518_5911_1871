@@ -8,21 +8,20 @@ import primitives.Ray;
 
 public class Geometries implements Intersectable {
 	
-	public List<Intersectable> geometriesList =  new ArrayList<Intersectable>();
+	public List<Intersectable> geometries;
 
-	//public Geometries() {
+	public Geometries() {
 		//ArrayList instead of LinkedList bc we are mostly accessing
-		//this.geometriesList = null; 
-		//}
+		geometries = new ArrayList<Intersectable>() ; 
+		}
 	
-	//??
 	public Geometries (Intersectable... geometries) {
-		if(geometries == null) {
+		if(geometries == null) 
 			return;
-		}
-		for(int i = 0; i < geometries.length; i++) {
-			this.geometriesList.add(geometries[i]);
-		}
+		
+		for(int i = 0; i < geometries.length; i++) 
+			this.geometries.add(geometries[i]);
+		
 		//this.geometriesList.add(geometries);
 		//System.out.println("size in construct");
 		//System.out.println(geometriesList.size());
@@ -30,12 +29,12 @@ public class Geometries implements Intersectable {
 	}
 	
 	public List<Intersectable> getGeometries(){
-		return this.geometriesList;
+		return this.geometries;
 	}
 	
 	public void add(Intersectable... geometries) {
 		for(int i = 0; i < geometries.length; i++) {
-			geometriesList.add(geometries[i]);
+			this.geometries.add(geometries[i]);
 		}
 		//System.out.println("size in add");
 		//System.out.println(geometriesList.size());
@@ -44,13 +43,13 @@ public class Geometries implements Intersectable {
 	@Override
 	public List<Point> findIntersections(Ray ray) throws Exception {
 		
-		if (this.geometriesList == null)
+		if (this.geometries == null)
             return null;
 		
 		List<Point> listOfIntersections = new ArrayList<Point>(); //bc we are mainly adding
 	
-		for(int j = 0; j < geometriesList.size(); j++) {
-			List<Point> tempPoints = geometriesList.get(j).findIntersections(ray);
+		for(int j = 0; j < geometries.size(); j++) {
+			List<Point> tempPoints = geometries.get(j).findIntersections(ray);
 			
 			if (tempPoints != null) {
 				for(int i = 0; i < tempPoints.size(); i++) 
