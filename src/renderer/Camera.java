@@ -5,6 +5,8 @@ package renderer;
 
 import primitives.*;
 import static primitives.Util.isZero;
+
+import java.util.MissingResourceException;
 /**
  * @author meira
  *
@@ -14,6 +16,9 @@ public class Camera {
 	private Point p0;
 	private Vector vTo, vUp, vRight;
 	private double width, height, distance;
+	
+	private ImageWriter imageWriter;
+	private RayTraceBase rayTraceBase;
 	
 	/**
 	 * @param p0 the center of the camera from where the vectors start
@@ -67,13 +72,35 @@ public class Camera {
 		 return this;
 	 }
 	 
-	    /**
-		 * lacking clarity on this method
-		 * @return null for now
+	 /**
+		 * 
+		 * @param imageWriter
+		 * @return this (camera)
 		 */
-		public Ray constructRayPixel() {
-			return null;
-		}
+	 public Camera setImageWriter(ImageWriter imageWriter) {
+		 this.imageWriter = imageWriter;
+		 return this;
+	 } 
+		
+	 /**
+		 * 
+		 * @para rayTraceBase
+		 * @return this (camera)
+		 */
+	 public Camera setRayTraceBase(RayTraceBase rayTraceBase) {
+		 this.rayTraceBase = rayTraceBase;
+		 return this;
+	 }
+		 
+	 
+	 
+	  /**
+	   * lacking clarity on this method
+	   * @return null for now
+	   */
+	 public Ray constructRayPixel() {
+		return null;
+	 }
 		
 		/**
 		 * 
@@ -106,6 +133,23 @@ public class Camera {
 			return null;
 		}
 		
+		
+	/**
+	 * 
+	  * lacking clarity on this method
+	  * null for now
+	  */	
+	public void renderImage() {
+
+		if(this.p0 == null || this.vTo == null || this.vUp == null || this.vRight == null)
+			throw new MissingResourceException("missing resource", "Camera", "");
+		
+		if(this.imageWriter == null || this.rayTraceBase == null)
+			throw new MissingResourceException("missing resource", "Camera", "");
+		
+		throw new UnsupportedOperationException();
+		
+	}
 		
 	 
 	/*
