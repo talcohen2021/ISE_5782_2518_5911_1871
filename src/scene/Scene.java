@@ -37,6 +37,10 @@ public class Scene {
 		this.geometries.add(geometries);
 		return this;
 	}
+	
+	public Geometries getGeometries() {
+		return this.geometries;
+	}
 
 }
 
