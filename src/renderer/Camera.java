@@ -145,28 +145,30 @@ public class Camera {
 	}
 	
 	/**
-	 * creates a grid of lines
+	 * @brief creates a grid of lines
 	 * 
 	 */	
 	public void printGrid(int interval, Color color)  {
-
-		if(this.p0 == null || this.vTo == null || this.vUp == null || this.vRight == null)
-			throw new MissingResourceException("missing resource", "Camera", "");
-		
-		if(this.imageWriter == null || this.rayTraceBase == null)
-			throw new MissingResourceException("missing resource", "Camera", "");
-		
-		throw new UnsupportedOperationException();
-		
 		/*
 		 * creates a grid of lines as similar to what you did in the test of the first phase 
 		 * (Make sure that the grid does not ruin your picture. The grid should not “overwrite” the picture 
 		 * that you are drawing.  You only want to color the pixels where the grid appears in them, leave 
-		 * the other pixels alone. The first thing that the method should do is check that the ImageWriter 
-		 * field is not null. (In case there is a null, throw an exception, for example 
-		 * MissingResourcesException).
+		 * the other pixels alone. 
 		 * */
+		
+		if(imageWriter == null)
+			throw new MissingResourceException("missing resource", "Camera", "");
+		
+		int nX = imageWriter.getNx();
+	    int nY = imageWriter.getNy();
+	    
+	    for (int row = 0; row < nY; row++) 
+	      for (int col = 0; col < nX; col++) 
+	        if (col % interval == 0 || row % interval == 0) 
+	          imageWriter.writePixel(col, row, color);
+		
 	}
+
 		
 	 
 	
