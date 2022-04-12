@@ -141,7 +141,26 @@ public class Camera {
 		if(this.imageWriter == null || this.rayTraceBase == null)
 			throw new MissingResourceException("missing resource", "Camera", "");
 		
-		throw new UnsupportedOperationException();
+		int nX = imageWriter.getNx();
+		int nY = imageWriter.getNy();
+		
+		for(int row = 0; row < nY; ++row )
+			for(int col = 0; col < nX; ++col) {
+				Ray ray = constructRay( nX, nY, col, row);
+				//need to figure out how to do this
+				RayTraceBase rayTracerBasic = new RayTracerBasic();
+				Color pixelColor = rayTracerBasic.traceRay(ray);
+				imageWriter.writePixel(col,row,pixelColor);
+				
+			}
+		
+		/*
+		 * to loop over all the ViewPlane’s pixels. For each pixel it will construct a ray and for each 
+		 * ray it will calculate a color (the ray tracer will return a color). The color will be stored 
+		 * in the corresponding pixel in the image using the writePixel method.
+		 * */
+		
+		
 	}
 	
 	/**
@@ -169,7 +188,18 @@ public class Camera {
 		
 	}
 
+	/**
+	 * @brief calls on imageWriters writeToImage
+	 * @throws MissingResourceException
+	 */	
+	public void writeToImage(){
 		
+		if(imageWriter == null)
+			throw new MissingResourceException("missing resource", "Camera", "");
+		
+		imageWriter.writeToImage();
+		
+	}
 	 
 	
 	
