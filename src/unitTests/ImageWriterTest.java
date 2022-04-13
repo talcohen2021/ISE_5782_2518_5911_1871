@@ -1,11 +1,8 @@
-/**
- * 
- */
 package unitTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import primitives.Color;
 import renderer.ImageWriter;
@@ -14,13 +11,13 @@ import renderer.ImageWriter;
  * @author Yaakovah
  *
  */
-class ImageWriterTest {
+public class ImageWriterTest {
 
 	/**
 	 * Test method for {@link renderer.ImageWriter#writeToImage()}.
 	 */
 	@Test
-	void testWriteToImage() {
+	public void testWriteToImage() {
 		/*
 		 * ImageWriterTest that will build your first (initial)  image  – an image made up of one color 
 		 * for the background and a second color for the grid. In this test you will build a grid 
