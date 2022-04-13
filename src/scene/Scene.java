@@ -39,8 +39,13 @@ public class Scene {
 	}
 	
 	public Geometries getGeometries() {
-		return this.geometries;
+		return geometries;
 	}
+	
+	public AmbientLight getAmbientLight() {
+		return ambientLight;
+	}
+
 
 }
 

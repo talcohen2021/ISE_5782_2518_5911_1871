@@ -32,8 +32,8 @@ public class AmbientLight { //AmbientLight is like the background light..Think l
 	/**
 	 * @return the value of the intensity of the ambient light (aka a Color)
 	 */
-	Color getIntensity(){
-		return this.intensity;	
+	public Color getIntensity(){
+		return intensity;	
 	}
 
 }

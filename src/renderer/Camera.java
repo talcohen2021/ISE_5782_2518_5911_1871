@@ -136,6 +136,12 @@ public class Camera {
 	 */	
 	public void renderImage() {
 
+		/*
+		 * to loop over all the ViewPlane's pixels. For each pixel it will construct a ray and for each 
+		 * ray it will calculate a color (the ray tracer will return a color). The color will be stored 
+		 * in the corresponding pixel in the image using the writePixel method.
+		 * */
+		
 		if(this.p0 == null || this.vTo == null || this.vUp == null || this.vRight == null)
 			throw new MissingResourceException("missing resource", "Camera", "");
 		
@@ -148,19 +154,10 @@ public class Camera {
 		for(int row = 0; row < nY; ++row )
 			for(int col = 0; col < nX; ++col) {
 				Ray ray = constructRay( nX, nY, col, row);
-				//need to figure out how to do this
-				//RayTraceBase rayTracerBasic = new RayTracerBasic();
 				Color pixelColor = this.rayTraceBase.traceRay(ray);
 				imageWriter.writePixel(col,row,pixelColor);
 				
 			}
-		
-		/*
-		 * to loop over all the ViewPlane's pixels. For each pixel it will construct a ray and for each 
-		 * ray it will calculate a color (the ray tracer will return a color). The color will be stored 
-		 * in the corresponding pixel in the image using the writePixel method.
-		 * */
-		
 		
 	}
 	

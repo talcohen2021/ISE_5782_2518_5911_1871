@@ -13,20 +13,22 @@ import scene.Scene;
  */
 public abstract class RayTraceBase {
 	
-	protected Scene s;
+	protected Scene scene;
 
 	/**
 	 * 
 	 */
 	public RayTraceBase(Scene s) {
-		this.s = s;
+		this.scene = scene;
 	}
 	
+	public Scene getScene() {return scene;}
 	/**
 	 * @param ray
 	 * @return color
 	 */
 	public abstract Color traceRay(Ray ray);
+	
 
 }
 
