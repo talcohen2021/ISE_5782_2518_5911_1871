@@ -1,6 +1,7 @@
 package renderer;
 
 import primitives.*;
+
 import static primitives.Util.isZero;
 
 import java.util.MissingResourceException;
@@ -148,14 +149,14 @@ public class Camera {
 			for(int col = 0; col < nX; ++col) {
 				Ray ray = constructRay( nX, nY, col, row);
 				//need to figure out how to do this
-				RayTraceBase rayTracerBasic = new RayTracerBasic();
-				Color pixelColor = rayTracerBasic.traceRay(ray);
+				//RayTraceBase rayTracerBasic = new RayTracerBasic();
+				Color pixelColor = this.rayTraceBase.traceRay(ray);
 				imageWriter.writePixel(col,row,pixelColor);
 				
 			}
 		
 		/*
-		 * to loop over all the ViewPlane’s pixels. For each pixel it will construct a ray and for each 
+		 * to loop over all the ViewPlane's pixels. For each pixel it will construct a ray and for each 
 		 * ray it will calculate a color (the ray tracer will return a color). The color will be stored 
 		 * in the corresponding pixel in the image using the writePixel method.
 		 * */
@@ -170,7 +171,7 @@ public class Camera {
 	public void printGrid(int interval, Color color)  {
 		/*
 		 * creates a grid of lines as similar to what you did in the test of the first phase 
-		 * (Make sure that the grid does not ruin your picture. The grid should not “overwrite” the picture 
+		 * (Make sure that the grid does not ruin your picture. The grid should not overwrite the picture
 		 * that you are drawing.  You only want to color the pixels where the grid appears in them, leave 
 		 * the other pixels alone. 
 		 * */
