@@ -3,10 +3,10 @@ package unitTests;
 import org.junit.Test;
 
 import geometries.*;
+import lighting.*;
 import primitives.*;
 import renderer.*;
 import scene.Scene;
-import elements.*;
 
 /**
  * Test rendering a basic image

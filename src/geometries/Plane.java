@@ -12,7 +12,7 @@ import primitives.Vector;
 /**
  * defined by a point and the orthogonal vector 
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
 	
 	final Point q0;
 	final Vector normal;

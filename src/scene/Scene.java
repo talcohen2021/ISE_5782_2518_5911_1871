@@ -1,8 +1,8 @@
 package scene;
 
-import elements.AmbientLight;
 import geometries.Geometries;
 import geometries.Intersectable;
+import lighting.AmbientLight;
 import primitives.Color;
 import primitives.Double3;
 
