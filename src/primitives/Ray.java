@@ -2,6 +2,10 @@ package primitives;
 
 import java.util.List;
 
+import geometries.Plane;
+
+import geometries.Intersectable.GeoPoint;
+
 /**
  * Class Ray is the basic class representing a Ray of Euclidean Geometry in Cartesian
  * 3-Dimensional coordinate system
@@ -56,20 +60,22 @@ public class Ray {
 	 * 
 	 * @param points - list of points
 	 * @return closest point to the ray’s head
+	 * @throws Exception 
 	 */
-	public Point findClosestPoint(List<Point> points){
+	public GeoPoint findClosestGeoPoint(List<GeoPoint> points) throws Exception{
 		
 		double smallestDistance = Double.MAX_VALUE;
-		Point closestPoint = new Point(1, 1, 1);
+		GeoPoint closestGeoPoint = new GeoPoint(new Plane(new Point(0,0,0), new Vector(1,1,1)), new Point(1, 1, 1));
 		
-		for(Point p : points) {
-			double tempDistance = this.p0.distance(p);
+		for(GeoPoint p : points) {
+			double tempDistance = this.p0.distance(p.point);
 			if(tempDistance < smallestDistance) {
 				smallestDistance = tempDistance;
-				closestPoint = p;
+				closestGeoPoint = p;
 			}
 		}
 		
-		return closestPoint;
+		return closestGeoPoint;
 	}
+	
 }

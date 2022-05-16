@@ -38,7 +38,7 @@ public class Sphere extends Geometry {
 	 * @returns the list of intersections bw the ray and sphere if there are any
 	 */
 	@Override
-	public List<Point> findIntersections(Ray ray) throws Exception {
+	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) throws Exception {
 		
 		//u = O - P0
 		Vector u = centre.subtract(ray.getP0());
@@ -53,14 +53,14 @@ public class Sphere extends Geometry {
 		double t1 = tm + th;
 		double t2= tm - th;
 		
-		List<Point> results = new LinkedList<Point>();
+		List<GeoPoint> results = new LinkedList<GeoPoint>();
 		if(t1 <= 0 && t2 <= 0 ) {
 			return null;
 		}
 		if(t1 > 0)
-			results.add(ray.getP0().add(ray.getDir().scale(t1)));
+			results.add(new GeoPoint(this, ray.getP0().add(ray.getDir().scale(t1))));
 		if(t2 > 0)
-			results.add(ray.getP0().add(ray.getDir().scale(t2)));
+			results.add(new GeoPoint(this,ray.getP0().add(ray.getDir().scale(t2))));
 		return results;
 		
 	}

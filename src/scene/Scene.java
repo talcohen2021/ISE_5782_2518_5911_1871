@@ -46,6 +46,9 @@ public class Scene {
 		return ambientLight;
 	}
 
+	public Color getBackground() {
+		return background;
+	}
 
 }
 

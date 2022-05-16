@@ -26,8 +26,9 @@ public abstract class RayTraceBase {
 	/**
 	 * @param ray
 	 * @return color
+	 * @throws Exception 
 	 */
-	public abstract Color traceRay(Ray ray);
+	public abstract Color traceRay(Ray ray) throws Exception;
 	
 
 }

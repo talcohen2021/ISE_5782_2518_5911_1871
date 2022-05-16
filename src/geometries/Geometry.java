@@ -2,13 +2,14 @@ package geometries;
 
 import java.util.List;
 
+import geometries.Intersectable.GeoPoint;
 import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
 //?import primitives;
-public abstract class Geometry implements Intersectable{
+public abstract class Geometry extends Intersectable{
 	
 	protected Color emission = Color.BLACK;
 	
@@ -29,6 +30,16 @@ public abstract class Geometry implements Intersectable{
 	 * @return this (according to the builder pattern)
 	 */
 	public Geometry setColor(Color c) {emission = c; return this;}
+	
+	@Override
+	public List<GeoPoint> findGeoIntersections(Ray ray) throws Exception
+	{
+		return findGeoIntersectionsHelper(ray);
+		
+	}
+	
+	@Override
+	protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray) throws Exception;
 
 	
 	

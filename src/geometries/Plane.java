@@ -69,14 +69,14 @@ public class Plane extends Geometry {
 
 
 	@Override
-	public List<Point> findIntersections(Ray ray) throws Exception {
-		List<Point> results = new LinkedList<Point>(); //bc mainly adding
+	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) throws Exception {
+		List<GeoPoint> results = new LinkedList<GeoPoint>(); //bc mainly adding
 		Vector u = q0.subtract(ray.getP0());
 		//(normal*u)/(normal*v)
 		double t = normal.dotProduct(u) / normal.dotProduct(ray.getDir());
 		//p = p0+tv
 		if(t > 0 && !Double.isInfinite(t)) {
-			results.add(ray.getPoint(t));
+			results.add(new GeoPoint(this, ray.getPoint(t)));
 			return results;
 		}
 		return null;
