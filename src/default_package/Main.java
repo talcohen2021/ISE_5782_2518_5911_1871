@@ -18,12 +18,12 @@ import org.junit.runner.notification.Failure;
 
 public class Main {
 	public static void main(String[] args) {
-	      Result result = JUnitCore.runClasses(RenderTests.class);
+	      Result result = JUnitCore.runClasses(PolygonTests.class);
 			
 	      for (Failure failure : result.getFailures()) {
 	         System.out.println(failure.toString());
 	      }
-			
+		
 	      System.out.println("successful? " + result.wasSuccessful());
 	   }
 }		

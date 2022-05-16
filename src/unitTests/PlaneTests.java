@@ -64,7 +64,7 @@ public class PlaneTests {
     @Test 
     public void testFindIntersections() throws Exception {
     	
-    	Point predictedPoint;
+    	GeoPoint predictedPoint;
         List<GeoPoint> result;
         Ray ray;
         Plane plane = new Plane(new Point(0, 0, 10), new Point(10, 0, 0), new Point(0, 10, 0));
@@ -74,7 +74,7 @@ public class PlaneTests {
     	
     	// TC01: Ray intersects the plane (The Ray must be neither orthogonal nor parallel to the plane)
         ray = new Ray(new Point(0, 0, 1), new Vector(0, 0, 1));
-        predictedPoint = new Point(0, 0, 10);
+        predictedPoint = new GeoPoint(plane, new Point(0, 0, 10));
         result = plane.findGeoIntersections(ray);
         assertEquals("Did not find the correct intersection point", predictedPoint, result.get(0));
         

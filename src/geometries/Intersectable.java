@@ -47,14 +47,14 @@ public abstract class Intersectable {
 	    
 		@Override
 		public String toString() {
-			return "(" + geometry.toString() + ", " + point.toString() + ")";	
+			return "(" + geometry.toString() + ", " + point.toString()+ ")";
 		}
 	
 	}
 
 
 	/**
-	 * 
+	 *  
 	 * @param ray - a ray that may or may not intersect with the geometry. 
 	 * @return - a list of all of the points of intersection or null (in the case that there is no intersection points)
 	 * @throws Exception 
