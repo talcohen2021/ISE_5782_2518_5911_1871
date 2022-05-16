@@ -10,6 +10,8 @@ import geometries.*;
 import primitives.*;
 import renderer.Camera;
 
+import geometries.Intersectable.GeoPoint;
+
 public class CameraIntegrationTests {
 	
 	public void cameraSetUp (Camera cam, double dist, double width, double height) {
@@ -29,7 +31,7 @@ public class CameraIntegrationTests {
 		for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < 3; j++) {
 				Ray ray = cam.constructRay(3, 3, j, i);
-				List<Point> intersections = geometry.findIntersections(ray);
+				List<GeoPoint> intersections = geometry.findGeoIntersections(ray);
 				if(intersections != null) {
 					count += intersections.size();
 				}

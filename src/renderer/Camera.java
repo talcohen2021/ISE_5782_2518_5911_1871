@@ -133,8 +133,9 @@ public class Camera {
 	 * 
 	 * lacking clarity on this method
 	 * null for now
+	 * @throws Exception 
 	 */	
-	public void renderImage() {
+	public void renderImage() throws Exception {
 
 		/*
 		 * to loop over all the ViewPlane's pixels. For each pixel it will construct a ray and for each 
