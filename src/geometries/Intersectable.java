@@ -57,7 +57,7 @@ public abstract class Intersectable {
 	 * 
 	 * @param ray - a ray that may or may not intersect with the geometry. 
 	 * @return - a list of all of the points of intersection or null (in the case that there is no intersection points)
-	 * @throws Exception 
+	 * @throws Exception  
 	 */
 		public List<Point> findIntersections(Ray ray) throws Exception {
 			var geoList = findGeoIntersections(ray);
