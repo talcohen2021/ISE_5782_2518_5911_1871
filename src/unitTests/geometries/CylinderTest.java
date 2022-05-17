@@ -2,7 +2,7 @@
 
  * 
  */
-package unitTests;
+package unitTests.geometries;
 import org.junit.Test;
 import primitives.*;
 import geometries.*;

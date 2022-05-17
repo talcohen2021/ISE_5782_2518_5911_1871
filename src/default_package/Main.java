@@ -5,8 +5,9 @@ import static primitives.Util.*;
 import geometries.*;
 import unitTests.*;
 //trying to sort pull/push/merge issues
-
-
+import unitTests.primitives.*;
+import unitTests.geometries.*;
+import unitTests.renderer.*;
 /*
  * Submitters:
 
@@ -20,7 +21,7 @@ import org.junit.runner.notification.Failure;
 
 public class Main {
 	public static void main(String[] args) {
-	      Result result = JUnitCore.runClasses(PointTests.class);
+	      Result result = JUnitCore.runClasses(TriangleTest.class);
 			
 	      for (Failure failure : result.getFailures()) {
 	         System.out.println(failure.toString());

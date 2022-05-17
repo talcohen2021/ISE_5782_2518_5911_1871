@@ -1,7 +1,9 @@
 package geometries;
 
+import java.util.LinkedList;
 import java.util.List;
 
+import geometries.Intersectable.GeoPoint;
 import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
@@ -24,10 +26,11 @@ public class Triangle extends Polygon{
 	public Triangle(Point p1, Point p2, Point p3) throws Exception {
 		super(p1, p2, p3);
 	}
+
 	
 	@Override
-	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-		 try {
+	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) throws Exception {
+		try {
 			 List<GeoPoint> intersections = plane.findGeoIntersections(ray);
 			    if (intersections == null)
 			      return null;
@@ -59,7 +62,8 @@ public class Triangle extends Polygon{
 		 
 		return null;
 		
-	}
+}
+
 
 	public Intersectable setEmission(Color color) {
 		// TODO Auto-generated method stub

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package unitTests;
+package unitTests.primitives;
 import primitives.Point;
 import org.junit.Test;
 import primitives.Vector;

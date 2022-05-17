@@ -1,12 +1,14 @@
 /**
  * 
  */
-package unitTests;
+package unitTests.geometries;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
+
+import geometries.Plane;
 import geometries.Triangle;
 import primitives.*;
 
@@ -37,7 +39,7 @@ public class TriangleTest {
         List<GeoPoint> result;
         Ray ray;
         Triangle triangle = new Triangle(new Point(10, 0, 0), new Point(0, 10, 0), new Point(0, 0, 10));
-      
+
         
         // ============ Equivalence Partitions Tests ==============
     	//new error after changing to geopoint - need to discuss
@@ -46,6 +48,7 @@ public class TriangleTest {
         predictedPoint = new GeoPoint(triangle, new Point(4.003556313703255,3.0035563137032555,3.0035563137032555));
         result = triangle.findGeoIntersections(ray);
         assertEquals("Incorrect intersection point", predictedPoint, result.get(0));
+     
         
     	//TC10: Ray does not intersect the triangle - intersects in the corner wedge
         ray = new Ray(new Point(0, 0, 9), new Vector(-2, -2, 10));

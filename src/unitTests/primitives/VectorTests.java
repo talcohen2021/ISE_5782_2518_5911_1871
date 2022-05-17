@@ -1,7 +1,7 @@
 /**
  * 
  */
-package unitTests;
+package unitTests.primitives;
 
 import static java.lang.System.out;
 import org.junit.Test;

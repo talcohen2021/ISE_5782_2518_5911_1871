@@ -3,6 +3,7 @@ package geometries;
 import java.util.ArrayList;
 
 
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -71,21 +72,16 @@ public class Plane extends Geometry {
 
 	@Override
 	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) throws Exception {
-		//List<GeoPoint> results = new LinkedList<GeoPoint>(); //bc mainly adding
-		//Vector u = q0.subtract(ray.getP0());
+		List<GeoPoint> results = new LinkedList<GeoPoint>(); //bc mainly adding
+		Vector u = q0.subtract(ray.getP0());
 		//(normal*u)/(normal*v)
-		double t = (normal.dotProduct(q0.subtract(ray.getP0()))/(normal.dotProduct(ray.getDir())));
+		double t = (normal.dotProduct(u)) / (normal.dotProduct(ray.getDir()));
 		//p = p0+tv
-		if(t<=0) {
-			return null;
-		}
-		//if(t > 0 && !Double.isInfinite(t) ) {
-			Point p = ray.getPoint(t);
-			List<GeoPoint> results = new LinkedList<>(); //bc mainly adding
-			results.add(new GeoPoint(this, p));
+		if(t > 0 && !Double.isInfinite(t)) {
+			results.add(new GeoPoint(this, ray.getPoint(t)));
 			return results;
-		//}
-		//return null;
+		}
+		return null;
 	}
 
 }

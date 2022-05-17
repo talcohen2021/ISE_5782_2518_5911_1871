@@ -1,4 +1,4 @@
-package unitTests;
+package unitTests.geometries;
 
 import static org.junit.Assert.assertEquals;
 
@@ -62,7 +62,7 @@ public class PlaneTests {
 	 * @throws Exception 
      */
     @Test 
-    public void testFindIntersections() throws Exception {
+    public void testFindGeoIntersections() throws Exception {
     	
     	GeoPoint predictedPoint;
         List<GeoPoint> result;
