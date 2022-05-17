@@ -4,10 +4,9 @@
 package unitTests;
 
 import static java.lang.System.out;
+import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static primitives.Util.isZero;
-
-import org.junit.jupiter.api.Test;
 
 import primitives.Point;
 import primitives.Vector;

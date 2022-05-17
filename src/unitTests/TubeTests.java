@@ -2,10 +2,8 @@
  * 
  */
 package unitTests;
-
+import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Test;
 
 import geometries.Polygon;
 import geometries.Tube;
