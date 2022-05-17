@@ -23,7 +23,7 @@ public class VectorTests {
 	 * @throws Exception 
 	 */
 	@Test
-	void testAddVector() throws Exception {
+	public void testAddVector() throws Exception {
 		Point p1 = new Point(1, 2, 3);
 		assert(p1.add(new Vector(-1, -2, -3)).equals(new Point(0, 0, 0)));
 	}
@@ -33,7 +33,7 @@ public class VectorTests {
 	 * @throws Exception 
 	 */
 	@Test
-	void testScale() throws Exception {
+	public void testScale() throws Exception {
 		Vector v = new Vector(1,1,1);
 		Vector v1 = new Vector(2, 2, 2);
 		assert(v.scale(2).equals(v1));
@@ -45,7 +45,7 @@ public class VectorTests {
 	 * @throws Exception 
 	 */
 	@Test
-	void testCrossProduct() throws Exception {
+	public void testCrossProduct() throws Exception {
 		Vector v1 = new Vector(1, 2, 3);
 		Vector v3 = new Vector(0, 3, -2);
 		//fail("Not yet implemented");
@@ -59,7 +59,7 @@ public class VectorTests {
 	 * @throws Exception 
 	 */
 	@Test
-	void testLengthSquared() throws Exception {
+	public void testLengthSquared() throws Exception {
 		assert(isZero(new Vector(1, 2, 3).lengthSquared() - 14));
 	}
 
@@ -68,7 +68,7 @@ public class VectorTests {
 	 * @throws Exception 
 	 */
 	@Test
-	void testLength() throws Exception {
+	public void testLength() throws Exception {
 		assert(isZero(new Vector(0, 3, 4).length() - 5));
 	}
 
@@ -77,7 +77,7 @@ public class VectorTests {
 	 * @throws Exception 
 	 */
 	@Test
-	void testNormalize() throws Exception {
+	public void testNormalize() throws Exception {
 		Vector v = new Vector(1, 2, 3);
 		Vector u = v.normalize();
 		assert(isZero(u.length() - 1));
@@ -88,7 +88,7 @@ public class VectorTests {
 	 * @throws Exception 
 	 */
 	@Test
-	void testDotProduct() throws Exception {
+	public void testDotProduct() throws Exception {
 		Vector v1 = new Vector(1, 2, 3);
 		Vector v2 = new Vector(-2, -4, -6);
 		Vector v3 = new Vector(0, 3, -2);

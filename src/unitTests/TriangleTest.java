@@ -33,17 +33,17 @@ public class TriangleTest {
     @Test 
     public void testFindIntersections() throws Exception {
 
-    	Point predictedPoint;
+    	GeoPoint predictedPoint;
         List<GeoPoint> result;
         Ray ray;
         Triangle triangle = new Triangle(new Point(10, 0, 0), new Point(0, 10, 0), new Point(0, 0, 10));
       
         
         // ============ Equivalence Partitions Tests ==============
-    	
+    	//new error after changing to geopoint - need to discuss
     	//TC00: Ray intersects the triangle in the body
         ray = new Ray(new Point(1, 0, 0), new Vector(5, 5, 5));
-        predictedPoint = new Point(4.003556313703255,3.0035563137032555,3.0035563137032555);
+        predictedPoint = new GeoPoint(triangle, new Point(4.003556313703255,3.0035563137032555,3.0035563137032555));
         result = triangle.findGeoIntersections(ray);
         assertEquals("Incorrect intersection point", predictedPoint, result.get(0));
         

@@ -1,9 +1,11 @@
 import primitives.*;
+
 import static java.lang.System.out;
 import static primitives.Util.*;
 import geometries.*;
 import unitTests.*;
 //trying to sort pull/push/merge issues
+
 
 /*
  * Submitters:
@@ -18,12 +20,12 @@ import org.junit.runner.notification.Failure;
 
 public class Main {
 	public static void main(String[] args) {
-	      Result result = JUnitCore.runClasses(RenderTests.class);
+	      Result result = JUnitCore.runClasses(CameraIntegrationTests.class);
 			
 	      for (Failure failure : result.getFailures()) {
 	         System.out.println(failure.toString());
 	      }
-			
+		
 	      System.out.println("successful? " + result.wasSuccessful());
 	   }
 }		
