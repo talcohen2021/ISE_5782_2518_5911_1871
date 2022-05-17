@@ -4,7 +4,6 @@
  */
 package unitTests;
 import org.junit.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import primitives.*;
 import geometries.*;
 
