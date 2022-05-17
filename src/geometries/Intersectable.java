@@ -1,7 +1,7 @@
 package geometries;
 
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 import primitives.Point;
 import primitives.Ray;
@@ -59,7 +59,12 @@ public abstract class Intersectable {
 	 * @return - a list of all of the points of intersection or null (in the case that there is no intersection points)
 	 * @throws Exception 
 	 */
-	//public abstract List<Point> findIntersections(Ray ray) throws Exception;
+		public List<Point> findIntersections(Ray ray) throws Exception {
+			var geoList = findGeoIntersections(ray);
+			return geoList == null ? null
+	                           : geoList.stream().map(gp -> gp.point).collect(Collectors.toList());
+		}
+
 	
 	/**
 	 * 

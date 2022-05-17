@@ -62,6 +62,17 @@ public class Ray {
 	 * @return closest point to the ray’s head
 	 * @throws Exception 
 	 */
+	public Point findClosestPoint(List<Point> points) throws Exception {
+	    return points == null || points.isEmpty() ? null
+	           : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
+	}
+
+	/** 
+	 * 
+	 * @param points - list of Geopoints
+	 * @return closest GeoPoint to the ray’s head
+	 * @throws Exception 
+	 */
 	public GeoPoint findClosestGeoPoint(List<GeoPoint> points) throws Exception{
 		
 		double smallestDistance = Double.MAX_VALUE;
