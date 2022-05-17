@@ -28,7 +28,7 @@ public class Plane extends Geometry {
 		Vector vector2 = q2.subtract(q1);
 		Vector crossProduct = vector1.crossProduct(vector2);
 		
-		this.normal = crossProduct;
+		this.normal = crossProduct.normalize();
 	}
 	
 	
@@ -45,9 +45,9 @@ public class Plane extends Geometry {
 	}
 
 	@Override
-	public Vector getNormal(Point point) {
+	public Vector getNormal(Point point) throws Exception {
 		
-		return normal;
+		return normal.normalize();
 	}
 	
 //	public Vector getNormal() {
@@ -60,7 +60,7 @@ public class Plane extends Geometry {
 		Vector vector2 = point3.subtract(point2);
 		Vector crossProduct = vector1.crossProduct(vector2);
 		
-		return crossProduct;
+		return crossProduct.normalize();
 	}
 	
 	@Override
@@ -74,6 +74,7 @@ public class Plane extends Geometry {
 	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) throws Exception {
 		List<GeoPoint> results = new LinkedList<GeoPoint>(); //bc mainly adding
 		Vector u = q0.subtract(ray.getP0());
+		//Vector u = ray.getP0().subtract(q0);
 		//(normal*u)/(normal*v)
 		double t = (normal.dotProduct(u)) / (normal.dotProduct(ray.getDir()));
 		//p = p0+tv

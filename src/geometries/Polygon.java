@@ -52,6 +52,7 @@ public class Polygon extends Geometry {
 		// polygon with this plane.
 		// The plane holds the invariant normal (orthogonal unit) vector to the polygon
 		plane = new Plane(vertices[0], vertices[1], vertices[2]);
+		//System.out.println(plane.toString());
 		if (vertices.length == 3)
 			return; // no need for more tests for a Triangle
 
@@ -86,7 +87,7 @@ public class Polygon extends Geometry {
 	}
 
 	@Override
-	public Vector getNormal(Point point) {
+	public Vector getNormal(Point point) throws Exception {
 		return plane.getNormal(point);
 	}
 

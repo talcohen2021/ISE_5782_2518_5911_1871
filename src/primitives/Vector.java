@@ -114,7 +114,8 @@ public class Vector extends Point {
 	 */
 	public double dotProduct(Vector vector) {
 		Point temp = new Point( this.xyz.product(vector.xyz));
-		return (double) temp.xyz.hashCode();
+		//return (double) temp.xyz.hashCode();
+		return (double) (temp.xyz.d1 + temp.xyz.d2 + temp.xyz.d3);
 		
 	}
 	

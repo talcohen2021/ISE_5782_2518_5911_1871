@@ -40,7 +40,7 @@ public class CameraIntegrationTests {
 	return count;
 	}
 //trying to comment out
-	/*
+	
 
 	@Test
 	public void sphereIntegrationTest() throws Exception {
@@ -48,12 +48,12 @@ public class CameraIntegrationTests {
 		//Camera cam = new Camera(new Point(Double3.ZERO), new Vector(0,1,0), new Vector(0,0,-1));
 		//cameraSetUp(cam, 1, 3, 3);
 		/*---- sphere tests------*/
-/*		
+	
 		//orig (switched vtoandup
 		Camera cam = new Camera(new Point(Double3.ZERO), new Vector(0,0,-1), new Vector(0,1,0));
 		cameraSetUp(cam, 1, 3, 3); 
 		/*---- sphere tests------*/
-/*		
+		
 		Sphere sphere = new Sphere(new Point(0,0,-3), 1);
 		
 		//tc 1
@@ -62,7 +62,7 @@ public class CameraIntegrationTests {
 		//tc 2
 		sphere = new Sphere(new Point(0,0,-2.5), 2.5);
 		cam.setP0(new Point(0,0,0.5));
-		assertEquals("there should be 18 intersections", intersectionCalculator(cam, sphere), 18);
+		//assertEquals("there should be 18 intersections", intersectionCalculator(cam, sphere), 18);
 		
 		//tc 3
 		sphere = new Sphere(new Point(0,0,-2), 2);
@@ -79,28 +79,28 @@ public class CameraIntegrationTests {
 		
 		
 	} 
-*/	
+	
 	@Test
 	public void planeIntegrationTest() throws Exception {
 		Camera cam = new Camera(new Point(Double3.ZERO), new Vector(0,0, -1), new Vector(0,-1, 0));
 		cameraSetUp(cam, 1, 3, 3);
 		
 		//tc 1
-	//	Plane plane = new Plane(new Point(0,0,-10), new Vector(0,0,1));
-	//	assertEquals("there should be 9 intersections a", intersectionCalculator(cam, plane), 9);
+		Plane plane = new Plane(new Point(0,0,-10), new Vector(0,0,1));
+		assertEquals("there should be 9 intersections a", intersectionCalculator(cam, plane), 9);
 		
 		//tc 2  //this test is failing  there should be 9 intersections b expected:<6> but was:<9>
 		//orig : 
-		Plane plane = new Plane(new Point(0,0,-5), new Vector(0,1, 2));  
+		plane = new Plane(new Point(0,0,-5), new Vector(0,1, 2));  
 		assertEquals("there should be 9 intersections b", intersectionCalculator(cam, plane), 9);
 		
 		//tc 3 //this test is failing  there should be 6 intersections expected:<4> but was:<6>
-	//	plane = new Plane(new Point(0,0,-5), new Vector(0,1,1)); 
-	//	assertEquals("there should be 6 intersections ", intersectionCalculator(cam, plane), 6);
+		plane = new Plane(new Point(0,0,-5), new Vector(0,1,1)); 
+		assertEquals("there should be 6 intersections ", intersectionCalculator(cam, plane), 6);
 		
 	}
 	
-/*	
+	
 	@Test
 	public void triangleIntegrationTest() throws Exception {
 		
@@ -109,13 +109,12 @@ public class CameraIntegrationTests {
 		
 		//tc 1
 		Triangle triangle = new Triangle(new Point(0,1,-2), new Point(1,-1,-2), new Point(-1,-1,-2));
-		assertEquals("there should be 1 intersection ", intersectionCalculator(cam, triangle), 1);
+		//assertEquals("there should be 1 intersection ", intersectionCalculator(cam, triangle), 1);
 		
 		
 		//tc 2
 		triangle = new Triangle(new Point(0,20,-2), new Point(1,-1,-2), new Point(-1,-1,-2));
-		assertEquals("there should be 2 intersections ", intersectionCalculator(cam, triangle), 2);
-	}
-*/	
-//*/
+		//assertEquals("there should be 2 intersections ", intersectionCalculator(cam, triangle), 2);
+	}	
+
 }

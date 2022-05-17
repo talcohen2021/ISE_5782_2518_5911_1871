@@ -62,7 +62,7 @@ public class PlaneTests {
 	 * @throws Exception 
      */
     @Test 
-    public void testFindGeoIntersections() throws Exception {
+    public void testFindIntersections() throws Exception {
     	
     	GeoPoint predictedPoint;
         List<GeoPoint> result;

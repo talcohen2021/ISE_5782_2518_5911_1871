@@ -93,7 +93,8 @@ public class Geometries extends Intersectable {
 		List<GeoPoint> listOfIntersections = new ArrayList<GeoPoint>(); //bc we are mainly adding
 	
 		for(int j = 0; j < geometries.size(); j++) {
-			List<GeoPoint> tempGeoPoints = geometries.get(j).findGeoIntersections(ray);
+			List<GeoPoint> tempGeoPoints = new ArrayList<GeoPoint>();
+			tempGeoPoints = geometries.get(j).findGeoIntersections(ray);
 			
 			if (tempGeoPoints != null) {
 				for(int i = 0; i < tempGeoPoints.size(); i++) 
