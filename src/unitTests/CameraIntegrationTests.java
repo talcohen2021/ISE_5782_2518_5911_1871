@@ -84,7 +84,7 @@ public class CameraIntegrationTests {
 		Camera cam = new Camera(new Point(Double3.ZERO), new Vector(0,0, -1), new Vector(0,-1, 0));
 		cameraSetUp(cam, 1, 3, 3);
 		
-		//tc 1 //running test changed 9 to 8 to compare output got : there should be 9 intersections a expected:<9> but was:<8>
+		//tc 1
 		Plane plane = new Plane(new Point(0,0,-10), new Vector(0,0,1));
 		assertEquals("there should be 9 intersections a", intersectionCalculator(cam, plane), 9);
 		
