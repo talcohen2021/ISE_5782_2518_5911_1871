@@ -76,7 +76,7 @@ public abstract class Intersectable {
 	public List<GeoPoint> findGeoIntersections(Ray ray) throws Exception
 	{
 		return findGeoIntersectionsHelper(ray);
-		
+	
 	}
 	
 	/**

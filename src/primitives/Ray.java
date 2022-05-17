@@ -14,7 +14,7 @@ import geometries.Intersectable.GeoPoint;
 public class Ray {
 	
 	final Point p0;
-	final Vector dir;
+	final Vector dir; //
 	
 	
 	/** Constructor to initialize Ray object with a Point and a Vector
