@@ -44,7 +44,12 @@ public class CameraIntegrationTests {
 	@Test
 	public void sphereIntegrationTest() throws Exception {
 		//orig
-		Camera cam = new Camera(new Point(Double3.ZERO), new Vector(0,1,0), new Vector(0,0,-1));
+		//Camera cam = new Camera(new Point(Double3.ZERO), new Vector(0,1,0), new Vector(0,0,-1));
+		//cameraSetUp(cam, 1, 3, 3);
+		/*---- sphere tests------*/
+		
+		//orig (switched vtoandup
+		Camera cam = new Camera(new Point(Double3.ZERO), new Vector(0,0,-1), new Vector(0,1,0));
 		cameraSetUp(cam, 1, 3, 3);
 		/*---- sphere tests------*/
 		
@@ -73,30 +78,27 @@ public class CameraIntegrationTests {
 		
 		
 	}
-	/*
+	
 	@Test
 	public void planeIntegrationTest() throws Exception {
-		Camera cam = new Camera(new Point(Double3.ZERO), new Vector(0,-1, 0), new Vector(0,0, -1));
+		Camera cam = new Camera(new Point(Double3.ZERO), new Vector(0,0, -1), new Vector(0,-1, 0));
 		cameraSetUp(cam, 1, 3, 3);
 		
+		//tc 1 //running test changed 9 to 8 to compare output got : there should be 9 intersections a expected:<9> but was:<8>
 		Plane plane = new Plane(new Point(0,0,-10), new Vector(0,0,1));
+		assertEquals("there should be 9 intersections a", intersectionCalculator(cam, plane), 9);
 		
-		//tc 1
-		assertEquals("there should be 9 intersections ", intersectionCalculator(cam, plane), 9);
-		
+		//tc 2  //this test is failing  there should be 9 intersections b expected:<6> but was:<9>
 		plane = new Plane(new Point(0,0,-10), new Vector(0,1, 2)); 
+		assertEquals("there should be 9 intersections b", intersectionCalculator(cam, plane), 9);
 		
-		//tc 2
-		assertEquals("there should be 9 intersections ", intersectionCalculator(cam, plane), 9);
-		
-		plane = new Plane(new Point(0,0,-10), new Vector(0,1,1));
-		
-		//tc 3
+		//tc 3 
+		plane = new Plane(new Point(0,0,-10), new Vector(0,1,1)); 
 		assertEquals("there should be 6 intersections ", intersectionCalculator(cam, plane), 6);
 		
 	}
-	*/
 	
+/*	
 	@Test
 	public void triangleIntegrationTest() throws Exception {
 		
@@ -112,5 +114,6 @@ public class CameraIntegrationTests {
 		triangle = new Triangle(new Point(0,20,-2), new Point(1,-1,-2), new Point(-1,-1,-2));
 		assertEquals("there should be 2 intersections ", intersectionCalculator(cam, triangle), 2);
 	}
+*/	
 //*/
 }

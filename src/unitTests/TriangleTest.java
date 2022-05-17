@@ -40,7 +40,7 @@ public class TriangleTest {
       
         
         // ============ Equivalence Partitions Tests ==============
-    	
+    	//new error after changing to geopoint - need to discuss
     	//TC00: Ray intersects the triangle in the body
         ray = new Ray(new Point(1, 0, 0), new Vector(5, 5, 5));
         predictedPoint = new GeoPoint(triangle, new Point(4.003556313703255,3.0035563137032555,3.0035563137032555));

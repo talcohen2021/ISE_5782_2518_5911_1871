@@ -2,6 +2,7 @@ package renderer;
 
 import primitives.*;
 
+
 import static primitives.Util.isZero;
 
 import java.util.MissingResourceException;
@@ -19,21 +20,23 @@ public class Camera {
 	private RayTraceBase rayTraceBase;
 	
 	/**
-	 * @param p0 the center of the camera from where the vectors start
+	 * @param p0 the centre of the camera from where the vectors start
 	 * @param vUp the up direction
 	 * @param vTo the side direction
 	 * @brief create orthogonal vRight to complete the three axis
 	 */
-	public Camera(Point p0, Vector vUp, Vector vTo) {
-	
-		if(!isZero(vUp.dotProduct(vTo)))
+	public Camera(Point p0, Vector vTo, Vector vUp) {
+		//orig :  !isZero(vUp.dotProduct(vTo))
+		if(!isZero(vTo.dotProduct(vUp)))
 			throw new IllegalArgumentException("The two vectors must be orthogonal");
 		this.p0 = p0;
 		
 		try {
 			this.vTo = vTo.normalize();
 			this.vUp = vUp.normalize();
-			this.vRight =vTo.crossProduct(vUp).normalize();
+			//orig : added brackets
+			this.vRight = (vTo.crossProduct(vUp)).normalize();
+			// reversed: this.vRight =vUp.crossProduct(vTo).normalize();
 		} catch (Exception e) {
 			System.out.println("Can't have a zero vector");
 		}
@@ -111,8 +114,8 @@ public class Camera {
 			double pixelWidth = width/nX;
 			double pixelHeight = height/nY;
 				
-			double yi = -(i - (nY-1)/2) * pixelHeight;
-			double xj = (j - (nX-1)/2) * pixelWidth;
+			double yi = -((i - (nY-1)/2d)) * pixelHeight;
+			double xj = ((j - (nX-1)/2d)) * pixelWidth;
 				
 			Point pIJ = pc;
 			if(!isZero(yi))
