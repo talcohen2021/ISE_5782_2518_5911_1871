@@ -15,10 +15,17 @@ public class DirectionalLight extends Light implements LightSource {
 
 	private Vector direction;
 	
+	/**
+	 * 
+	 * @param intensity
+	 * @param direction
+	 * @throws Exception
+	 */
 	public DirectionalLight(Color intensity, Vector direction) throws Exception {
 		super(intensity);
 		this.direction = direction.normalize();
 	}
+	
 	
 	@Override
 	public Color getIntensity(Point p) {
