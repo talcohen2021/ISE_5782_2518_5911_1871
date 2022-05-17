@@ -65,7 +65,7 @@ public abstract class Intersectable {
 	                           : geoList.stream().map(gp -> gp.point).collect(Collectors.toList());
 		}
 
-	
+	 
 	/**
 	 * 
 	 * @param ray - a ray that may or may not intersect with the geometry. 

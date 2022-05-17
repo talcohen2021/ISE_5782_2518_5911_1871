@@ -9,7 +9,7 @@ import geometries.Intersectable.GeoPoint;
 /**
  * Class Ray is the basic class representing a Ray of Euclidean Geometry in Cartesian
  * 3-Dimensional coordinate system
- * @author Tali Cohen and Meira Grafstein and Yaakovah Bacharach
+ * @author Tali Cohen and Meira Grafstein and Yaakovah Bacharach 
  */
 public class Ray {
 	
