@@ -20,13 +20,13 @@ public abstract class Geometry extends Intersectable{
 	/**
 	 * @return the emission color for the geometry
 	 */
-	public Color getColor() {return emission;}
+	public Color getEmission() {return emission;}
 	
 	/**
 	 * @param c the color that we want to set emission to
 	 * @return this (according to the builder pattern)
 	 */
-	public Geometry setColor(Color c) {emission = c; return this;}
+	public Geometry setEmission(Color c) {emission = c; return this;}
 	
 	/**
 	 * getter

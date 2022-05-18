@@ -21,7 +21,7 @@ public class Scene {
 	Color background;
 	AmbientLight ambientLight;
 	Geometries geometries;
-	List<LightSource> lights = new LinkedList<LightSource>();
+	LinkedList<LightSource> lights = new LinkedList<LightSource>();
 	
 	public Scene(String name) {
 		this.name = name;
@@ -50,6 +50,14 @@ public class Scene {
 	public Scene setLights(LinkedList<LightSource> lights) {
 		this.lights = lights;
 		return this;
+	}
+	
+	/**
+	 * getter
+	 * @return lights
+	 */
+	public LinkedList<LightSource> getLights(){
+		return lights;
 	}
 	
 	public Scene setGeometries(Intersectable... geometries) {
