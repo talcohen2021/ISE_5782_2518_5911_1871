@@ -27,7 +27,7 @@ public class TubeTests {
 		//radius: does not equal 0
 
 
-		Tube t = new Tube(new Ray(new Point(0,0,0), new Vector(1,1,1)), 0);
+		Tube t = new Tube(new Ray(new Point(0,0,0), new Vector(1,1,1)), 1);
 		assertNotEquals(t.getRadius(), 0, "bad radius for tube");
 	}
 
@@ -36,7 +36,7 @@ public class TubeTests {
 	 * @throws Exception 
 	 */
 	@Test
-	void testGetNormal() throws Exception {
+	public void testGetNormal() throws Exception {
 		//fail("Not yet implemented");
 		
 		// =============== Boundary Values Tests ==================

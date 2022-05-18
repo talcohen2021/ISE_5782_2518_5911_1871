@@ -62,7 +62,7 @@ public class CameraIntegrationTests {
 		//tc 2
 		sphere = new Sphere(new Point(0,0,-2.5), 2.5);
 		cam.setP0(new Point(0,0,0.5));
-		//assertEquals("there should be 18 intersections", intersectionCalculator(cam, sphere), 18);
+		assertEquals("there should be 18 intersections", intersectionCalculator(cam, sphere), 18);
 		
 		//tc 3
 		sphere = new Sphere(new Point(0,0,-2), 2);
@@ -109,12 +109,12 @@ public class CameraIntegrationTests {
 		
 		//tc 1
 		Triangle triangle = new Triangle(new Point(0,1,-2), new Point(1,-1,-2), new Point(-1,-1,-2));
-		//assertEquals("there should be 1 intersection ", intersectionCalculator(cam, triangle), 1);
+		assertEquals("there should be 1 intersection ", intersectionCalculator(cam, triangle), 1);
 		
 		
 		//tc 2
 		triangle = new Triangle(new Point(0,20,-2), new Point(1,-1,-2), new Point(-1,-1,-2));
-		//assertEquals("there should be 2 intersections ", intersectionCalculator(cam, triangle), 2);
+		assertEquals("there should be 2 intersections ", intersectionCalculator(cam, triangle), 2);
 	}	
 
 }

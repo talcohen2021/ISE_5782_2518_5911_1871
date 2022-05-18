@@ -4,6 +4,7 @@
  */
 package unitTests.geometries;
 import org.junit.Test;
+
 import primitives.*;
 import geometries.*;
 
@@ -11,7 +12,7 @@ import geometries.*;
  * @author meira
  *
  */
-class CylinderTest {
+public class CylinderTest {
 
 	
 	/**
@@ -19,7 +20,7 @@ class CylinderTest {
 	 * @throws Exception 
 	 */
 	@Test
-	void testGetNormal() throws Exception {
+	public void testGetNormal() throws Exception {
 		//fail("Not yet implemented")
 
 		// ============ Equivalence Partitions Tests ==============
@@ -38,7 +39,7 @@ class CylinderTest {
 	 * @throws Exception 
 	 */
 	@Test
-	void testGetNormalBase() throws Exception {
+	public void testGetNormalBase() throws Exception {
 		//fail("Not yet implemented")
 
 		// ============ Equivalence Partitions Tests ==============
@@ -57,7 +58,7 @@ class CylinderTest {
 	 * @throws Exception 
 	 */
 	@Test
-	void testGetNormalTop() throws Exception {
+	public void testGetNormalTop() throws Exception {
 		//fail("Not yet implemented")
 
 		// ============ Equivalence Partitions Tests ==============
