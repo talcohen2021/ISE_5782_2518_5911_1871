@@ -26,7 +26,8 @@ public class Plane extends Geometry {
 		
 		Vector vector1 = q0.subtract(q1);
 		Vector vector2 = q2.subtract(q1);
-		Vector crossProduct = vector1.crossProduct(vector2);
+		//Vector crossProduct = vector1.crossProduct(vector2);
+		Vector crossProduct = vector2.crossProduct(vector1);
 		
 		this.normal = crossProduct.normalize();
 	}
