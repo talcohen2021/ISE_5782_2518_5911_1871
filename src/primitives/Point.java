@@ -6,7 +6,7 @@ import java.lang.Math;
  * 3-Dimensional coordinate system
  * @author Tali Cohen and Meira Grafstein and Yaakovah Bacharach
  */
-public class Point {
+public class Point extends Exception {
 	
 	final Double3 xyz;
 

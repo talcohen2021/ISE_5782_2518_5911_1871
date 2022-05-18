@@ -25,7 +25,7 @@ public class Camera {
 	 * @param vTo the side direction
 	 * @brief create orthogonal vRight to complete the three axis
 	 */
-	public Camera(Point p0, Vector vTo, Vector vUp) {
+	public Camera(Point p0, Vector vTo, Vector vUp)  {
 		//orig :  !isZero(vUp.dotProduct(vTo))
 		if(!isZero(vTo.dotProduct(vUp)))
 			throw new IllegalArgumentException("The two vectors must be orthogonal");
@@ -202,6 +202,8 @@ public class Camera {
 		imageWriter.writeToImage();
 		
 	}
+
+
 	 
 	
 	

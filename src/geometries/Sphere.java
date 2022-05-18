@@ -65,4 +65,8 @@ public class Sphere extends Geometry {
 		
 	}
 
+	public Geometry setEmission(Color c) {
+		return super.setEmission(c);
+	}
+
 }
