@@ -65,9 +65,9 @@ public class Triangle extends Polygon{
 }
 
 
-	public Intersectable setEmission(Color color) {
-		// TODO Auto-generated method stub
-		return null;
+	public Geometry setEmission(Color color) {
+		return super.setEmission(color);
 	}
+	
 
 }

@@ -28,6 +28,8 @@ public abstract class Geometry extends Intersectable{
 	 */
 	public Geometry setEmission(Color c) {emission = c; return this;}
 	
+		
+	
 	/**
 	 * getter
 	 * @return material
@@ -55,6 +57,8 @@ public abstract class Geometry extends Intersectable{
 	
 	@Override
 	protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray) throws Exception;
+
+	
 
 	
 	
