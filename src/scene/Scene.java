@@ -37,6 +37,11 @@ public class Scene {
 		return this;
 	}
 	
+	public Scene setAmbientLight (AmbientLight ambientLight) {
+		this.ambientLight = ambientLight;
+		return this;
+	}
+	
 	/**
 	 * 
 	 * @param lights
