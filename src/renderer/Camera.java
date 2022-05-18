@@ -12,9 +12,10 @@ import java.util.MissingResourceException;
  */
 public class Camera {
 
-	private Point p0;
-	private Vector vTo, vUp, vRight;
-	private double width, height, distance;
+	private Point p0; // origin of the camera
+	private Vector vTo, vUp, vRight; // axis of the camera - vTo = z , vUp = y, vRight = x
+	private double distance; // distance of the camera from the viewplane
+	private double  width, height ; // width and height of the viewplane
 	
 	private ImageWriter imageWriter;
 	private RayTraceBase rayTraceBase;
