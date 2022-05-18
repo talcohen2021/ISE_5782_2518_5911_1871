@@ -3,16 +3,13 @@ package geometries;
 import java.util.List;
 
 import geometries.Intersectable.GeoPoint;
-import primitives.Color;
-import primitives.Point;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 //?import primitives;
 public abstract class Geometry extends Intersectable{
 	
 	protected Color emission = Color.BLACK;
-	
+	private Material material = new Material();
 	/**
 	 * @param Point point on the geometry
 	 * @return The vector that is perpendicular to the geometry starting at the point
@@ -30,6 +27,24 @@ public abstract class Geometry extends Intersectable{
 	 * @return this (according to the builder pattern)
 	 */
 	public Geometry setColor(Color c) {emission = c; return this;}
+	
+	/**
+	 * getter
+	 * @return material
+	 */
+	public Material getMaterial() {
+		return material;
+	}
+	
+	/**
+	 * setter
+	 * @param material
+	 * @return this
+	 */
+	public Geometry setMaterial(Material material) {
+		this.material = material;
+		return this;
+	}
 	
 	@Override
 	public List<GeoPoint> findGeoIntersections(Ray ray) throws Exception

@@ -4,8 +4,11 @@
 package lighting;
 
 import primitives.Color;
+import primitives.Double3;
 import primitives.Point;
 import primitives.Vector;
+
+import static primitives.Util.*;
 
 /**
  * @author Yaakovah
@@ -29,4 +32,12 @@ public class SpotLight extends PointLight {
 		this.direction = direction;
 	}
 
+	@Override
+	public Color getIntensity(Point p) {
+		return super.getIntensity(p).scale(direction.dotProduct(getL(p)));
+		
+	}
+	
+	
+	
 }
