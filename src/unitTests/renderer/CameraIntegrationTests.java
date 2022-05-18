@@ -66,7 +66,7 @@ public class CameraIntegrationTests {
 		
 		//tc 3
 		sphere = new Sphere(new Point(0,0,-2), 2);
-		assertEquals("there should be 10 intersections", intersectionCalculator(cam, sphere), 10);
+		assertEquals("there should be 10 intersections", 10, intersectionCalculator(cam, sphere));
 		
 		//tc 4 
 		sphere = new Sphere(new Point(0,0,-1), 4);
