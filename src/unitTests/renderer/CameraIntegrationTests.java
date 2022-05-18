@@ -104,7 +104,7 @@ public class CameraIntegrationTests {
 	@Test
 	public void triangleIntegrationTest() throws Exception {
 		
-		Camera cam = new Camera(new Point(Double3.ZERO), new Vector(0,1,0), new Vector(0,0,-1));
+		Camera cam = new Camera(new Point(Double3.ZERO), new Vector(0,0,-1), new Vector(0,1,0));
 		cameraSetUp(cam, 1, 3, 3);
 		
 		//tc 1
