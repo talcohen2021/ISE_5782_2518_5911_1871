@@ -19,7 +19,7 @@ public abstract class RayTraceBase {
 	 * 
 	 */
 	public RayTraceBase(Scene s) {
-		this.scene = scene;
+		this.scene = s;
 	}
 	
 	public Scene getScene() {return scene;}
