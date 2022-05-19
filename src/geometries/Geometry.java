@@ -26,7 +26,7 @@ public abstract class Geometry extends Intersectable{
 	 * @param c the color that we want to set emission to
 	 * @return this (according to the builder pattern)
 	 */
-	public Geometry setEmission(Color c) {emission = c; return this;}
+	public Geometry setEmission(Color c) {this.emission = c; return this;}
 	
 		
 	
