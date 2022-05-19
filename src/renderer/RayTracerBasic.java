@@ -33,7 +33,7 @@ public class RayTracerBasic extends RayTraceBase {
 		/*
 		 * to search intersections between the ray and the 3DModel of the scene. 
 		 * If there are no intersections the color will be the background color. Otherwise, find the closest 
-		 * point to the ray’s head (by using the method that we implemented in phase 3) and find the color of 
+		 * point to the ray's head (by using the method that we implemented in phase 3) and find the color of 
 		 * the point using this method:
 	
 		 * */
@@ -63,7 +63,7 @@ public class RayTracerBasic extends RayTraceBase {
 	 * @param p - a Geopoint
 	 * @return the color of point p
 	 * 
-	 * updates the calcColor function to add the object’s color to the point’s color
+	 * updates the calcColor function to add the object's color to the point's color
 	 */
 	public Color calcColor(GeoPoint p) {
 		

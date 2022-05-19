@@ -48,7 +48,7 @@ public class TriangleTest {
         ray = new Ray(new Point(1, 0, 0), new Vector(5, 5, 5));
         predictedPoint = new GeoPoint(triangle, new Point(4,3,3));
         result = triangle.findGeoIntersections(ray);
-        //assertEquals("Incorrect intersection point", predictedPoint, result.get(0));
+        assertEquals("Incorrect intersection point", predictedPoint, result.get(0));
      
         
     	//TC10: Ray does not intersect the triangle - intersects in the corner wedge

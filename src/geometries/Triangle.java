@@ -32,8 +32,12 @@ public class Triangle extends Polygon{
 	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) throws Exception {
 		try {
 			 List<GeoPoint> intersections = plane.findGeoIntersections(ray);
+			  
 			    if (intersections == null)
 			      return null;
+			    
+			List<GeoPoint> intersections2 = new LinkedList<GeoPoint>();
+			intersections2.add(new GeoPoint(this, intersections.get(0).point));
 			//v1 = vector(p1-p0)
 			Vector v1 = vertices.get(0).subtract(ray.getP0());
 			//v2 = vector(p2-p0)
@@ -54,7 +58,7 @@ public class Triangle extends Polygon{
 			double vn3 = ray.getDir().dotProduct(n3);
 			
 			if((vn1 > 0 && vn2 > 0 && vn3 > 0) ||(vn1 < 0 && vn2 < 0 && vn3 < 0))
-				return intersections;
+				return intersections2;
 		 }
 		 catch(Exception e) {
 			 System.out.print(e);
