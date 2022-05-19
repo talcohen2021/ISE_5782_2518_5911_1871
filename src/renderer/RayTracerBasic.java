@@ -7,6 +7,7 @@ import primitives.Color;
 
 import primitives.Point;
 import primitives.Ray;
+import primitives.Vector;
 import scene.Scene;
 
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class RayTracerBasic extends RayTraceBase {
 		if(intersectingGeoPoints == null)
 			return scene.getBackground();
 		
-		return calcColor(ray.findClosestGeoPoint(intersectingGeoPoints));
+		return calcColor(ray.findClosestGeoPoint(intersectingGeoPoints), ray);
 		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -57,18 +58,30 @@ public class RayTracerBasic extends RayTraceBase {
 	}
 	
 	/**
-	 * At this stage of the project, the function shall return the color of the ambient light of the scene
-	 * At this stage in the project we are not yet using the parameter that was passed to the method
 	 * 
+<<<<<<< HEAD
 	 * @param p - a Geopoint
 	 * @return the color of point p
 	 * 
 	 * updates the calcColor function to add the object's color to the point's color
+=======
+	 * @param p geopoint
+	 * @param ray viewpoint
+	 * @param level recursion level
+	 * @param effect of light
+	 * @return
+>>>>>>> branch 'main' of https://github.com/talcohen2021/ISE_5782_2518_5911_1871.git
 	 */
-	public Color calcColor(GeoPoint p) {
+	public Color calcColor(GeoPoint p, Ray ray, int level, double effect) {
 		
 		p.geometry.setEmission(scene.getAmbientLight().getIntensity());
 		return scene.getAmbientLight().getIntensity();
-	}
+	
 
+  //if (level <= 1) {
+  //    return Color.BLACK;
+   // }
+    
+    
+	}
 }
