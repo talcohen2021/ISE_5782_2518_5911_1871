@@ -17,7 +17,7 @@ import primitives.*;
  * @author Dan
  *
  */
-public class CameraTest {
+public class CameraTests {
 	static final Point ZERO_POINT = new Point(0, 0, 0);
 
 	/**

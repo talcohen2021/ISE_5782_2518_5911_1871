@@ -12,7 +12,7 @@ import geometries.*;
  * @author meira
  *
  */
-public class CylinderTest {
+public class CylinderTests {
 
 	
 	/**
@@ -29,7 +29,7 @@ public class CylinderTest {
 		
 		Vector v = new Vector(-1/Math.sqrt(2),-1/Math.sqrt(2),0);
 		
-		assert(v.equals(c.getNormal(new Point(0,0,1))));
+		assert(v.equals(c.getNormal(new Point(0,0,1)))); //if this statement is true, it will pass the test
 	
 		
 	}

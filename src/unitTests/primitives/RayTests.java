@@ -23,7 +23,7 @@ import geometries.Plane;
  * @author Yaakovah
  *
  */
-public class RayTest {
+public class RayTests {
 
 	/**
 	 * Test method for {@link primitives.Ray#findClosestPoint(java.util.List)}.
@@ -50,7 +50,7 @@ public class RayTest {
 		 assertEquals("The closest point should be the last in the list", list.get(list.size()-1), ray.findClosestPoint(list));
 	
 		// ============ Equivalence Partitions Tests ==============
-		// EP01: the closest point to the ray’s head is found somewhere in the middle of the list
+		// EP01: the closest point to the rayï¿½s head is found somewhere in the middle of the list
 		 list.add(new Point(0,0,5));
 		 assertEquals("The closest point should be in the middle of the list", list.get(2), ray.findClosestPoint(list));
 	

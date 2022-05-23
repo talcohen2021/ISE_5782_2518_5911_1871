@@ -11,7 +11,7 @@ import renderer.ImageWriter;
  * @author Yaakovah
  *
  */
-public class ImageWriterTest {
+public class ImageWriterTests {
 
 	/**
 	 * Test method for {@link renderer.ImageWriter#writeToImage()}.

@@ -19,7 +19,7 @@ import geometries.Intersectable.GeoPoint;
  * @author meira
  *
  */
-public class TriangleTest {
+public class TriangleTests {
 
 	/**
 	 * Test method for {@link geometries.Polygon#getNormal(primitives.Point)}.
