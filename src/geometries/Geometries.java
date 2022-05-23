@@ -8,6 +8,11 @@ import geometries.Intersectable.GeoPoint;
 import primitives.Point;
 import primitives.Ray;
 
+/**
+ * 
+ * @author Yaakovah
+ *uses composite pattern to treat a single object and a list of that object the same
+ */
 public class Geometries extends Intersectable {
 	
 	public List<Intersectable> geometries;
@@ -90,10 +95,12 @@ public class Geometries extends Intersectable {
 		if (this.geometries == null)
             return null;
 		
-		List<GeoPoint> listOfIntersections = new ArrayList<GeoPoint>(); //bc we are mainly adding
-	
+		//need to change to be LinkedList bc we are mainly adding
+		List<GeoPoint> listOfIntersections = new ArrayList<GeoPoint>(); 
+		
 		for(int j = 0; j < geometries.size(); j++) {
-			List<GeoPoint> tempGeoPoints = new ArrayList<GeoPoint>();
+			
+			List<GeoPoint> tempGeoPoints = new ArrayList<GeoPoint>(); //adding and also accessing so fine as arrayList
 			tempGeoPoints = geometries.get(j).findGeoIntersections(ray);
 			
 			if (tempGeoPoints != null) {
@@ -101,6 +108,8 @@ public class Geometries extends Intersectable {
                     listOfIntersections.add(tempGeoPoints.get(i));   
 			}
 		}
+		
+		
 		boolean allNull = true;
 		
 		if (listOfIntersections != null) {

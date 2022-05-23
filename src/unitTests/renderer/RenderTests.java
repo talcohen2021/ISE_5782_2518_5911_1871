@@ -51,7 +51,7 @@ public class RenderTests {
 	 * bodies and render it into a png image with a grid
 	 * @throws Exception 
 	 */
-	/*
+
 	@Test
 	public void basicRenderMultiColorTest() throws Exception {
 		Scene scene = new Scene("Test scene")//
@@ -80,7 +80,6 @@ public class RenderTests {
 		camera.writeToImage();
 	}
 
-	*/
 	
 	
 	/**

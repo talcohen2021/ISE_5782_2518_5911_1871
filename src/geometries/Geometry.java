@@ -5,7 +5,7 @@ import java.util.List;
 import geometries.Intersectable.GeoPoint;
 import primitives.*;
 
-//?import primitives;
+
 public abstract class Geometry extends Intersectable{
 	
 	protected Color emission = Color.BLACK;
