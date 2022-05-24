@@ -16,10 +16,14 @@ import java.util.List;
 import geometries.Intersectable.GeoPoint;
 
 /**
- * @author Yaakovah
+ * @author Yaakovah, Meira, Tali
  *
  */
 public class RayTracerBasic extends RayTraceBase {
+	/**
+	 * a constant field for the amount that you want to move the ray’s head (when  we are making shadow rays)
+	 */
+	private static final double DELTA = 0.1;
 
 	/**
 	 * @param s
@@ -59,5 +63,25 @@ public class RayTracerBasic extends RayTraceBase {
     
 	}
 	
+	/**
+	 * check if a point is not being shadowed - meaning, check if there is something that is blocking the 
+	 * light from you point.  
+	 * @param l
+	 * @param n
+	 * @param gp
+	 * @return
+	 * @throws Exception 
+	 */
+	private boolean unshaded(Vector l, Vector n, GeoPoint gp) throws Exception {
+		
+		Vector lightDirection = l.scale(-1); //from point to light force
+		Vector DELTAVector = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
+		Point point = gp.point.add(DELTAVector);
+		Ray lightRay = new Ray(point, lightDirection);
+		List<GeoPoint> intersections = scene.getGeometries().findGeoIntersections(lightRay);
+	
+		return intersections.isEmpty();
+	
+	}
 	
 }
