@@ -32,10 +32,21 @@ public class SpotLight extends PointLight {
 		this.direction = direction;
 	}
 
+	public SpotLight(Color intensity, Point position, Vector direction) {
+		super(intensity,position);
+		this.direction=direction;
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public Color getIntensity(Point p) {
 		return super.getIntensity(p).scale(direction.dotProduct(getL(p)));
 		
+	}
+
+	public SpotLight setNarrowBeam(int i) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

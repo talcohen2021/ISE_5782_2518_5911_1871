@@ -6,7 +6,7 @@ import java.lang.Math;
  * 3-Dimensional coordinate system
  * @author Tali Cohen and Meira Grafstein and Yaakovah Bacharach
  */
-public class Point extends Exception {
+public class Point {
 	
 	final Double3 xyz;
 
@@ -14,7 +14,7 @@ public class Point extends Exception {
 	 * 
 	 * @param double3 coordinate values
 	 */
-	public Point(Double3 double3) {
+	public Point(Double3 double3){
 		this.xyz = double3;
 	}
 	/**
@@ -24,7 +24,7 @@ public class Point extends Exception {
 	 * @param d2 second number value
 	 * @param d3 third number value
 	 */
-	public Point(double d1, double d2, double d3) {
+	public Point(double d1, double d2, double d3){
 		this.xyz = new Double3(d1, d2, d3);
 
 	}
