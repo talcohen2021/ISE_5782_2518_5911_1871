@@ -57,12 +57,13 @@ public class RayTracerBasic extends RayTraceBase {
 	 * @return the color of point p
 	 * 
 	 * updates the calcColor function to add the object's color to the point's color
+	 * @throws Exception 
 	 */
-	public Color calcColor(GeoPoint intersection, Ray ray) {
+	public Color calcColor(GeoPoint intersection, Ray ray) throws Exception {
 		
 		Color tempEmission = intersection.geometry.getEmission();
-		return scene.getAmbientLight().getIntensity().add(tempEmission); //.add(calculated light contribution from all light sources)
-		//.add(calcLocalEffects(intersection, ray));
+		return scene.getAmbientLight().getIntensity().add(tempEmission) //.add(calculated light contribution from all light sources)
+		.add(calcLocalEffects(intersection, ray));
     
 	}
 	
