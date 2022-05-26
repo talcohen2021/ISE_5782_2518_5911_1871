@@ -98,4 +98,8 @@ public class Polygon extends Geometry {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public Geometry setEmission(Color c) {
+		return super.setEmission(c);
+	}
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
@@ -86,5 +87,8 @@ public class Plane extends Geometry {
 		return null;
 	}
 
+	public Geometry setEmission(Color c) {
+		return super.setEmission(c);
+	}
 }
 

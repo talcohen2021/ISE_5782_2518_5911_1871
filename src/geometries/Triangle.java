@@ -45,11 +45,11 @@ public class Triangle extends Polygon{
 			//v3 = vector(p3-p0)
 			Vector v3 = vertices.get(2).subtract(ray.getP0());
 			
-			//n1 = normalize(v1crossv2)
+			//n1 = normalise(v1crossv2)
 			Vector n1 = v1.crossProduct(v2).normalize();
-			// n2 = normalize(v2 cross v3
+			// n2 = normalise(v2 cross v3
 			Vector n2 = v2.crossProduct(v3).normalize();
-			//n3 = normalize(v3 cross v1)
+			//n3 = normalise(v3 cross v1)
 			Vector n3 = v3.crossProduct(v1).normalize();
 			
 			// if all v dot ni are + or -
