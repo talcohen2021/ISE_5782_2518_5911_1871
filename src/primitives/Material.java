@@ -3,7 +3,8 @@ package primitives;
 
 public class Material {
 
-	public Double3 kD, kS;
+	public Double3 kD; //diffuse
+	public Double3 kS; //specular
 	public int shininess;
 	
 	public Material() {

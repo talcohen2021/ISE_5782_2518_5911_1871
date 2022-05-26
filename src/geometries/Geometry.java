@@ -59,7 +59,21 @@ public abstract class Geometry extends Intersectable{
 	protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray) throws Exception;
 
 	
-
+	/**
+	 * 
+	 * @return
+	 */
+	public int getShininess() {
+	    return this.material.shininess;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public Double3 getKD() {
+	    return this.material.kD;
+	}
 	
 	
 }

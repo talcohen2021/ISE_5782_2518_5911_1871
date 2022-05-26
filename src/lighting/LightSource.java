@@ -8,7 +8,7 @@ import primitives.Point;
 import primitives.Vector;
 
 /**
- * @author Yaakovah
+ * @author Yaakovah, Meira, Tali
  *
  */
 public interface LightSource {

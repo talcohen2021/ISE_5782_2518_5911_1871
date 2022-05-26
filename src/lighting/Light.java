@@ -6,7 +6,7 @@ package lighting;
 import primitives.Color;
 
 /**
- * @author Yaakovah
+ * @author Yaakovah, Meira, Tali
  *
  */
 public class Light {

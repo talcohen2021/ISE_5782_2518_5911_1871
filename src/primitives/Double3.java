@@ -121,5 +121,13 @@ public class Double3 {
 	public Double3 product(Double3 rhs) {
 		return new Double3(d1 * rhs.d1, d2 * rhs.d2, d3 * rhs.d3);
 	}
+	
+	/**
+	 * 
+	 * @return the Double3 with all of its values being in abs value
+	 */
+	public Double3 abs() {
+		return new Double3(Math.abs(d1), Math.abs(d2), Math.abs(d3));
+	}
 
 }

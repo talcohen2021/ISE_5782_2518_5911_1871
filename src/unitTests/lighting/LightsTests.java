@@ -1,8 +1,6 @@
 package unitTests.lighting;
 
-import org.junit.jupiter.api.Test;
-
-
+import org.junit.Test;
 import lighting.*;
 import geometries.*;
 import primitives.*;
@@ -140,10 +138,10 @@ public class LightsTests {
 		camera2.renderImage(); //
 		camera2.writeToImage(); //
 	}
-
-	/**
-	 * Produce a picture of a sphere lighted by a narrow spot light
-	 */
+	
+	/* bonus
+	//Produce a picture of a sphere lighted by a narrow spot light
+	 
 	@Test
 	public void sphereSpotSharp() throws Exception{
 		scene1.getGeometries().add(sphere);
@@ -157,9 +155,8 @@ public class LightsTests {
 		camera1.writeToImage(); //
 	}
 
-	/**
-	 * Produce a picture of a two triangles lighted by a narrow spot light
-	 */
+	//Produce a picture of a two triangles lighted by a narrow spot light
+	 
 	@Test
 	public void trianglesSpotSharp() throws Exception {
 		scene2.getGeometries().add(triangle1, triangle2);
@@ -171,5 +168,6 @@ public class LightsTests {
 		camera2.renderImage(); //
 		camera2.writeToImage(); //
 	}
+	*/
 
 }

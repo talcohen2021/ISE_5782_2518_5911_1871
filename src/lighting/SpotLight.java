@@ -11,7 +11,7 @@ import primitives.Vector;
 import static primitives.Util.*;
 
 /**
- * @author Yaakovah
+ * @author Yaakovah, Meira, Tali
  *
  */
 public class SpotLight extends PointLight {

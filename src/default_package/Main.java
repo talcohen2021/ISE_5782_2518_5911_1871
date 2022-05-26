@@ -8,6 +8,7 @@ import unitTests.*;
 import unitTests.primitives.*;
 import unitTests.geometries.*;
 import unitTests.renderer.*;
+import unitTests.lighting.*;
 /*
  * Submitters:
 
@@ -21,7 +22,7 @@ import org.junit.runner.notification.Failure;
 
 public class Main {
 	public static void main(String[] args) {
-	      Result result = JUnitCore.runClasses(CylinderTests.class);
+	      Result result = JUnitCore.runClasses(LightsTests.class);
 			
 	      for (Failure failure : result.getFailures()) {
 	         System.out.println(failure.toString());
