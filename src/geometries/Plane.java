@@ -19,7 +19,7 @@ public class Plane extends Geometry {
 	final Point q0;
 	final Vector normal;
 	
-	public Plane(Point q0, Point q1, Point q2) throws Exception
+	public Plane(Point q0, Point q1, Point q2) 
 	{
 		
 		this.q0 = q0;
@@ -34,7 +34,7 @@ public class Plane extends Geometry {
 	
 	
 	
-	public Plane(Point q0, Vector normal) throws Exception
+	public Plane(Point q0, Vector normal) 
 	{
 		this.q0 = q0;
 		this.normal = normal.normalize();
@@ -46,7 +46,7 @@ public class Plane extends Geometry {
 	}
 
 	@Override
-	public Vector getNormal(Point point) throws Exception {
+	public Vector getNormal(Point point)  {
 		
 		return normal.normalize();
 	}
@@ -55,7 +55,7 @@ public class Plane extends Geometry {
 		
 	//	return normal;
 	//}
-	public Vector getNormal(Point point1, Point point2, Point point3) throws Exception {
+	public Vector getNormal(Point point1, Point point2, Point point3)  {
 		
 		Vector vector1 = point1.subtract(point2);
 		Vector vector2 = point3.subtract(point2);
@@ -72,7 +72,7 @@ public class Plane extends Geometry {
 
 
 	@Override
-	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) throws Exception {
+	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
 		List<GeoPoint> results = new LinkedList<GeoPoint>(); //bc mainly adding
 		Vector u = q0.subtract(ray.getP0());
 		//Vector u = ray.getP0().subtract(q0);

@@ -8,7 +8,7 @@ public class Vector extends Point {
 	 * constructor using double3
 	 * @throws Exception 
 	 */
-	public Vector(Double3 number) throws Exception {
+	public Vector(Double3 number) {
 		super(number);
 		if(number == Double3.ZERO)
 			throw new IllegalArgumentException("Cannot have zero vector");
@@ -19,7 +19,7 @@ public class Vector extends Point {
 	/**
 	 * constructor using three doubles
 	 */
-	public Vector(double num1, double num2, double num3) throws Exception{
+	public Vector(double num1, double num2, double num3) {
 		super(num1, num2, num3);
 		if(num1 == 0 && num2 == 0 && num3 == 0)
 			throw new IllegalArgumentException("Cannot have zero vector");
@@ -55,7 +55,7 @@ public class Vector extends Point {
 	 * @param num is the number were scaling our vector by
 	 * @throws Exception 
 	 */
-	public Vector scale(double num) throws Exception {
+	public Vector scale(double num)  {
 		return new Vector(this.xyz.scale(num));
 		
 	}
@@ -65,7 +65,7 @@ public class Vector extends Point {
 	 * @param vector is the vector that we're multiplying this with
 	 * @throws Exception 
 	 */
-	public Vector crossProduct(Vector vector) throws Exception {
+	public Vector crossProduct(Vector vector)  {
 		Double3 A = this.xyz;
 		Double3 B = vector.xyz;
 		double num1 = A.d2 * B.d3 - A.d3 * B.d2;
@@ -97,7 +97,7 @@ public class Vector extends Point {
 	 * method to normalize a vector
 	 * @throws Exception 
 	 */
-	public Vector normalize() throws Exception {
+	public Vector normalize()  {
 		//Point p = new Point(this.xyz);
 		double len = this.length();
 		if(len == 1)

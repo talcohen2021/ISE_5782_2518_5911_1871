@@ -44,7 +44,7 @@ public class Polygon extends Geometry {
 	 *                                  <li>The polygon is concave (not convex)</li>
 	 *                                  </ul>
 	 */
-	public Polygon(Point... vertices) throws Exception {
+	public Polygon(Point... vertices)  {
 		if (vertices.length < 3)
 			throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
 		this.vertices = List.of(vertices);
@@ -58,6 +58,7 @@ public class Polygon extends Geometry {
 
 		Vector n = plane.getNormal(new Point(0,0,0));
 
+		
 		// Subtracting any subsequent points will throw an IllegalArgumentException
 		// because of Zero Vector if they are in the same point
 		Vector edge1 = vertices[vertices.length - 1].subtract(vertices[vertices.length - 2]);
@@ -84,15 +85,16 @@ public class Polygon extends Geometry {
 				throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
 		}
 		size = vertices.length;
+		
 	}
 
 	@Override
-	public Vector getNormal(Point point) throws Exception {
+	public Vector getNormal(Point point)  {
 		return plane.getNormal(point);
 	}
 
 	@Override
-	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) throws Exception {
+	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray)  {
 		// TODO Auto-generated method stub
 		return null;
 	}

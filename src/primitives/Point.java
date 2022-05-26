@@ -63,7 +63,7 @@ public class Point {
 	 * @return result of substract
 	 * @throws Exception 
 	 */
-	public Vector subtract(Point point) throws Exception {
+	public Vector subtract(Point point) {
 		return new Vector(this.xyz.subtract(point.xyz));
 		//to do
 	}

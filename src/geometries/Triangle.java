@@ -23,13 +23,13 @@ public class Triangle extends Polygon{
 	 * @param p3 third coordinate value
 	 * @throws Exception 
 	 */
-	public Triangle(Point p1, Point p2, Point p3) throws Exception {
+	public Triangle(Point p1, Point p2, Point p3) {
 		super(p1, p2, p3);
 	}
 
 	
 	@Override
-	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) throws Exception {
+	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray)  {
 		try {
 			 List<GeoPoint> intersections = plane.findGeoIntersections(ray);
 			  

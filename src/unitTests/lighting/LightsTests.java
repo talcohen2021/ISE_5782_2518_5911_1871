@@ -16,6 +16,7 @@ import static java.awt.Color.*;
  * @author Dan
  */
 public class LightsTests {
+	
 	private Scene scene1 = new Scene("Test scene");
 	private Scene scene2 = new Scene("Test scene") //
 			.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15)));
@@ -42,6 +43,7 @@ public class LightsTests {
 	private Geometry sphere = new Sphere(new Point(0, 0, -50), 50d) //
 			.setEmission(new Color(BLUE).reduce(2)) //
 			.setMaterial(new Material().setKD(0.5).setKD(0.5).setShininess(300));
+	
 
 	/**
 	 * Produce a picture of a sphere lighted by a directional light
@@ -146,7 +148,7 @@ public class LightsTests {
 	public void sphereSpotSharp() throws Exception{
 		scene1.getGeometries().add(sphere);
 		scene1.getLights()
-				.add(new SpotLight(spCL, spPL, new Vector(1, 1, -0.5)).setNarrowBeam(10).setKl(0.001).setKq(0.00004));
+				.add(new SpotLight(spCL, spPL, new Vector(1, 1, -0.5)).setNarrowBeam(10).setKL(0.001).setKQ(0.00004));
 
 		ImageWriter imageWriter = new ImageWriter("lightSphereSpotSharp", 500, 500);
 		camera1.setImageWriter(imageWriter) //

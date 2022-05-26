@@ -23,7 +23,7 @@ public class Ray {
 	 * @param vector direction of ray (normalised)
 	 * @throws Exception 
 	 */
-	public Ray(Point point, Vector vector) throws Exception {
+	public Ray(Point point, Vector vector)  {
 		this.p0 = point;
 		this.dir = vector.normalize();
 	}
@@ -51,7 +51,7 @@ public class Ray {
 		return this.dir;
 	}
 	
-	public Point getPoint(double t) throws Exception {
+	public Point getPoint(double t)  {
 		// P=P_0+t*v
 		return p0.add(dir.scale(t));
 	}
@@ -62,18 +62,19 @@ public class Ray {
 	 * @return closest point to the ray's head
 	 * @throws Exception 
 	 */
-	public Point findClosestPoint(List<Point> points) throws Exception {
+	public Point findClosestPoint(List<Point> points) {
 	    return ((points == null) || (points.isEmpty())) ? null
 	           : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
 	} 
+	
+	
 
-	/** 
-	 * 
+	/**
 	 * @param points - list of Geopoints
 	 * @return closest GeoPoint to the ray's head
 	 * @throws Exception 
 	 */
-	public GeoPoint findClosestGeoPoint(List<GeoPoint> points) throws Exception{
+	public GeoPoint findClosestGeoPoint(List<GeoPoint> points) {
 		
 		double smallestDistance = Double.MAX_VALUE;
 		GeoPoint closestGeoPoint = new GeoPoint(new Plane(new Point(0,0,0), new Vector(1,1,1)), new Point(1, 1, 1));

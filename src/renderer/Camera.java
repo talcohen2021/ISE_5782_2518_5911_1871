@@ -41,6 +41,7 @@ public class Camera {
 		} catch (Exception e) {
 			System.out.println("Can't have a zero vector");
 		}
+		
 	}
 	
 	/**
