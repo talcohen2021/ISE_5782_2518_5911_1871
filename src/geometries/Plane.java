@@ -87,8 +87,8 @@ public class Plane extends Geometry {
 		return null;
 	}
 
-	public Geometry setEmission(Color c) {
-		return super.setEmission(c);
-	}
+//	public Geometry setEmission(Color c) {
+//		return super.setEmission(c);
+//	}
 }
 

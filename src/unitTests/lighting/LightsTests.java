@@ -1,6 +1,7 @@
 package unitTests.lighting;
 
 import org.junit.Test;
+
 import lighting.*;
 import geometries.*;
 import primitives.*;
@@ -99,7 +100,7 @@ public class LightsTests {
 	 */
 	@Test
 	public void trianglesDirectional() throws Exception {
-		scene2.getGeometries().add(triangle1, triangle2);
+		scene2.getGeometries().add(triangle1.setEmission(new Color(YELLOW)), triangle2.setEmission(new Color(YELLOW)));
 		scene2.getLights().add(new DirectionalLight(trCL, trDL));
 
 		ImageWriter imageWriter = new ImageWriter("lightTrianglesDirectional", 500, 500);
@@ -115,7 +116,7 @@ public class LightsTests {
 	 */
 	@Test
 	public void trianglesPoint() throws Exception {
-		scene2.getGeometries().add(triangle1, triangle2);
+		scene2.getGeometries().add(triangle1.setEmission(new Color(YELLOW)), triangle2.setEmission(new Color(YELLOW)));
 		scene2.getLights().add(new PointLight(trCL, trPL).setKL(0.001).setKQ(0.0002));
 
 		ImageWriter imageWriter = new ImageWriter("lightTrianglesPoint", 500, 500);
@@ -131,7 +132,7 @@ public class LightsTests {
 	 */
 	@Test
 	public void trianglesSpot() throws Exception {
-		scene2.getGeometries().add(triangle1, triangle2);
+		scene2.getGeometries().add(triangle1.setEmission(new Color(YELLOW)), triangle2.setEmission(new Color(YELLOW)));
 		scene2.getLights().add(new SpotLight(trCL, trPL, trDL).setKL(0.001).setKQ(0.0001));
 
 		ImageWriter imageWriter = new ImageWriter("lightTrianglesSpot", 500, 500);
