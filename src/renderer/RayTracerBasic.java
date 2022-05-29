@@ -88,8 +88,14 @@ public class RayTracerBasic extends RayTraceBase {
 			Vector l = lightSource.getL(intersection.point);
 			double nl= Util.alignZero(n.dotProduct(l));
 			if (nl* nv> 0) { // sign(nl) == sing(nv)
-				Color lightIntensity= lightSource.getIntensity(intersection.point);
-				color = color.add(calcDiffusive(kd, l, n, lightIntensity),calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+				if (unshaded(l, n, intersection) {
+					Color lightIntensity = lightSource.getIntensity(intersection.point);
+					color = color.add(calcDiffusive(kd, l, n, lightIntensity),
+					calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+					}
+
+				//Color lightIntensity= lightSource.getIntensity(intersection.point);
+				//color = color.add(calcDiffusive(kd, l, n, lightIntensity),calcSpecular(ks, l, n, v, nShininess, lightIntensity));
 			}
 		}
 		return color;
@@ -111,9 +117,9 @@ public class RayTracerBasic extends RayTraceBase {
 	/**
 	 * 
 	 * @param ks
-	 * @param l
-	 * @param n
-	 * @param v
+	 * @param l is the light direction
+	 * @param n is the normal
+	 * @param v view direction
 	 * @param nShininess
 	 * @param lightIntensity
 	 * @return
@@ -127,10 +133,10 @@ public class RayTracerBasic extends RayTraceBase {
 	/**
 	 * check if a point is not being shadowed - meaning, check if there is something that is blocking the 
 	 * light from you point.  
-	 * @param l
-	 * @param n
+	 * @param l is the light direction
+	 * @param n is the normal
 	 * @param gp
-	 * @return
+	 * @return true if there are no intersections (ie its unshaded) and false otherwise
 	 * @throws Exception 
 	 */
 	private boolean unshaded(Vector l, Vector n, GeoPoint gp) throws Exception {
