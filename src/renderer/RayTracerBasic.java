@@ -82,20 +82,16 @@ public class RayTracerBasic extends RayTraceBase {
 			return Color.BLACK;
 		int nShininess= intersection.geometry.getShininess();
 		Double3 kd= intersection.geometry.getKD();
-		Double3 ks= intersection.geometry.getKD();
+		Double3 ks= intersection.geometry.getKS();
 		Color color= Color.BLACK;
 		for (LightSource lightSource: scene.getLights()) {
 			Vector l = lightSource.getL(intersection.point);
 			double nl= Util.alignZero(n.dotProduct(l));
 			if (nl* nv> 0) { // sign(nl) == sing(nv)
-				if (unshaded(l, n, intersection) {
+				if (!unshaded(l, n, intersection)) {
 					Color lightIntensity = lightSource.getIntensity(intersection.point);
-					color = color.add(calcDiffusive(kd, l, n, lightIntensity),
-					calcSpecular(ks, l, n, v, nShininess, lightIntensity));
-					}
-
-				//Color lightIntensity= lightSource.getIntensity(intersection.point);
-				//color = color.add(calcDiffusive(kd, l, n, lightIntensity),calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+					color = color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+				}
 			}
 		}
 		return color;
@@ -147,6 +143,9 @@ public class RayTracerBasic extends RayTraceBase {
 		Ray lightRay = new Ray(point, lightDirection);
 		List<GeoPoint> intersections = scene.getGeometries().findGeoIntersections(lightRay);
 	
+		if(intersections==null) {
+			return false;
+		}
 		return intersections.isEmpty();
 	
 	}

@@ -64,7 +64,7 @@ public abstract class Geometry extends Intersectable{
 	 * @return
 	 */
 	public int getShininess() {
-	    return this.material.shininess;
+	    return material.shininess;
 	}
 	
 	/**
@@ -72,7 +72,11 @@ public abstract class Geometry extends Intersectable{
 	 * @return
 	 */
 	public Double3 getKD() {
-	    return this.material.kD;
+	    return material.kD;
+	}
+
+	public Double3 getKS() {
+		return material.kS;
 	}
 	
 	
