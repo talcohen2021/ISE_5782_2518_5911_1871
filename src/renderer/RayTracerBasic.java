@@ -88,7 +88,7 @@ public class RayTracerBasic extends RayTraceBase {
 			Vector l = lightSource.getL(intersection.point);
 			double nl= Util.alignZero(n.dotProduct(l));
 			if (nl* nv> 0) { // sign(nl) == sing(nv)
-				if (!unshaded(l, n, intersection)) {
+				if (!unshaded(l, n, intersection, lightSource)) {
 					Color lightIntensity = lightSource.getIntensity(intersection.point);
 					color = color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
 				}
@@ -135,7 +135,7 @@ public class RayTracerBasic extends RayTraceBase {
 	 * @return true if there are no intersections (ie its unshaded) and false otherwise
 	 * @throws Exception 
 	 */
-	private boolean unshaded(Vector l, Vector n, GeoPoint gp) throws Exception {
+	private boolean unshaded(Vector l, Vector n, GeoPoint gp, LightSource ls) throws Exception {
 		
 		Vector lightDirection = l.scale(-1); //from point to light force
 		Vector DELTAVector = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
@@ -143,11 +143,33 @@ public class RayTracerBasic extends RayTraceBase {
 		Ray lightRay = new Ray(point, lightDirection);
 		List<GeoPoint> intersections = scene.getGeometries().findGeoIntersections(lightRay);
 	
-		if(intersections==null) {
-			return false;
+		boolean isEmpty = true;
+		
+		if(intersections==null) 
+			isEmpty = false;
+		else
+		{
+			//isEmpty = false;
+			double distanceBtwnGpLs = ls.getDistance(gp.point);
+			
+			for (GeoPoint geo : intersections)
+			{
+				double tempDistance = geo.point.distance(gp.point);
+				
+				if(tempDistance < distanceBtwnGpLs)
+				{
+					System.out.println("in :p");
+					return true;	
+				}
+			}
+			
 		}
-		return intersections.isEmpty();
+			
+		//System.out.println("returning. isempty is:" + isEmpty);
+		return isEmpty;
 	
 	}
+	
+	
 	
 }

@@ -98,25 +98,28 @@ public class LightsTests {
 	 * Produce a picture of a two triangles lighted by a directional light
 	 * @throws Exception 
 	 */
-	@Test
+	//@Test
+	/*
 	public void trianglesDirectional() throws Exception {
-		scene2.getGeometries().add(triangle1.setEmission(new Color(YELLOW)), triangle2.setEmission(new Color(YELLOW)));
+		scene2.getGeometries().add(triangle1, triangle2);
 		scene2.getLights().add(new DirectionalLight(trCL, trDL));
 
 		ImageWriter imageWriter = new ImageWriter("lightTrianglesDirectional", 500, 500);
 		camera2.setImageWriter(imageWriter) //
-				.setRayTraceBase(new RayTracerBasic(scene2)); //
-		camera2.renderImage(); //
+				.setRayTraceBase(new RayTracerBasic(scene2));
+		camera2.renderImage();
 		camera2.writeToImage(); //
 	}
+	*/
 
 	/**
 	 * Produce a picture of a two triangles lighted by a point light
 	 * @throws Exception 
 	 */
-	@Test
+	//@Test
+	/*
 	public void trianglesPoint() throws Exception {
-		scene2.getGeometries().add(triangle1.setEmission(new Color(YELLOW)), triangle2.setEmission(new Color(YELLOW)));
+		scene2.getGeometries().add(triangle1, triangle2);
 		scene2.getLights().add(new PointLight(trCL, trPL).setKL(0.001).setKQ(0.0002));
 
 		ImageWriter imageWriter = new ImageWriter("lightTrianglesPoint", 500, 500);
@@ -125,6 +128,7 @@ public class LightsTests {
 		camera2.renderImage(); //
 		camera2.writeToImage(); //
 	}
+	*/
 
 	/**
 	 * Produce a picture of a two triangles lighted by a spot light
@@ -132,7 +136,7 @@ public class LightsTests {
 	 */
 	@Test
 	public void trianglesSpot() throws Exception {
-		scene2.getGeometries().add(triangle1.setEmission(new Color(YELLOW)), triangle2.setEmission(new Color(YELLOW)));
+		scene2.getGeometries().add(triangle1, triangle2);
 		scene2.getLights().add(new SpotLight(trCL, trPL, trDL).setKL(0.001).setKQ(0.0001));
 
 		ImageWriter imageWriter = new ImageWriter("lightTrianglesSpot", 500, 500);

@@ -40,6 +40,7 @@ public class Triangle extends Polygon{
 			intersections2.add(new GeoPoint(this, intersections.get(0).point));
 			//v1 = vector(p1-p0)
 			Vector v1 = vertices.get(0).subtract(ray.getP0());
+				
 			//v2 = vector(p2-p0)
 			Vector v2 = vertices.get(1).subtract(ray.getP0());
 			//v3 = vector(p3-p0)
@@ -66,7 +67,8 @@ public class Triangle extends Polygon{
 		 
 		return null;
 		
-}
+	}
+	
 
 
 	public Geometry setEmission(Color color) {

@@ -1,10 +1,5 @@
 package renderer;
 
-/**
- * @author Yaakovah
- *
- */
-
 import primitives.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
