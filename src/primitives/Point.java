@@ -85,9 +85,9 @@ public class Point {
 		//need to typecast from int to double?
 		//double temp3 = (double)temp2.hashCode();
 		
-		double temp3 = (double) temp2.xyz.hashCode();
+		//double temp3 = (double) temp2.xyz.hashCode();
 		
-		//double temp3 = temp2.xyz.sumXYZ();
+		double temp3 = temp2.xyz.sumXYZ();
 		
 		return Math.abs(temp3);
 		

@@ -62,11 +62,11 @@ public class Double3 {
 		return (int) Math.round(d1 + d2 + d3);	
 	}
 
-	/*
+
 	public double sumXYZ() {
 		return d1 + d2 + d3;
 	}
-	*/
+	
 	
 	@Override
 	public String toString() {
