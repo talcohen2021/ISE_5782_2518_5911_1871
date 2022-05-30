@@ -86,10 +86,7 @@ public class Point {
 		
 		double temp3 = temp2.xyz.sumXYZ();
 		
-		return Math.abs(temp3);
-		
-		
-		
+		return Math.abs(temp3);	
 	}
 	
 	/**
