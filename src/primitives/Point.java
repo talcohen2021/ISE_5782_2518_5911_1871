@@ -82,9 +82,6 @@ public class Point {
 		//x*x,y*y,z*z using double3 product function
 		Point temp2 = new Point(temp1.xyz.product(temp1.xyz));
 		
-		//need to typecast from int to double?
-		//double temp3 = (double)temp2.hashCode();
-		
 		//double temp3 = (double) temp2.xyz.hashCode();
 		
 		double temp3 = temp2.xyz.sumXYZ();
