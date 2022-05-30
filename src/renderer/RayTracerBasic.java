@@ -24,6 +24,9 @@ public class RayTracerBasic extends RayTraceBase {
 	 * a constant field for the amount that you want to move the ray’s head (when  we are making shadow rays)
 	 */
 	private static final double DELTA = 0.1;
+	private static final int MAX_CALC_COLOR_LEVEL = 10;
+	private static final double MIN_CALC_COLOR_K = 0.001;
+
 
 	/**
 	 * @param s
@@ -89,11 +92,26 @@ public class RayTracerBasic extends RayTraceBase {
 				if (unshaded(l, n, intersection, lightSource)) {
 					Color lightIntensity = lightSource.getIntensity(intersection.point);
 					color = color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+					color = color.add(calcGlobalEffects(intersection, ray)); //new line
 				}
 			}
 		}
 		return color;
 	}
+	
+	private Color calcGlobalEffects(GeoPoint intersection, Ray ray) {
+		Color color = Color.BLACK;
+		Ray reflectedRay = constructReflectedRay(n, intersection.point, ray);
+		GeoPoint reflectedPoint = findClosestIntersection(reflectedRay);
+		if (…) color = color.add(calcColor(reflectedPoint, reflectedRay)
+		.scale(intersection.geometry.getKr()));
+		Ray refractedRay = constructRefractedRay(intersection.point, ray);
+		GeoPoint refractedPoint = findClosestIntersection(refractedRay);
+		if (…) color = color.add(calcColor(refractedPoint, refractedRay)
+		.scale(intersection.geometry.getKt());
+		return color;
+		}
+
 	
 	/**
 	 * 

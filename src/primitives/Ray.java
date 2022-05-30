@@ -90,4 +90,8 @@ public class Ray {
 		return closestGeoPoint;
 	}
 	
+	public Point getHead() {
+		return p0.add(dir);
+	}
+	
 }

@@ -3,14 +3,34 @@ package primitives;
 
 public class Material {
 
-	public Double3 kD; //diffuse
-	public Double3 kS; //specular
+	/**
+	 * diffuse
+	 */
+	public Double3 kD;
+	/**
+	 * specular
+	 */
+	public Double3 kS;
+	/**
+	 * shininess
+	 */
 	public int shininess;
+	/**
+	 * transparency coefficient
+	 */
+	public Double3 kT;
+	/**
+	 * reflection coefficient
+	 */
+	public Double3 kR;
+	
 	
 	public Material() {
 		kD = Double3.ZERO;
 		kS = Double3.ZERO;
 		shininess = 0;
+		kT = Double3.ZERO;
+		kR = Double3.ZERO;
 	}
 	
 	/**
@@ -59,6 +79,26 @@ public class Material {
 	 */
 	public Material setShininess(int shininess) {
 		this.shininess = shininess;
+		return this;
+	}
+	
+	/**
+	 * setter
+	 * @param kT transparency coeff
+	 * @return this
+	 */
+	public Material setKT(Double3 kT) {
+		this.kT = kT;
+		return this;
+	}
+	
+	/**
+	 * setter
+	 * @param kR reflection coeff
+	 * @return this
+	 */
+	public Material setKR(Double3 kR) {
+		this.kR = kR;
 		return this;
 	}
 	
