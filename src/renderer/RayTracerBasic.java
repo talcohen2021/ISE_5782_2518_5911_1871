@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package renderer;
 
 import primitives.Util;
@@ -88,7 +86,7 @@ public class RayTracerBasic extends RayTraceBase {
 			Vector l = lightSource.getL(intersection.point);
 			double nl= Util.alignZero(n.dotProduct(l));
 			if (nl* nv> 0) { // sign(nl) == sing(nv)
-				if (!unshaded(l, n, intersection, lightSource)) {
+				if (unshaded(l, n, intersection, lightSource)) {
 					Color lightIntensity = lightSource.getIntensity(intersection.point);
 					color = color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
 				}
@@ -143,10 +141,10 @@ public class RayTracerBasic extends RayTraceBase {
 		Ray lightRay = new Ray(point, lightDirection);
 		List<GeoPoint> intersections = scene.getGeometries().findGeoIntersections(lightRay);
 	
-		boolean isEmpty = true;
+		boolean isEmpty = false;
 		
 		if(intersections==null) 
-			isEmpty = false;
+			isEmpty = true;
 		else
 		{
 			//isEmpty = false;
@@ -156,10 +154,9 @@ public class RayTracerBasic extends RayTraceBase {
 			{
 				double tempDistance = geo.point.distance(gp.point);
 				
-				if(tempDistance < distanceBtwnGpLs)
+				if(tempDistance <= distanceBtwnGpLs)
 				{
-					System.out.println("in :p");
-					return true;	
+					return false;	
 				}
 			}
 			
