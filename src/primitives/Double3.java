@@ -59,9 +59,15 @@ public class Double3 {
 
 	@Override
 	public int hashCode() {
-		return (int) Math.round(d1 + d2 + d3);
+		return (int) Math.round(d1 + d2 + d3);	
 	}
 
+
+	public double sumXYZ() {
+		return d1 + d2 + d3;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "(" + d1 + "," + d2 + "," + d3 + ")";
@@ -129,5 +135,5 @@ public class Double3 {
 	public Double3 abs() {
 		return new Double3(Math.abs(d1), Math.abs(d2), Math.abs(d3));
 	}
-
+	
 }

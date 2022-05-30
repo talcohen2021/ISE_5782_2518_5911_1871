@@ -4,7 +4,7 @@ import java.lang.Math;
 /**
  * Class Point is the basic class representing a point of Euclidean Geometry in Cartesian
  * 3-Dimensional coordinate system
- * @author Tali Cohen and Meira Grafstein and Yaakovah Bacharach
+ * @author Yaakovah, Meira, Tali
  */
 public class Point {
 	
@@ -81,9 +81,12 @@ public class Point {
 		Point temp1 = new Point(this.xyz.subtract(point.xyz));
 		//x*x,y*y,z*z using double3 product function
 		Point temp2 = new Point(temp1.xyz.product(temp1.xyz));
-		//need to typecast from int to double?
-		//double temp3 = (double)temp2.hashCode();
-		return (double) temp2.xyz.hashCode();
+		
+		//double temp3 = (double) temp2.xyz.hashCode();
+		
+		double temp3 = temp2.xyz.sumXYZ();
+		
+		return Math.abs(temp3);	
 	}
 	
 	/**
@@ -93,6 +96,7 @@ public class Point {
 	 * @param point the point we are finding the distance to
 	 */
 	public double distance(Point point) {
+	
 		double temp1 = Math.sqrt(distanceSquared(point));
 		return temp1;
 	}
