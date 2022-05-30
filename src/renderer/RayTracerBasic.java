@@ -88,7 +88,7 @@ public class RayTracerBasic extends RayTraceBase {
 			Vector l = lightSource.getL(intersection.point);
 			double nl= Util.alignZero(n.dotProduct(l));
 			if (nl* nv> 0) { // sign(nl) == sing(nv)
-				if (unshaded(l, n, intersection) {
+				if (unshaded(l, n, intersection)) {
 					Color lightIntensity = lightSource.getIntensity(intersection.point);
 					color = color.add(calcDiffusive(kd, l, n, lightIntensity),
 					calcSpecular(ks, l, n, v, nShininess, lightIntensity));
