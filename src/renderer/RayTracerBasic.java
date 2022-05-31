@@ -176,5 +176,39 @@ public class RayTracerBasic extends RayTraceBase {
 			}		
 		}		
 		return true;	
-	}	
+	}
+	
+	
+	 private Ray getReflectedRay(GeoPoint gpIntersection, Ray ray) throws Exception {
+		    Vector dirRay = ray.getDir();
+		    Vector normal = gpIntersection.geometry.getNormal(gpIntersection.point);
+		    double dotProduct = dirRay.dotProduct(normal);
+		    if (dotProduct == 0) {
+		      return null;
+		    }
+		    double scale;
+		    Vector newRay = dirRay.subtract(normal.scale(2 * dotProduct)).normalize();
+		    double dotProduct2 = newRay.dotProduct(normal);
+		    if(dotProduct2 >= 0)
+				 scale = DELTA;
+			 else 
+				 scale = -DELTA;
+		    Vector delta = normal.scale(scale);
+		    Point point = gpIntersection.point.add(delta);
+		    return new Ray(point, newRay);
+	  }
+
+	 private Ray getRefractedRay(GeoPoint gpIntersection, Ray ray) throws Exception {
+		 Vector rayDir = ray.getDir();
+		 Vector normal = gpIntersection.geometry.getNormal(gpIntersection.point);
+		 double dotProduct = normal.dotProduct(rayDir);
+		 double scale;
+		 if(dotProduct >= 0)
+			 scale = DELTA;
+		 else 
+			 scale = -DELTA;
+		 Vector delta = normal.scale(scale);
+		 Point point = gpIntersection.point.add(delta);
+		 return new Ray(point, rayDir);
+	  }
 }
