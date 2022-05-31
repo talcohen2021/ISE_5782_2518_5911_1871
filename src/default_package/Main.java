@@ -22,7 +22,7 @@ import org.junit.runner.notification.Failure;
 
 public class Main {
 	public static void main(String[] args) {
-	      Result result = JUnitCore.runClasses(ShadowTests.class);
+	      Result result = JUnitCore.runClasses(LightsTests.class);
 			
 	      for (Failure failure : result.getFailures()) {
 	         System.out.println(failure.toString());

@@ -125,7 +125,7 @@ public class RayTracerBasic extends RayTraceBase {
 	    double factor = Math.abs(Util.alignZero(l.dotProduct(n)));
 	    return lightIntensity.scale(kd.scale(factor));
 	  }
-	
+
 	/**
 	 * 
 	 * @param ks
@@ -138,8 +138,11 @@ public class RayTracerBasic extends RayTraceBase {
 	 */
 	private Color calcSpecular(Double3 ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
 	    Vector r = l.subtract(n.scale(Util.alignZero(2 * l.dotProduct(n))));
-	    double vr = Util.alignZero(v.dotProduct(r));	
-	    return lightIntensity.scale((ks.scale(Math.pow(-vr, nShininess))).abs());
+		double vrmax = Math.max(0, v.scale(-1).dotProduct(r));
+		double vrn = Math.pow(vrmax, nShininess);
+		return lightIntensity.scale(ks.scale(vrn));
+	    //double vr = Util.alignZero(v.dotProduct(r));	
+	    //return lightIntensity.scale((ks.scale(Math.pow(-vr, nShininess))).abs());
 	  }
 	
 	/**
@@ -157,34 +160,21 @@ public class RayTracerBasic extends RayTraceBase {
 		Vector DELTAVector = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
 		Point point = gp.point.add(DELTAVector);
 		Ray lightRay = new Ray(point, lightDirection);
-		List<GeoPoint> intersections = scene.getGeometries().findGeoIntersections(lightRay);
-	
-		boolean isEmpty = false;
-		
+		List<GeoPoint> intersections = scene.getGeometries().findGeoIntersections(lightRay);			
 		if(intersections==null) 
-			isEmpty = true;
+			return true;
 		else
-		{
-			//isEmpty = false;
+		{	//isEmpty = false;
 			double distanceBtwnGpLs = ls.getDistance(lightRay.getP0());
-			
 			for (GeoPoint geo : intersections)
 			{
-				double tempDistance = geo.point.distance(lightRay.getP0());
-				
+				double tempDistance = geo.point.distance(lightRay.getP0());				
 				if(tempDistance <= distanceBtwnGpLs)
 				{
 					return false;	
 				}
-			}
-			
-		}
-			
-		//System.out.println("returning. isempty is:" + isEmpty);
-		return isEmpty;
-	
-	}
-	
-	
-	
+			}		
+		}		
+		return true;	
+	}	
 }
