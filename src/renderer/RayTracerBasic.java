@@ -211,4 +211,25 @@ public class RayTracerBasic extends RayTraceBase {
 		 Point point = gpIntersection.point.add(delta);
 		 return new Ray(point, rayDir);
 	  }
+	 
+	 private GeoPoint findClosestIntersection(Ray ray) throws Exception
+	 {
+		 List<GeoPoint> intersections = scene.getGeometries().findGeoIntersections(ray);
+		 
+		 GeoPoint closestIntersection = intersections.get(0);
+		 double closestDistance = closestIntersection.point.distance(ray.getP0());
+		 
+				 
+		 for(GeoPoint gp : intersections)
+		 {
+			 double tempDistance = gp.point.distance(ray.getP0());
+			 if (tempDistance <closestDistance)
+			 {
+				 closestIntersection = gp;
+				 closestDistance = tempDistance;
+			 }
+		 }
+		 
+		 return closestIntersection;
+	 }
 }
