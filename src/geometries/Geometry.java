@@ -75,10 +75,26 @@ public abstract class Geometry extends Intersectable{
 	    return material.kD;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Double3 getKS() {
 		return material.kS;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
+	public Double3 getKR() {
+		return material.kR;
+	}
+
+	public Double3 getKT() {
+
+		return material.kT;
+	}
 	
 }
 

@@ -77,7 +77,10 @@ public class Ray {
 	public GeoPoint findClosestGeoPoint(List<GeoPoint> points) {
 		
 		double smallestDistance = Double.MAX_VALUE;
-		GeoPoint closestGeoPoint = new GeoPoint(new Plane(new Point(0,0,0), new Vector(1,1,1)), new Point(1, 1, 1));
+		if(points == null)
+			return null;
+		GeoPoint closestGeoPoint = points.get(0);
+		//GeoPoint closestGeoPoint = new GeoPoint(new Plane(new Point(0,0,0), new Vector(1,1,1)), new Point(1, 1, 1));
 		
 		for(GeoPoint p : points) {
 			double tempDistance = this.p0.distance(p.point);

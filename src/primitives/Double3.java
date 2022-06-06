@@ -136,4 +136,16 @@ public class Double3 {
 		return new Double3(Math.abs(d1), Math.abs(d2), Math.abs(d3));
 	}
 	
+	/**
+	 * 
+	 * @return the double3 in double form, if d1=d2=d3
+	 * @throws Exception
+	 */
+	public double castToDouble() throws Exception
+	{
+		if(d1==d2 && d2==d3)
+			return d1;
+		throw(new Exception("cannot cast to double"));
+	}
+	
 }
