@@ -34,7 +34,7 @@ public class SpotLight extends PointLight {
 
 	public SpotLight(Color intensity, Point position, Vector direction) {
 		super(intensity,position);
-		this.direction=direction.normalize();
+		this.direction=direction;
 		// TODO Auto-generated constructor stub
 	}
 

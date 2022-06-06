@@ -98,7 +98,7 @@ public class LightsTests {
 	 * Produce a picture of a two triangles lighted by a directional light
 	 * @throws Exception 
 	 */
-	//@Test
+	@Test
 	public void trianglesDirectional() throws Exception {
 		scene2.getGeometries().add(triangle1, triangle2);
 		scene2.getLights().add(new DirectionalLight(trCL, trDL));
@@ -115,7 +115,7 @@ public class LightsTests {
 	 * Produce a picture of a two triangles lighted by a point light
 	 * @throws Exception 
 	 */
-	//@Test
+	@Test
 	public void trianglesPoint() throws Exception {
 		scene2.getGeometries().add(triangle1, triangle2);
 		scene2.getLights().add(new PointLight(trCL, trPL).setKL(0.001).setKQ(0.0002));

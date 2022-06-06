@@ -53,6 +53,8 @@ public class RayTracerBasic extends RayTraceBase {
 		*/
 		
 		GeoPoint closestIntersection = findClosestIntersection(ray);
+		if(closestIntersection == null)
+			return scene.getBackground();
 		return calcColor(closestIntersection, ray);
 				
 	}
@@ -217,7 +219,7 @@ public class RayTracerBasic extends RayTraceBase {
 			for (GeoPoint geo : intersections)
 			{
 				double tempDistance = geo.point.distance(lightRay.getP0());				
-				if(tempDistance <= distanceBtwnGpLs)
+				if((tempDistance <= distanceBtwnGpLs) && geo.geometry.getKT().castToDouble() == 0)
 				{
 					return false;	
 				}
@@ -225,8 +227,8 @@ public class RayTracerBasic extends RayTraceBase {
 		}		
 		
 		//only objects that are completely non-transparent( transparency coefficient kT == 0) will cause a shadow.
-		if(gp.geometry.getKT().castToDouble() == 0)
-			return false;
+		//if(gp.geometry.getKT().castToDouble() == 0)
+		//	return false;
 		
 		return true;	
 	}
