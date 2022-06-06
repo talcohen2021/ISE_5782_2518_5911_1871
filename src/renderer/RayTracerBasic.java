@@ -23,7 +23,7 @@ public class RayTracerBasic extends RayTraceBase {
 	/**
 	 * a constant field for the amount that you want to move the ray's head (when  we are making shadow rays)
 	 */
-	private static final double DELTA = 0.1;
+	
 	private static final int MAX_CALC_COLOR_LEVEL = 10;
 	private static final double MIN_CALC_COLOR_K = 0.001;
 	private static final double INITIAL_K = 1.0;
@@ -75,7 +75,7 @@ public class RayTracerBasic extends RayTraceBase {
 		Color tempEmission = intersection.geometry.getEmission();
 		//line below was previously - Color color = scene.getAmbientLight().getIntensity().add(tempEmission) 
 		Color color = tempEmission 
-				.add(calcLocalEffects(intersection, ray)); //.add(calculated light contribution from all light sources)
+				.add(calcLocalEffects(intersection, ray, k)); //.add(calculated light contribution from all light sources)
 		if(level==1)
 			return color;
 		else
@@ -108,7 +108,7 @@ public class RayTracerBasic extends RayTraceBase {
 	 * @return
 	 * @throws Exception 
 	 */
-	private Color calcLocalEffects(GeoPoint intersection, Ray ray) throws Exception {
+	private Color calcLocalEffects(GeoPoint intersection, Ray ray, double k) throws Exception {
 		Vector v = ray.getDir(); 
 		Vector n = intersection.geometry.getNormal(intersection.point);
 		double nv= Util.alignZero(n.dotProduct(v)); 
@@ -122,8 +122,9 @@ public class RayTracerBasic extends RayTraceBase {
 			Vector l = lightSource.getL(intersection.point);
 			double nl= Util.alignZero(n.dotProduct(l));
 			if (nl* nv> 0) { // sign(nl) == sing(nv)
-				if (unshaded(l, n, intersection, lightSource)) {
-					Color lightIntensity = lightSource.getIntensity(intersection.point);
+				double ktr = (transparency(intersection,lightSource,l, n));
+				if (ktr * k > MIN_CALC_COLOR_K ){
+					Color lightIntensity = lightSource.getIntensity(intersection.point).scale(ktr);
 					color = color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
 					//color = color.add(calcGlobalEffects(intersection, ray)); //new line
 				}
@@ -150,8 +151,9 @@ public class RayTracerBasic extends RayTraceBase {
 		Double3 kr = intersection.geometry.getKR();
 		Double3 kkr = kr.scale(k);
 		
-		if (kkr.castToDouble() > MIN_CALC_COLOR_K) 
-			color = color.add(calcColor(reflectedPoint, reflectedRay, level-1, kkr.castToDouble()).scale(kr)); //intersection.geometry.getKr()));
+		if(reflectedPoint != null)
+				if (kkr.castToDouble() > MIN_CALC_COLOR_K) 
+					color = color.add(calcColor(reflectedPoint, reflectedRay, level-1, kkr.castToDouble()).scale(kr)); //intersection.geometry.getKr()));
 		
 		Double3 kt = intersection.geometry.getKT();
 		Double3 kkt = kt.scale(k);
@@ -159,8 +161,9 @@ public class RayTracerBasic extends RayTraceBase {
 		Ray refractedRay = getRefractedRay(intersection, ray);
 		GeoPoint refractedPoint = findClosestIntersection(refractedRay);
 		
-		if(kkt.castToDouble() > MIN_CALC_COLOR_K) 
-			color = color.add(calcColor(refractedPoint, refractedRay, level-1, kkt.castToDouble()).scale(kt)); //intersection.geometry.getKt());
+		if(refractedPoint != null)
+			if(kkt.castToDouble() > MIN_CALC_COLOR_K) 
+				color = color.add(calcColor(refractedPoint, refractedRay, level-1, kkt.castToDouble()).scale(kt)); //intersection.geometry.getKt());
 		return color;
 	}
 
@@ -208,9 +211,9 @@ public class RayTracerBasic extends RayTraceBase {
 	private boolean unshaded(Vector l, Vector n, GeoPoint gp, LightSource ls) throws Exception {
 		
 		Vector lightDirection = l.scale(-1); //from point to light force
-		Vector DELTAVector = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
-		Point point = gp.point.add(DELTAVector);
-		Ray lightRay = new Ray(point, lightDirection);
+		//Vector DELTAVector = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
+		//Point point = gp.point.add(DELTAVector);
+		Ray lightRay = new Ray(gp.point, lightDirection, n);
 		List<GeoPoint> intersections = scene.getGeometries().findGeoIntersections(lightRay);			
 		if(intersections==null) 
 			return true;
@@ -219,51 +222,68 @@ public class RayTracerBasic extends RayTraceBase {
 			double distanceBtwnGpLs = ls.getDistance(lightRay.getP0());
 			for (GeoPoint geo : intersections)
 			{
-				double tempDistance = geo.point.distance(lightRay.getP0());				
+				double tempDistance = geo.point.distance(lightRay.getP0());		
+				//only objects that are completely non-transparent( transparency coefficient kT == 0) and closer to the object than the light source will cause a shadow.
 				if((tempDistance <= distanceBtwnGpLs) && geo.geometry.getKT().castToDouble() == 0)
-					return false;	
+					return false; //cast a shadow - not unshaded
 			}		
-		}		
-		
-		//only objects that are completely non-transparent( transparency coefficient kT == 0) will cause a shadow.
-		//if(gp.geometry.getKT().castToDouble() == 0)
-		//	return false;
-		
+		}				
 		return true;	
 	}
 	
+	/**
+	 * @param geoPoint is the geopoint
+	 * @param ls is the lightsource
+	 * @param l is the light direction
+	 * @param n is the normal
+	 * @return ktr - the degree of partial shading, dictated by its transparency 
+	 * @throws Exception 
+	 */
+	private double transparency(GeoPoint geoPoint, LightSource ls, Vector l, Vector n)throws Exception {
+		
+		Vector lightDirection = l.scale(-1); //from point to light force
+		//Vector DELTAVector = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
+		//Point point = gp.point.add(DELTAVector);
+		Ray lightRay = new Ray(geoPoint.point, lightDirection, n);
+		List<GeoPoint> intersections = scene.getGeometries().findGeoIntersections(lightRay);	
+		
+		double ktr = 1; //transparency
+		
+		if(intersections==null) 
+			return ktr;
+		else
+		{	//isEmpty = false;
+			double distanceBtwnGpLs = ls.getDistance(lightRay.getP0());
+			for (GeoPoint geo : intersections)
+			{
+				double tempDistance = geo.point.distance(lightRay.getP0());		
+				//only objects that are completely non-transparent( transparency coefficient kT == 0) and closer to the object than the light source will cause a shadow.
+				if(tempDistance <= distanceBtwnGpLs) //&& geo.geometry.getKT().castToDouble() == 0)
+				{
+					ktr = geo.geometry.getKT().scale(ktr).castToDouble();
+				}
+					
+			}		
+		}				
+		return ktr;	
+	}
 	
 	 private Ray getReflectedRay(GeoPoint gpIntersection, Ray ray) throws Exception {
 		    Vector dirRay = ray.getDir();
 		    Vector normal = gpIntersection.geometry.getNormal(gpIntersection.point);
 		    double dotProduct = dirRay.dotProduct(normal);
-		    if (dotProduct == 0) {
+		    if (dotProduct == 0) 
 		      return null;
-		    }
-		    double scale;
 		    Vector newRay = dirRay.subtract(normal.scale(2 * dotProduct)).normalize();
-		    double dotProduct2 = newRay.dotProduct(normal);
-		    if(dotProduct2 >= 0)
-				 scale = DELTA;
-			 else 
-				 scale = -DELTA;
-		    Vector delta = normal.scale(scale);
-		    Point point = gpIntersection.point.add(delta);
-		    return new Ray(point, newRay);
+		    Point point = gpIntersection.point;
+		    return new Ray(point, newRay, normal);
 	  }
 
 	 private Ray getRefractedRay(GeoPoint gpIntersection, Ray ray) throws Exception {
 		 Vector rayDir = ray.getDir();
 		 Vector normal = gpIntersection.geometry.getNormal(gpIntersection.point);
-		 double dotProduct = normal.dotProduct(rayDir);
-		 double scale;
-		 if(dotProduct >= 0)
-			 scale = DELTA;
-		 else 
-			 scale = -DELTA;
-		 Vector delta = normal.scale(scale);
-		 Point point = gpIntersection.point.add(delta);
-		 return new Ray(point, rayDir);
+		 Point point = gpIntersection.point;
+		 return new Ray(point, rayDir,normal);
 	  }
 	 
 	 /**

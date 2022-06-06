@@ -15,6 +15,7 @@ public class Ray {
 	
 	final Point p0;
 	final Vector dir; //
+	private static final double DELTA = 0.1;
 	
 	
 	/** Constructor to initialize Ray object with a Point and a Vector
@@ -26,6 +27,26 @@ public class Ray {
 	public Ray(Point point, Vector vector)  {
 		this.p0 = point;
 		this.dir = vector.normalize();
+	}
+	
+	/** Constructor to initialize Ray object with a Point and a Vector
+	 * 
+	 * @param point coordinate value start of ray - it is the point of the geoPoint that we will create
+	 * @param direction - direction of ray (normalised)
+	 * @param normal - the normal to the geometry of the geoPoint, that will be created from point
+	 * @throws Exception 
+	 */
+	public Ray(Point point, Vector direction, Vector normal)  {
+		
+		double dotProduct = normal.dotProduct(direction);
+		double scale;
+		if(dotProduct >= 0)
+			scale = DELTA;
+		else 
+			scale = -DELTA;
+		Vector delta = normal.scale(scale);
+		p0 = point.add(delta);
+		dir=direction;
 	}
 	
 	@Override
