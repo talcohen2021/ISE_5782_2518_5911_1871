@@ -220,9 +220,7 @@ public class RayTracerBasic extends RayTraceBase {
 			{
 				double tempDistance = geo.point.distance(lightRay.getP0());				
 				if((tempDistance <= distanceBtwnGpLs) && geo.geometry.getKT().castToDouble() == 0)
-				{
 					return false;	
-				}
 			}		
 		}		
 		
