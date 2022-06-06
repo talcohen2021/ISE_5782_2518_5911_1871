@@ -152,7 +152,8 @@ public class RayTracerBasic extends RayTraceBase {
 		
 		if (kkr.castToDouble() > MIN_CALC_COLOR_K) 
 			color = color.add(calcColor(reflectedPoint, reflectedRay, level-1, kkr.castToDouble()).scale(kr)); //intersection.geometry.getKr()));
-		Double3 kt = intersection.geometry.getKR();
+		
+		Double3 kt = intersection.geometry.getKT();
 		Double3 kkt = kt.scale(k);
 		
 		Ray refractedRay = getRefractedRay(intersection, ray);
