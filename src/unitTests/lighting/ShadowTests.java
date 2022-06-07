@@ -19,13 +19,15 @@ import scene.Scene;
 public class ShadowTests {
 	private Intersectable sphere = new Sphere(new Point(0, 0, -200), 60d) //
 			.setEmission(new Color(BLUE)) //
-			.setMaterial(new Material().setKD(0.5).setKD(0.5).setShininess(30));
+			.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(30));
 	private Material trMaterial = new Material().setKD(0.5).setKS(0.5).setShininess(30);
 
 	private Scene scene = new Scene("Test scene");
 	private Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 			.setVPSize(200, 200).setVPDistance(1000) //
 			.setRayTraceBase(new RayTracerBasic(scene));
+
+	
 
 	/**
 	 * Helper function for the tests in this module
@@ -36,7 +38,7 @@ public class ShadowTests {
 		scene.getLights().add( //
 				new SpotLight(new Color(400, 240, 0), spotLocation, new Vector(1, 1, -3)) //
 						.setKL(1E-5).setKQ(1.5E-7));
-		camera.setImageWriter(new ImageWriter(pictName, 400, 400));
+		camera.setImageWriter(new ImageWriter(pictName, 600, 600));
 		camera.renderImage();
 		camera.writeToImage();
 	}
