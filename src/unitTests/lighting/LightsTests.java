@@ -27,10 +27,10 @@ public class LightsTests {
 			.setVPDistance(1000);
 
 	private Point[] p = { // The Triangles' vertices:
-			new Point(-110, -110, -150), // the shared left-bottom
-			new Point(95, 100, -150), // the shared right-top
-			new Point(110, -110, -150), // the right-bottom
-			new Point(-75, 78, 100) }; // the left-top
+			new Point(-110, -110, -150), // the shared left-bottom - a
+			new Point(95, 100, -150), // the shared right-top - b
+			new Point(110, -110, -150), // the right-bottom - c
+			new Point(-75, 78, 100) }; // the left-top - d
 	private Point trPL = new Point(30, 10, -100); // Triangles test Position of Light
 	private Point spPL = new Point(-50, -50, 25); // Sphere test Position of Light
 	private Color trCL = new Color(800, 500, 250); // Triangles test Color of Light
