@@ -39,9 +39,9 @@ public class PictureTests {
 			.setVPDistance(1000);
 	
 	//private Point trPL = new Point(30, 10, -100); // Triangles test Position of Light
-	//private Point spPL = new Point(-50, -50, 25); // Sphere test Position of Light
+	private Point spPL = new Point(-50, -50, 25); // Sphere test Position of Light
 	private Color trCL = new Color(400, 600, 350); // Triangles test Color of Light
-	//private Color spCL = new Color(800, 500, 0); // Sphere test Color of Light
+	private Color spCL = new Color(800, 500, 0); // Sphere test Color of Light
 	private Vector trDL = new Vector(-2, -2, -2); // Triangles test Direction of Light
 	
 	private Point[] p = { // The Triangles' vertices:
@@ -77,25 +77,38 @@ public class PictureTests {
 	@Test
 	public void makePicture() throws Exception {
 	
-		scene.getGeometries().add(triangle1.setEmission(new Color(BLUE)), 
+		scene.getGeometries().add(
+				triangle1.setEmission(new Color(WHITE)).setEmission(new Color(BLUE)) 
+				.setMaterial(new Material().setKR(0.5).setKS(0.5).setKT(0.2)), 
 				//triangle2.setEmission(new Color(RED)), 
-				triangle3.setEmission(new Color(GREEN)), 
+				triangle3.setEmission(new Color(WHITE)).setEmission(new Color(BLUE)) 
+				.setMaterial(new Material().setKR(0.5).setKS(0.5).setShininess(30)), 
 				//triangle4.setEmission(new Color(YELLOW)),
-				triangle5.setEmission(new Color(BLACK)),
+				triangle5.setEmission(new Color(WHITE)).setEmission(new Color(BLUE)), 
+				//.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(30)),
 				//triangle6.setEmission(new Color(WHITE)),
-				triangle7.setEmission(new Color(ORANGE)),
+				triangle7.setEmission(new Color(WHITE)).setEmission(new Color(BLUE)),
 				//triangle8.setEmission(new Color(PINK))
-				new Sphere(new Point(-60, 50, -50), 30d).setEmission(new Color(BLUE)) //
-				.setMaterial(new Material().setKD(0.2).setKS(0.2).setShininess(30).setKT(new Double3(0.6))),
-				new Sphere(new Point(60, -50, -50), 30d).setEmission(new Color(BLUE)) //
-				.setMaterial(new Material().setKD(0.2).setKS(0.2).setShininess(30).setKT(new Double3(0.6))));
-
+				//make shpere on top left
+				new Sphere(new Point(-60, 50, -50), 30d).setEmission(new Color(BLUE)) 
+				.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(30).setKT(new Double3(0.8))),
+				//make 2 little spheres inside the above sphere
+				new Sphere(new Point(-55, 50, -50), 10d).setEmission(new Color(BLACK)) 
+				.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(30)),
+				new Sphere(new Point(-65, 50, -50), 10d).setEmission(new Color(BLACK)) 
+				.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(30)),
+				//make sphere on bottom right
+				new Sphere(new Point(60, -50, -50), 30d).setEmission(new Color(BLUE)) 
+				.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(30)));
 	
-
-	
-		scene.getLights().add(new DirectionalLight(trCL, trDL));
-		scene.getLights().add( new PointLight(new Color(WHITE), new Point(60, -50, -50)));
-
+		scene.getLights().add(new DirectionalLight(new Color(RED), new Vector(-2,-2,-2)));
+		scene.getLights().add(new DirectionalLight(new Color(GREEN), new Vector(0,1,-50)));
+		//create shadows of the spheres
+		scene.getLights().add(new SpotLight(new Color(700, 400, 400), new Point(60, -50, 0),
+				new Vector(0, 0, -1)).setKL(4E-5).setKQ(2E-7)); 
+		//scene.getLights().add(new SpotLight(new Color(700, 400, 400), new Point(-60, 50, 0),
+			//	new Vector(0, 0, -1)).setKL(4E-5).setKQ(2E-7)); 
+		
 		ImageWriter imageWriter = new ImageWriter("ourPicture", 500, 500);
 		camera.setImageWriter(imageWriter) //
 				.setRayTraceBase(new RayTracerBasic(scene));

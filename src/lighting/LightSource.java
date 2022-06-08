@@ -14,7 +14,7 @@ import primitives.Vector;
 public interface LightSource {
 
 	public Color getIntensity(Point p);
-	public Vector getL(Point p) throws Exception;
+	public Vector getL(Point p) throws Exception; //get Light
 	public double getDistance(Point point);
 
 }
