@@ -13,27 +13,35 @@ import primitives.Ray;
 import primitives.Vector;
 
 /**
- * defined by a point and the orthogonal vector 
+ * @author Yaakovah, Meira, Tali
+ * defined by a point and the orthogonal normalized vector 
  */
 public class Plane extends Geometry {
 	
 	final Point q0;
 	final Vector normal;
 	
+	/** 
+	 * @brief sets q0 and then creates two vectors and finds the cross product of them, giving us the normal to the plane
+	 * we then normalize the normal
+	 * 
+	 * @param q0 first point to define the plane 
+	 * @param q1 second point to define the plane
+	 * @param q2 third point to define the plane
+	 * 
+	 */
 	public Plane(Point q0, Point q1, Point q2) 
 	{
 		
 		this.q0 = q0;
 		
+		//find normal 
 		Vector vector1 = q0.subtract(q1);
 		Vector vector2 = q2.subtract(q1);
-		//Vector crossProduct = vector1.crossProduct(vector2);
 		Vector crossProduct = vector2.crossProduct(vector1);
 		
 		this.normal = crossProduct.normalize();
 	}
-	
-	
 	
 	public Plane(Point q0, Vector normal) 
 	{
@@ -51,16 +59,21 @@ public class Plane extends Geometry {
 		
 		return normal.normalize();
 	}
-	
-//	public Vector getNormal() {
-		
-	//	return normal;
-	//}
+
+	/**
+	 *  @brief creates two vectors and finds the cross product of them, giving us the normal to the plane
+	 * we then normalize the normal and return it
+	 * 
+	 * @param point1
+	 * @param point2
+	 * @param point3
+	 * @return the normal to the plane
+	 */
 	public Vector getNormal(Point point1, Point point2, Point point3)  {
 		
 		Vector vector1 = point1.subtract(point2);
 		Vector vector2 = point3.subtract(point2);
-		Vector crossProduct = vector1.crossProduct(vector2);
+		Vector crossProduct = vector2.crossProduct(vector1);
 		
 		return crossProduct.normalize();
 	}
@@ -70,25 +83,25 @@ public class Plane extends Geometry {
 		return "q0: " + q0.toString() + "normal: " + normal.toString();
 	}
 
-
-
 	@Override
 	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-		List<GeoPoint> results = new LinkedList<GeoPoint>(); //bc mainly adding
+		
+		// using a linkedList (as opposed to arrayList) bc mainly adding
+		List<GeoPoint> results = new LinkedList<GeoPoint>(); 
+		
+		//u = q0 - p0
 		Vector u = q0.subtract(ray.getP0());
-		//Vector u = ray.getP0().subtract(q0);
-		//(normal*u)/(normal*v)
+		
+		//(normal*u) / (normal*v)
 		double t = (normal.dotProduct(u)) / (normal.dotProduct(ray.getDir()));
-		//p = p0+tv
+		
 		if(t > 0 && !Double.isInfinite(t)) {
 			results.add(new GeoPoint(this, ray.getPoint(t)));
 			return results;
 		}
+		
 		return null;
 	}
 
-//	public Geometry setEmission(Color c) {
-//		return super.setEmission(c);
-//	}
 }
 

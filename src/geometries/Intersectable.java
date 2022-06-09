@@ -7,24 +7,23 @@ import primitives.Point;
 import primitives.Ray;
 
 /**
- * @author Yaakovah
- *
+ * 
+ * @author Yaakovah, Meira, Tali
+ * uses composite pattern, along with geometry and geometries
  */
 public abstract class Intersectable {
 	
 	/**
-	 * @author Yaakovah
-	 * includes a Geometry and a Point
-	 *
+	 * @author Yaakovah, Meira, Tali
+	 * includes a Geometry and a Point, so that we can reference a point on a geometry as one object
+	 * this is a plane data structure, and so its attributes will all be public and when accesses them from other classes we do 
+	 * not break the LOD 
 	 */
 	public static class GeoPoint {
+		
 	    public Geometry geometry;
 	    public Point point;
 	    
-	    /**
-		 * @param g Geometry that we are setting geometry to
-		 * @param p Point that we are setting point to
-		 */
 	    public GeoPoint(Geometry g, Point p)
 	    {
 	    	geometry = g;
@@ -51,20 +50,6 @@ public abstract class Intersectable {
 		}
 	
 	}
-
-
-	/**
-	 *  
-	 * @param ray - a ray that may or may not intersect with the geometry. 
-	 * @return - a list of all of the points of intersection or null (in the case that there is no intersection points)
-	 * @throws Exception  
-	 */
-		public List<Point> findIntersections(Ray ray) throws Exception {
-			var geoList = findGeoIntersections(ray);
-			return geoList == null ? null
-	                           : geoList.stream().map(gp -> gp.point).collect(Collectors.toList());
-		}
-
 	 
 	/**
 	 * 
@@ -86,8 +71,7 @@ public abstract class Intersectable {
 	 * 
 	 * called on by findGeoIntersections
 	 * 
-	 * Note: according to NVI access should be private (and not protected), however, Java does not allow an 
-	 * abstract method to be private
+	 * Note: according to NVI access should be private (and not protected), however, Java does not allow an abstract method to be private
 	 */
 	protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray) throws Exception;
 	

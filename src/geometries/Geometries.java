@@ -1,7 +1,7 @@
 package geometries;
 
 import java.util.ArrayList;
-
+import java.util.LinkedList;
 import java.util.List;
 
 import geometries.Intersectable.GeoPoint;
@@ -10,119 +10,79 @@ import primitives.Ray;
 
 /**
  * 
- * @author Yaakovah
- *uses composite pattern to treat a single object and a list of that object the same
+ * @author Yaakovah, Meira, Tali
+ *	uses composite pattern(along with geometry and intersectable) to treat a single object and a list of that object the same
  */
 public class Geometries extends Intersectable {
 	
 	public List<Intersectable> geometries;
 
-	public Geometries() {
+	public Geometries() 
+	{
+		
 		//ArrayList instead of LinkedList bc we are mostly accessing
 		geometries = new ArrayList<Intersectable>() ; 
-		}
+		
+	}
 	
-	public Geometries (Intersectable... geometries) {
+	public Geometries (Intersectable... geometries) 
+	{
 		if(geometries == null) 
 			return;
+		
 		this.geometries = new ArrayList<Intersectable>() ;
 		
 		for(int i = 0; i < geometries.length; i++) 
 			this.geometries.add(geometries[i]);
-		
-		//this.geometriesList.add(geometries);
-		//System.out.println("size in construct");
-		//System.out.println(geometriesList.size());
 
 	}
 	
-	public List<Intersectable> getGeometries(){
-		return this.geometries;
+	public List<Intersectable> getGeometries()
+	{
+		return geometries;
 	}
 	
-	public void add(Intersectable... geometries) {
-		for(int i = 0; i < geometries.length; i++) {
+	/**
+	 * @brief adds all of the intersectables that it receives to "geometries" (its list of intersectables)
+	 * @param geometries = 0 or more intersectables
+	 */
+	public void add(Intersectable... geometries) 
+	{
+		for(int i = 0; i < geometries.length; i++) 
 			this.geometries.add(geometries[i]);
-		}
-		//System.out.println("size in add");
-		//System.out.println(geometriesList.size());
 	}
-
-	/*
-	@Override
-	public List<Point> findIntersections(Ray ray) throws Exception {
-		
-		if (this.geometries == null)
-            return null;
-		
-		List<Point> listOfIntersections = new ArrayList<Point>(); //bc we are mainly adding
-	
-		for(int j = 0; j < geometries.size(); j++) {
-			List<Point> tempPoints = geometries.get(j).findIntersections(ray);
-			
-			if (tempPoints != null) {
-				for(int i = 0; i < tempPoints.size(); i++) 
-                    listOfIntersections.add(tempPoints.get(i));   
-			}
-		}
-		boolean allNull = true;
-		
-		if (listOfIntersections != null) {
-		for(int i = 0; i < listOfIntersections.size(); i++) {
-			if(listOfIntersections.get(i) != null) 
-				allNull = false;
-			}
-		}
-		
-		if((listOfIntersections.size() == 0) || allNull)
-			return null;
-		
-		return listOfIntersections;
-	}
-	*/
 	
 	@Override
 	public List<GeoPoint> findGeoIntersections(Ray ray) throws Exception
 	{
-		return findGeoIntersectionsHelper(ray);
-		
+		return findGeoIntersectionsHelper(ray);	
 	}
-	
 	
 	@Override
 	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) throws Exception {
 		
-		if (this.geometries == null)
+		if (geometries == null)
             return null;
 		
-		//need to change to be LinkedList bc we are mainly adding
-		List<GeoPoint> listOfIntersections = new ArrayList<GeoPoint>(); 
+		//LinkedList bc we are mainly adding
+		List<GeoPoint> listOfIntersections = new LinkedList<GeoPoint>(); 
 		
 		for(int j = 0; j < geometries.size(); j++) {
 			
-			List<GeoPoint> tempGeoPoints = new ArrayList<GeoPoint>(); //adding and also accessing so fine as arrayList
+			//making a temporary list to store intersections for each intersectable
+			List<GeoPoint> tempGeoPoints = new ArrayList<GeoPoint>(); //adding and also accessing
 			tempGeoPoints = geometries.get(j).findGeoIntersections(ray);
 			
-			if (tempGeoPoints != null) {
+			//if there were intersection(s) with the currect intersectable, add it/them to listOfIntersections
+			if (tempGeoPoints != null) 
 				for(int i = 0; i < tempGeoPoints.size(); i++) 
                     listOfIntersections.add(tempGeoPoints.get(i));   
-			}
 		}
 		
-		
-		boolean allNull = true;
-		
-		if (listOfIntersections != null) {
-		for(int i = 0; i < listOfIntersections.size(); i++) {
-			if(listOfIntersections.get(i) != null) 
-				allNull = false;
-			}
-		}
-		
-		if((listOfIntersections.size() == 0) || allNull)
+		//as per the hw instructions, if there are no intersection we need to return null, and not an empty list
+		if( listOfIntersections.size() == 0)
 			return null;
 		
 		return listOfIntersections;
 	}
- 
 }
