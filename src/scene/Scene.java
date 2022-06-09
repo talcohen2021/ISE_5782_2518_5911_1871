@@ -12,7 +12,7 @@ import primitives.Double3;
 
 /**
  * Scene is a PDS (Plain Data Structure) which means that access to all of its attributes is public 
- * @author Yaakovah
+ * @author Yaakovah, meira, Tali
  * 
  */
 public class Scene {

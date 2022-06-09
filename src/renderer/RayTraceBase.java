@@ -8,7 +8,7 @@ import primitives.Ray;
 import scene.Scene;
 
 /**
- * @author Yaakovah
+ * @author Yaakovah, meira, Tali
  *
  */
 public abstract class RayTraceBase {

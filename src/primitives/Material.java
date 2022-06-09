@@ -6,32 +6,23 @@ public class Material {
 	/**
 	 * diffuse
 	 */
-	public Double3 kD;
+	public Double3 kD = Double3.ZERO;
 	/**
 	 * specular
 	 */
-	public Double3 kS;
+	public Double3 kS = Double3.ZERO;
 	/**
 	 * shininess
 	 */
-	public int shininess;
+	public int shininess = 0;
 	/**
 	 * transparency coefficient
 	 */
-	public Double3 kT;
+	public Double3 kT = Double3.ZERO;
 	/**
 	 * reflection coefficient
 	 */
-	public Double3 kR;
-	
-	
-	public Material() {
-		kD = Double3.ZERO;
-		kS = Double3.ZERO;
-		shininess = 0;
-		kT = Double3.ZERO;
-		kR = Double3.ZERO;
-	}
+	public Double3 kR = Double3.ZERO;
 	
 	/**
 	 * setter

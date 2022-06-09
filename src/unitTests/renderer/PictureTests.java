@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
- * @author meira
+ * @author Yaakovah, Meira, Tali
  *
  */
 public class PictureTests {
@@ -39,9 +39,7 @@ public class PictureTests {
 			.setVPDistance(1000);
 	
 	//private Point trPL = new Point(30, 10, -100); // Triangles test Position of Light
-	private Point spPL = new Point(-50, -50, 25); // Sphere test Position of Light
 	private Color trCL = new Color(400, 600, 350); // Triangles test Color of Light
-	private Color spCL = new Color(800, 500, 0); // Sphere test Color of Light
 	private Vector trDL = new Vector(-2, -2, -2); // Triangles test Direction of Light
 	
 	private Point[] p = { // The Triangles' vertices:
