@@ -1,5 +1,4 @@
 import primitives.*;
-
 import static java.lang.System.out;
 import static primitives.Util.*;
 import geometries.*;
@@ -22,7 +21,7 @@ import org.junit.runner.notification.Failure;
 
 public class Main {
 	public static void main(String[] args) {
-	      Result result = JUnitCore.runClasses(ShadowTests.class);
+	      Result result = JUnitCore.runClasses(ShatteredMirrorTests.class);
 			
 	      for (Failure failure : result.getFailures()) {
 	         System.out.println(failure.toString());
