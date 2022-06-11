@@ -7,7 +7,7 @@ import static primitives.Util.isZero;
 
 import java.util.MissingResourceException;
 /**
- * @author meira
+ * @author yaakovah, meira, tali
  *
  */
 public class Camera {
@@ -21,7 +21,7 @@ public class Camera {
 	private RayTraceBase rayTraceBase;
 	
 	/**
-	 * @param p0 the centre of the camera from where the vectors start
+	 * @param p0 the center of the camera from where the vectors start
 	 * @param vUp the up direction
 	 * @param vTo the side direction
 	 * @brief create orthogonal vRight to complete the three axis
@@ -45,7 +45,7 @@ public class Camera {
 	}
 	
 	/**
-	 * 
+	 * @brief set the side of the view plane
 	 * @param width width of the view plane
 	 * @param height height of the view plane
 	 * @return this (camera)
@@ -56,17 +56,14 @@ public class Camera {
 		return this;
 	}
 	
-	/**
-	 * 
-	 * @param p0
-	 */
+	
 	public void setP0(Point p0) {
 		this.p0 = p0;
 	}
 	
 	
 	/**
-	 * 
+	 * @brief set the distance of the view plane to the camera
 	 * @param distance the distance from camera to view plane
 	 * @return this (camera)
 	 */
@@ -103,7 +100,7 @@ public class Camera {
 	}
 		
 	/**
-	 * 
+	 * @brief construct a ray from a camera point to a pixel
 	 * @param nX width - # of rows
 	 * @param nY height - # of columns
 	 * @param j index of pixel  width = columns
@@ -136,8 +133,7 @@ public class Camera {
 		
 	/**
 	 * 
-	 * lacking clarity on this method
-	 * null for now
+	 *@brief loop over all the pixels in the view plane, construct a ray for each, and color the pixel
 	 * @throws Exception 
 	 */	
 	public void renderImage() throws Exception {
@@ -169,7 +165,8 @@ public class Camera {
 	
 	/**
 	 * @brief creates a grid of lines
-	 * 
+	 * @param interval the size of the spacing of the grid
+	 * @param color of the grid
 	 */	
 	public void printGrid(int interval, Color color)  {
 		/*
@@ -204,24 +201,4 @@ public class Camera {
 		imageWriter.writeToImage();
 		
 	}
-
-
-	 
-	
-	
-	/*
-	public double getHeight() {
-		return height;
-	}
-	public void setHeight( double height) {
-		this.height = height;
-	}
-	public double getWidth() {
-		return width;
-	}
-	public void setWidth(double width) {
-		this.width = width;
-	}
-	*/
-	
 }
