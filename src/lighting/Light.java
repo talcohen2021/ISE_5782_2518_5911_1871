@@ -11,15 +11,13 @@ import primitives.Color;
  */
 public class Light {
 	
-	private Color intensity; //since this is artificial lighting, it is the same at every point
+	//since this is artificial lighting, the intensity is the same at every point
+	private Color intensity; 
 	
-	/**
-	 * @param intensity - the color to set intensity to
-	 */
 	protected Light(Color intensity) {
 		this.intensity = intensity;
 	}
-
+	
 	public Color getIntensity()
 	{
 		return intensity;

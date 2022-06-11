@@ -75,7 +75,7 @@ public class PictureTests {
 	@Test
 	public void makePicture() throws Exception {
 	
-		scene.getGeometries().add(
+		scene.geometries.add(
 				triangle1.setEmission(new Color(WHITE)).setEmission(new Color(BLUE)) 
 					.setMaterial(new Material().setKR(0.5).setKS(0.5).setKT(0.2)), 
 				triangle3.setEmission(new Color(WHITE)).setEmission(new Color(BLUE)) 
@@ -97,10 +97,10 @@ public class PictureTests {
 				new Sphere(new Point(60, -50, -50), 30d).setEmission(new Color(BLUE)) 
 					.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(30)));
 	
-		scene.getLights().add(new DirectionalLight(new Color(RED), new Vector(-2,-2,-2)));
-		scene.getLights().add(new DirectionalLight(new Color(GREEN), new Vector(0,1,-50)));
+		scene.lights.add(new DirectionalLight(new Color(RED), new Vector(-2,-2,-2)));
+		scene.lights.add(new DirectionalLight(new Color(GREEN), new Vector(0,1,-50)));
 		//create shadows of the spheres
-		scene.getLights().add(new SpotLight(new Color(700, 400, 400), new Point(60, -50, 0),
+		scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(60, -50, 0),
 				new Vector(0, 0, -1)).setKL(4E-5).setKQ(2E-7)); 
 
 		
@@ -118,7 +118,7 @@ public class PictureTests {
 	@Test
 	public void makePicture2() throws Exception {
 	
-		scene.getGeometries().add(triangle1.setEmission(new Color(BLUE)),  
+		scene.geometries.add(triangle1.setEmission(new Color(BLUE)),  
 				triangle4.setEmission(new Color(YELLOW)),
 				triangle5.setEmission(new Color(BLACK)),
 				triangle8.setEmission(new Color(PINK)),
@@ -127,7 +127,7 @@ public class PictureTests {
 				new Sphere(new Point(0, 0, -50), 12.5d).setEmission(new Color(GREEN)) 
 						.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(100)));
 	
-		scene.getLights().add(new DirectionalLight(trCL, trDL));
+		scene.lights.add(new DirectionalLight(trCL, trDL));
 
 		ImageWriter imageWriter = new ImageWriter("ourPicture2", 500, 500);
 		camera.setImageWriter(imageWriter) //

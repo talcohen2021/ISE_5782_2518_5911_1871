@@ -264,18 +264,18 @@ public class ShatteredMirrorTests {
 		
 		@Test
 		public void shatterdMirror() throws Exception {
-			scene.getGeometries().add(/*triangle1, triangle2, triangle3, triangle4.setEmission(colour),*/ triangle6, triangle7,
+			scene.geometries.add(/*triangle1, triangle2, triangle3, triangle4.setEmission(colour),*/ triangle6, triangle7,
 					/*sphere5, sphere6,*/ triangle8, triangle9, triangle5.setEmission(colour),plane2,plane3);
 			for(int i = 0; i < 145; i+=5) {
 				if(i%2==0) {
-					scene.getGeometries().add(//
+					scene.geometries.add(//
 							new Sphere(p[i], 8d).setEmission(new Color(RED)) 
 								.setMaterial(new Material().setKD(0.4).setKS(0.3).setShininess(100).setKT(new Double3(0.3))),
 							new Sphere(p[i], 4d).setEmission(new Color(GREEN)) 
 								.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(100)));
 				}
 				else {
-					scene.getGeometries().add(//
+					scene.geometries.add(//
 							new Sphere(p[i], 8d).setEmission(new Color(0, 0, 100)) //
 								.setMaterial(new Material().setKD(0.25).setKS(0.25).setShininess(20).setKT(new Double3(0.5))),
 					 		new Sphere(p[i], 4d).setEmission(new Color(100, 20, 20)) //
@@ -283,8 +283,8 @@ public class ShatteredMirrorTests {
 				}
 					
 			}
-			scene.getLights().add(new DirectionalLight(trCL, trDL));
-			scene.getLights().add(new DirectionalLight(trCL, trDL2));
+			scene.lights.add(new DirectionalLight(trCL, trDL));
+			scene.lights.add(new DirectionalLight(trCL, trDL2));
 
 			ImageWriter imageWriter = new ImageWriter("test triangle reflection", 500, 500);
 			camera.setImageWriter(imageWriter) //

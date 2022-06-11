@@ -13,39 +13,57 @@ import primitives.Double3;
 /**
  * Scene is a PDS (Plain Data Structure) which means that access to all of its attributes is public 
  * @author Yaakovah, meira, Tali
- * 
  */
 public class Scene {
 
-	String name; 
-	Color background;
-	AmbientLight ambientLight;
-	Geometries geometries;
-	LinkedList<LightSource> lights = new LinkedList<LightSource>();
+	public String name; 
+	public Color background;
+	public AmbientLight ambientLight;
+	public Geometries geometries;
+	public LinkedList<LightSource> lights = new LinkedList<LightSource>();
 	
 	public Scene(String name) {
 		this.name = name;
 		this.background = Color.BLACK;
-		this.ambientLight = new AmbientLight(); //not sure if i should have this here ... ?
+		this.ambientLight = new AmbientLight(); 
 		this.geometries = new Geometries();
 	}
 	
-	public Scene setBackground (Color color) { background = color; return this;}
+	/**
+	 * setter
+	 * @param color
+	 * @return this, according to the builder pattern
+	 */
+	public Scene setBackground (Color color) { 
+		background = color; 
+		return this;
+	}
 	
+	/**
+	 * setter
+	 * @param color
+	 * @param ka = attenuation factor
+	 * @return this, according to the builder pattern
+	 */
 	public Scene setAmbientLight (Color color , Double3 ka) {
 		this.ambientLight = new AmbientLight(color, ka); 
 		return this;
 	}
 	
+	/**
+	 * setter
+	 * @param ambientLight
+	 * @return this, according to the builder pattern
+	 */
 	public Scene setAmbientLight (AmbientLight ambientLight) {
 		this.ambientLight = ambientLight;
 		return this;
 	}
 	
 	/**
-	 * 
+	 * setter
 	 * @param lights
-	 * @return this. builder pattern
+	 * @return this, according to the builder pattern
 	 */
 	public Scene setLights(LinkedList<LightSource> lights) {
 		this.lights = lights;
@@ -53,29 +71,13 @@ public class Scene {
 	}
 	
 	/**
-	 * getter
-	 * @return lights
+	 * setter
+	 * @param geometries
+	 * @return this, according to the builder pattern
 	 */
-	public LinkedList<LightSource> getLights(){
-		return lights;
-	}
-	
 	public Scene setGeometries(Intersectable... geometries) {
-		
 		this.geometries.add(geometries);
 		return this;
-	}
-	
-	public Geometries getGeometries() {
-		return geometries;
-	}
-	
-	public AmbientLight getAmbientLight() {
-		return ambientLight;
-	}
-
-	public Color getBackground() {
-		return background;
 	}
 
 }

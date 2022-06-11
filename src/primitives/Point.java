@@ -2,31 +2,19 @@ package primitives;
 
 import java.lang.Math;
 /**
- * Class Point is the basic class representing a point of Euclidean Geometry in Cartesian
- * 3-Dimensional coordinate system
+ * Class Point is the basic class representing a point of Euclidean Geometry in Cartesian 3-Dimensional coordinate system
  * @author Yaakovah, Meira, Tali
  */
 public class Point {
 	
 	final Double3 xyz;
 
-	/** Constructor to initialize Point based object with its Double3
-	 * 
-	 * @param double3 coordinate values
-	 */
 	public Point(Double3 double3){
 		this.xyz = double3;
 	}
-	/**
-	 * Constructor to initialize Point based object with its three number values
-	 * 
-	 * @param d1 first number value
-	 * @param d2 second number value
-	 * @param d3 third number value
-	 */
+
 	public Point(double d1, double d2, double d3){
 		this.xyz = new Double3(d1, d2, d3);
-
 	}
 	
 	@Override
@@ -39,81 +27,53 @@ public class Point {
 		return xyz.equals(other.xyz);
 	}
 	
-	
 	@Override
 	public String toString() {
 		return xyz.toString();	
 	}
 	
 	/**
-	 * Sum two points into a new point 
-	 * 
-	 * @param vector right handle side operand for addition
-	 * @return result of add
+	 * @brief Sum a point and a vector
+	 * @param vector right hand side operand for addition
+	 * @return point that is a result of adding
 	 */
 	public Point add(Vector vector) {
 		return new Point(vector.xyz.add(this.xyz));
-		
 	}
 	
 	/**
-	 * Subtract point from vector into a new vector 
-	 * 
-	 * @param point right hand side operand for subtraction
-	 * @return result of substract
+	 * @brief subtract point from vector into a new vector 
+	 * @param point = right hand side operand for subtraction
+	 * @return result of substraction
 	 * @throws Exception 
 	 */
 	public Vector subtract(Point point) {
 		return new Vector(this.xyz.subtract(point.xyz));
-		//to do
 	}
 	
 	/**
-	 * Method to assist in calculating the distance between two points
-	 * d = ((x2 - x1)^2 + (y2 - y1)^2 + (z2 - z1)^2)^(1/2) 
-	 * temp1 is the x2-x1 portion
-	 * temp2 is the ()^2 portion
-	 * temp3 is the addition
+	 * @brief Method to assist in calculating the distance between two points
 	 * @param point the point we are finding the distance to
+	 * @return distance squared between two points
 	 */
 	public double distanceSquared(Point point) {
 		
-		Point temp1 = new Point(this.xyz.subtract(point.xyz));
+		Point temp1 = new Point(this.xyz.subtract(point.xyz)); //x2-x1, y2-y1, z2-z1
+		
 		//x*x,y*y,z*z using double3 product function
 		Point temp2 = new Point(temp1.xyz.product(temp1.xyz));
-		
-		//double temp3 = (double) temp2.xyz.hashCode();
-		
-		double temp3 = temp2.xyz.sumXYZ();
+	
+		double temp3 = temp2.xyz.sumElements();
 		
 		return Math.abs(temp3);	
 	}
 	
 	/**
-	 * Method to calculate the distance between two points
-	 * d = ((x2 - x1)^2 + (y2 - y1)^2 + (z2 - z1)^2)^(1/2) 
-	 * temp1 is the ()^(1/2) portion
+	 * @brief Method to calculate the distance between two points, using the distanceSquared function
 	 * @param point the point we are finding the distance to
+	 * @return distance
 	 */
 	public double distance(Point point) {
-	
-		double temp1 = Math.sqrt(distanceSquared(point));
-		return temp1;
+		return Math.sqrt(distanceSquared(point));
 	}
-	
-	public double getX() {
-		
-		return this.xyz.d1;
-	}
-	
-	public double getY() {
-		
-		return this.xyz.d2;
-	}
-
-	public double getZ() {
-	
-	return this.xyz.d3;
-	}
-	
 }

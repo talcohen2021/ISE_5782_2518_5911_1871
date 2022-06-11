@@ -9,23 +9,16 @@ import primitives.Vector;
 
 /**
  * @author Yaakovah, Meira, Tali
- *
+ * distance doesnt matter because directional light is not reduced by distance
  */
 public class DirectionalLight extends Light implements LightSource {
 
 	private Vector direction;
-	
-	/**
-	 * 
-	 * @param intensity
-	 * @param direction
-	 * @throws Exception
-	 */
+
 	public DirectionalLight(Color intensity, Vector direction) throws Exception {
 		super(intensity);
 		this.direction = direction;
 	}
-	
 	
 	@Override
 	public Color getIntensity(Point p) {
@@ -37,6 +30,10 @@ public class DirectionalLight extends Light implements LightSource {
 		return direction.normalize();
 	}
 
+	/**
+	 * @param point = the point to get the distance to
+	 * @return infinity because distance doesnt matter because directional light is not reduced by distance
+	 */
 	public double getDistance(Point point)
 	{
 		return Double.POSITIVE_INFINITY;

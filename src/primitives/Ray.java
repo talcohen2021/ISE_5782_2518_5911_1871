@@ -7,16 +7,15 @@ import geometries.Plane;
 import geometries.Intersectable.GeoPoint;
 
 /**
- * Class Ray is the basic class representing a Ray of Euclidean Geometry in Cartesian
- * 3-Dimensional coordinate system
- * @author Tali Cohen and Meira Grafstein and Yaakovah Bacharach 
+ * Class Ray is the basic class representing a Ray of Euclidean Geometry in Cartesian 3-Dimensional coordinate system
+ * @author Yaakovah, Meira, Tali 
  */
 public class Ray {
 	
 	final Point p0;
-	final Vector dir; //
-	private static final double DELTA = 0.1;
-	
+	final Vector dir; 
+	//DELTA is needed for moving the head of a ray an infinitesimal to prevent self intersection
+	private static final double DELTA = 0.1; 
 	
 	/** Constructor to initialize Ray object with a Point and a Vector
 	 * 
@@ -29,7 +28,7 @@ public class Ray {
 		this.dir = vector.normalize();
 	}
 	
-	/** Constructor to initialize Ray object with a Point and a Vector
+	/** Constructor to initialize Ray object with a Point and two Vectors
 	 * 
 	 * @param point coordinate value start of ray - it is the point of the geoPoint that we will create
 	 * @param direction - direction of ray (normalised)
@@ -40,12 +39,17 @@ public class Ray {
 		
 		double dotProduct = normal.dotProduct(direction);
 		double scale;
+		
+		//deciding which direction to move the ray in, based on the direction of the vector
 		if(dotProduct >= 0)
 			scale = DELTA;
 		else 
 			scale = -DELTA;
+		
+		//moving the rays head
 		Vector delta = normal.scale(scale);
 		p0 = point.add(delta);
+		
 		dir=direction;
 	}
 	
@@ -78,12 +82,12 @@ public class Ray {
 	}
 	
 	/** 
-	 * 
 	 * @param points - list of points
 	 * @return closest point to the ray's head
 	 * @throws Exception 
 	 */
 	public Point findClosestPoint(List<Point> points) {
+		
 	    return ((points == null) || (points.isEmpty())) ? null
 	           : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
 	} 
@@ -97,13 +101,13 @@ public class Ray {
 	 */
 	public GeoPoint findClosestGeoPoint(List<GeoPoint> points) {
 		
-		double smallestDistance = Double.MAX_VALUE;
 		if(points == null) 
 			return null;
 		
+		double smallestDistance = Double.MAX_VALUE;
 		GeoPoint closestGeoPoint = points.get(0);
-		//GeoPoint closestGeoPoint = new GeoPoint(new Plane(new Point(0,0,0), new Vector(1,1,1)), new Point(1, 1, 1));
-		
+	
+		//go through list and if find a distance thats shorter than current shortest distance, update closest distance and closest GeoPoint
 		for(GeoPoint p : points) {
 			double tempDistance = this.p0.distance(p.point);
 			if(tempDistance < smallestDistance) {
@@ -112,10 +116,6 @@ public class Ray {
 			}
 		}
 		return closestGeoPoint;
-	}
-	
-	public Point getHead() {
-		return p0.add(dir);
 	}
 	
 }

@@ -63,7 +63,10 @@ public class Double3 {
 	}
 
 
-	public double sumXYZ() {
+	/**
+	 * @return d1 + d2 + d3
+	 */
+	public double sumElements() {
 		return d1 + d2 + d3;
 	}
 	
@@ -129,7 +132,6 @@ public class Double3 {
 	}
 	
 	/**
-	 * 
 	 * @return the Double3 with all of its values being in abs value
 	 */
 	public Double3 abs() {
@@ -137,7 +139,6 @@ public class Double3 {
 	}
 	
 	/**
-	 * 
 	 * @return the double3 in double form, if d1=d2=d3
 	 * @throws Exception
 	 */

@@ -8,9 +8,9 @@ import primitives.Double3;
 
 /**
  * @author Yaakovah, Meira, Tali
- *
+ *AmbientLight is the background light
  */
-public class AmbientLight extends Light { //AmbientLight is like the background light..Think light on phone that can be brightened
+public class AmbientLight extends Light { 
 	
 	
 	/**
