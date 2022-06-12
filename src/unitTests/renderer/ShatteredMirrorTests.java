@@ -32,16 +32,19 @@ import static org.junit.jupiter.api.Assertions.*;
 */
 public class ShatteredMirrorTests {
 	private Scene scene = new Scene("Test scene") //
-			.setAmbientLight(new AmbientLight(new Color(255, 255, 255), new Double3(0.1)));//.setBackground(new Color(WHITE));
+			.setAmbientLight(new AmbientLight(new Color(255, 255, 255), new Double3(0.1))).setBackground(new Color(WHITE));
 	
 	private Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 			.setVPSize(200, 200)//
+			.setVPDistance(1000);
+	private Camera camera1 = new Camera(new Point(0, 0, 2000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+			.setVPSize(500, 500)//
 			.setVPDistance(1000);
 	
 	private Material material = new Material().setKR(new Double3(1)).setShininess(30).setKT(1);
 	private Material material2 = new Material().setKR(new Double3(1)).setShininess(30);
 	private Color colour = new Color(0,0,0);
-	private Color colour2 = new Color(20,20,20);
+	private Color colour2 = new Color(RED);
 	private Color trCL = new Color(400, 600, 350); // Triangles test Color of Light
 	private Vector trDL = new Vector(0,1,-50); // Triangles test Direction of Light
 	private Vector trDL2 = new Vector(0,-1,50);
@@ -217,6 +220,16 @@ public class ShatteredMirrorTests {
 			new Point(1498, 929, 0),//4
 			new Point(-1422, -2404, 0)//5
 		};
+		private Point[] squarePoints = {//
+				new Point(-500, 500, -1000),//0 A
+				new Point(500, 500, -1000),//1 B
+				new Point(-500, -500, -1000),//2 C
+				new Point(500, -500, -1000),//3 D
+				new Point(500, 500, 0),//4 E
+				new Point(-500, 500, 0),//5 F
+				new Point(-500, -500, 0),//6 G
+				new Point(500, -500, 0)//7 H
+		};
 		private Geometry triangle1 = new Triangle(p[0],p[1],p[9]).setMaterial(material).setEmission(colour);
 		private Geometry triangle2 =  new Triangle(p[13],p[14],p[22]).setMaterial(material).setEmission(colour);
 		private Geometry triangle3 =  new Triangle(p[30],p[14],p[23]).setMaterial(material).setEmission(colour);
@@ -237,10 +250,18 @@ public class ShatteredMirrorTests {
 		private Geometry plane1 = new Plane(p[136], p[8], p[0]).setMaterial(material2);
 		private Geometry plane2 = new Plane(planePoints[0], planePoints[1], planePoints[2]).setMaterial(material2);
 		private Geometry plane3 = new Plane(planePoints[3], planePoints[4], planePoints[5]).setMaterial(material2);
+		private Geometry square1 = new Polygon(squarePoints[0], squarePoints[1], squarePoints[3], squarePoints[2]).setMaterial(material2).setEmission(colour2);
+		//private Geometry square2 = new Polygon(squarePoints[1], squarePoints[3], squarePoints[4], squarePoints[7]).setMaterial(material2).setEmission(colour);
+		//private Geometry square3 = new Polygon(squarePoints[0], squarePoints[2], squarePoints[5], squarePoints[6]).setMaterial(material2).setEmission(colour);
 		private Geometry sphere5 = new Sphere(new Point(50, -80, -70), 10d).setEmission(new Color(RED)) 
 				.setMaterial(new Material().setKD(0.4).setKS(0.3).setShininess(100).setKT(new Double3(0.3)));
 		private Geometry sphere6 = new Sphere(new Point(50, -80, -70), 5d).setEmission(new Color(GREEN)) 
 				.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(100));
+		private Geometry tri1 = new Polygon(squarePoints[0], squarePoints[1], squarePoints[3]).setMaterial(material2).setEmission(colour2);
+		private Geometry tri2 = new Polygon(squarePoints[0], squarePoints[1], squarePoints[2]).setMaterial(material2).setEmission(colour2);
+		private Geometry tri3 = new Triangle(squarePoints[0], squarePoints[1], squarePoints[3]).setMaterial(material2).setEmission(colour2);
+		private Geometry tri4 = new Triangle(squarePoints[0], squarePoints[1], squarePoints[2]).setMaterial(material2).setEmission(colour2);
+
 			 //
 		/*Triangle triangle1 = new Triangle(p[0],p[1],p[9]);
 		Triangle triangle1 = new Triangle(p[0],p[1],p[9]);
@@ -291,6 +312,37 @@ public class ShatteredMirrorTests {
 					.setRayTraceBase(new RayTracerBasic(scene)); //
 			camera.renderImage(); //
 			camera.writeToImage();
+		}
+		
+		@Test
+		public void cube() throws Exception {
+			scene.geometries.add(square1, tri1,tri2, tri3, tri4);//square2,square3);
+			
+			/*for(int i = 0; i < 145; i+=5) {
+				if(i%2==0) {
+					scene.getGeometries().add(//
+							new Sphere(p[i], 8d).setEmission(new Color(RED)) 
+								.setMaterial(new Material().setKD(0.4).setKS(0.3).setShininess(100).setKT(new Double3(0.3))),
+							new Sphere(p[i], 4d).setEmission(new Color(GREEN)) 
+								.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(100)));
+				}
+				else {
+					scene.getGeometries().add(//
+							new Sphere(p[i], 8d).setEmission(new Color(0, 0, 100)) //
+								.setMaterial(new Material().setKD(0.25).setKS(0.25).setShininess(20).setKT(new Double3(0.5))),
+					 		new Sphere(p[i], 4d).setEmission(new Color(100, 20, 20)) //
+					 			.setMaterial(new Material().setKD(0.25).setKS(0.25).setShininess(20)));
+				}
+					
+			}*/
+			scene.lights.add(new DirectionalLight(trCL, new Vector(-1000,0,-1000)));
+			scene.lights.add(new DirectionalLight(trCL,  new Vector(-500,0,-1500)));
+
+			ImageWriter imageWriter = new ImageWriter("cube test", 500, 500);
+			camera1.setImageWriter(imageWriter) //
+					.setRayTraceBase(new RayTracerBasic(scene)); //
+			camera1.renderImage(); //
+			camera1.writeToImage();
 		}
 	
 }
