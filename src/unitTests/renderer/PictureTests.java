@@ -95,7 +95,9 @@ public class PictureTests {
 					.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(25).setKR(new Double3(0.5))),
 				//make sphere on bottom right
 				new Sphere(new Point(60, -50, -50), 30d).setEmission(new Color(BLUE)) 
-					.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(30)));
+					.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(30)),
+				new Sphere(new Point(0, 0, -100), 25d).setEmission(new Color(RED)) 
+					.setMaterial(new Material().setKD(0.4).setKS(0.3).setShininess(100).setKT(new Double3(0.3))));
 	
 		scene.lights.add(new DirectionalLight(new Color(RED), new Vector(-2,-2,-2)));
 		scene.lights.add(new DirectionalLight(new Color(GREEN), new Vector(0,1,-50)));
@@ -114,7 +116,7 @@ public class PictureTests {
 	
 	@Test
 	public void makePictureSuper() throws Exception {
-		camera.setFPDistance(1010).setApertureSize(10);
+		camera.setFocalPlane(2500).setApertureSize(10);
 		scene.geometries.add(
 				triangle1.setEmission(new Color(WHITE)).setEmission(new Color(BLUE)) 
 					.setMaterial(new Material().setKR(0.5).setKS(0.5).setKT(0.2)), 
@@ -135,7 +137,9 @@ public class PictureTests {
 					.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(25).setKR(new Double3(0.5))),
 				//make sphere on bottom right
 				new Sphere(new Point(60, -50, -50), 30d).setEmission(new Color(BLUE)) 
-					.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(30)));
+					.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(30)),
+				new Sphere(new Point(0, 0, -100), 25d).setEmission(new Color(RED)) 
+					.setMaterial(new Material().setKD(0.4).setKS(0.3).setShininess(100).setKT(new Double3(0.3))));
 	
 		scene.lights.add(new DirectionalLight(new Color(RED), new Vector(-2,-2,-2)));
 		scene.lights.add(new DirectionalLight(new Color(GREEN), new Vector(0,1,-50)));

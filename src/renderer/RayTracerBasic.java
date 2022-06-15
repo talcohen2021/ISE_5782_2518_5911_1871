@@ -50,21 +50,42 @@ public class RayTracerBasic extends RayTraceBase {
 		 * when there are no intersections the color will be the background color. Otherwise, finds the closest 
 		 * point to the ray's head (by using the method that we implemented in phase 3) and adds the color of it
 		 * finally the average is taken
-		 * */
-		Color averageColor = Color.BLACK; //setting to black as the zeros shouldn't affect the average
+		 * */ 
+		if (rays.size()==0)
+			return scene.background;
+		Color averageColor = new Color(0,0,0); //setting to black as the zeros shouldn't affect the average
 		//loop through all rays from aperture to and average the colour of the intersections
+
 		for(int i = 0 ; i < rays.size() ; i++) {
 			Ray singleRay = rays.get(i);
 			GeoPoint closestIntersection = findClosestIntersection(singleRay);
 			if(closestIntersection == null)
-				averageColor.add(scene.background);
-			else
-				averageColor.add(calcColor(closestIntersection, singleRay));
+				averageColor = averageColor.add(scene.background.reduce(rays.size()));
+			else {
+				
+				Color c = calcColor(closestIntersection, singleRay);
+				averageColor = averageColor.add(c.reduce(rays.size()));
+			}
+		}	
+		return averageColor;
+				
+	} 
+	/*
+	@Override
+	public Color traceRaySuperSample(List<Ray> rays) throws Exception{
+		if(rays.size() == 0) {
+			System.out.println("no interection");
+			return new Color(0,0,255);
 		}
-		return averageColor.scale(1/rays.size());
+		Ray ray = rays.get(1);
+		GeoPoint closestIntersection = findClosestIntersection(ray);
+		if(closestIntersection == null)
+			return scene.background;
+		return calcColor(closestIntersection, ray);
+		
 				
 	}
-	
+*/	
 	/**
 	 * @brief adds the object's color to the point's color. supports reflection and refraction
 	 * @param intersection - a Geopoint that is being intersected that we will calculate the color of
