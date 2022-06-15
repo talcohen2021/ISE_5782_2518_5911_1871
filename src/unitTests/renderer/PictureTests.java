@@ -23,6 +23,8 @@ import scene.Scene;
 import static java.awt.Color.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Scanner;
+
 
 
 /**
@@ -116,7 +118,20 @@ public class PictureTests {
 	
 	@Test
 	public void makePictureSuper() throws Exception {
-		camera.setFocalPlane(2500).setApertureSize(10);
+		
+		Scanner scan = new Scanner(System.in);
+		double focalPlaneDistance = 1000;
+		double apertureSize = 1;
+		int numOfRays = 81;
+		
+		System.out.println("Please enter your preferred focal plane distance. Must be greater than view plane distance" );
+		focalPlaneDistance = scan.nextDouble();
+		System.out.println("Please enter your preferred aperture size. ");
+	    apertureSize = scan.nextDouble();
+	    System.out.println("Please enter your preferred super sampling size. ");
+	    numOfRays = scan.nextInt();
+		
+		camera.setFocalPlane(focalPlaneDistance).setApertureSize(apertureSize);
 		scene.geometries.add(
 				triangle1.setEmission(new Color(WHITE)).setEmission(new Color(BLUE)) 
 					.setMaterial(new Material().setKR(0.5).setKS(0.5).setKT(0.2)), 
@@ -151,7 +166,7 @@ public class PictureTests {
 		ImageWriter imageWriter = new ImageWriter("ourPicturesuper", 500, 500);
 		camera.setImageWriter(imageWriter) //
 				.setRayTraceBase(new RayTracerBasic(scene));
-		camera.renderImageSuperSampling(81);
+		camera.renderImageSuperSampling(numOfRays);
 		camera.writeToImage(); 		
 	}
 
