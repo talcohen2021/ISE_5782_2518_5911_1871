@@ -70,22 +70,7 @@ public class RayTracerBasic extends RayTraceBase {
 		return averageColor;
 				
 	} 
-	/*
-	@Override
-	public Color traceRaySuperSample(List<Ray> rays) throws Exception{
-		if(rays.size() == 0) {
-			System.out.println("no interection");
-			return new Color(0,0,255);
-		}
-		Ray ray = rays.get(1);
-		GeoPoint closestIntersection = findClosestIntersection(ray);
-		if(closestIntersection == null)
-			return scene.background;
-		return calcColor(closestIntersection, ray);
-		
-				
-	}
-*/	
+	
 	/**
 	 * @brief adds the object's color to the point's color. supports reflection and refraction
 	 * @param intersection - a Geopoint that is being intersected that we will calculate the color of
@@ -142,10 +127,10 @@ public class RayTracerBasic extends RayTraceBase {
 		
 		int nShininess= intersection.geometry.getShininess();
 		
-		//diffuse
+		//diffuse coefficient of the geometry
 		Double3 kd= intersection.geometry.getKD();
 		
-		//specular
+		//specular coefficient of the geometry
 		Double3 ks= intersection.geometry.getKS();
 		Color color= Color.BLACK;
 		
@@ -176,23 +161,34 @@ public class RayTracerBasic extends RayTraceBase {
 	private Color calcGlobalEffects(GeoPoint intersection, Ray ray, int level, double k) throws Exception 
 	{
 		Color color = Color.BLACK;
+		
+		//calculate intersections with the reflected ray
 		Ray reflectedRay = getReflectedRay(intersection, ray);
 		GeoPoint reflectedPoint = findClosestIntersection(reflectedRay);
 		
+		//reflective coefficient of the geometry
 		Double3 kr = intersection.geometry.getKR();
+		//scaled by k
 		Double3 kkr = kr.scale(k);
 		
+		//only if intersection with geometry found do we find the colour we should be adding
 		if(reflectedPoint != null)
+				//only add the colour if not insignificant
 				if (kkr.castToDouble() > MIN_CALC_COLOR_K) 
 					color = color.add(calcColor(reflectedPoint, reflectedRay, level-1, kkr.castToDouble()).scale(kr)); 
 		
+		//refractive (transparency) coefficient of the geometry
 		Double3 kt = intersection.geometry.getKT();
+		//scaled by k
 		Double3 kkt = kt.scale(k);
 		
+		//calculate intersections with the refracted ray
 		Ray refractedRay = getRefractedRay(intersection, ray);
 		GeoPoint refractedPoint = findClosestIntersection(refractedRay);
 		
+		//only if intersection with geometry found do we find the colour we should be adding
 		if(refractedPoint != null)
+			//only add the colour if not insignificant
 			if(kkt.castToDouble() > MIN_CALC_COLOR_K) 
 				color = color.add(calcColor(refractedPoint, refractedRay, level-1, kkt.castToDouble()).scale(kt)); 
 		return color;
@@ -237,24 +233,27 @@ public class RayTracerBasic extends RayTraceBase {
 	 */
 	private double transparency(GeoPoint geoPoint, LightSource ls, Vector l, Vector n)throws Exception {
 		
-		//the diection from point to light source
+		//the direction from point to light source
 		Vector lightDirection = l.scale(-1); 
 		
 		Ray lightRay = new Ray(geoPoint.point, lightDirection, n);
 		List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);	
 		
-		//transparency
+		//transparency coefficient
 		double ktr = 1; 
 		
+		//no intersection equals no shading to take into account
 		if(intersections==null) 
 			return ktr;
 		
 		else
 		{	
+			//discover if the intersection found is between the lightsource and the object in question
 			double distanceBtwnGpLs = ls.getDistance(lightRay.getP0());
 			for (GeoPoint geo : intersections)
 			{
 				double tempDistance = geo.point.distance(lightRay.getP0());		
+				//if it is some shading occurs - as dictated by the transparency coefficient
 				if(tempDistance <= distanceBtwnGpLs)
 					ktr = geo.geometry.getKT().scale(ktr).castToDouble();		
 			}		

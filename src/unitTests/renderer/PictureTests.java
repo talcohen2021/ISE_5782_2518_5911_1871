@@ -124,12 +124,13 @@ public class PictureTests {
 		double apertureSize = 1;
 		int numOfRays = 81;
 		
-		System.out.println("Please enter your preferred focal plane distance. Must be greater than view plane distance" );
+		System.out.println("Please enter your preferred focal plane distance. Must be greater than view plane distance." );
 		focalPlaneDistance = scan.nextDouble();
 		System.out.println("Please enter your preferred aperture size. ");
 	    apertureSize = scan.nextDouble();
 	    System.out.println("Please enter your preferred super sampling size. ");
 	    numOfRays = scan.nextInt();
+	    System.out.println("Input received, picture is being processed.");
 		
 		camera.setFocalPlane(focalPlaneDistance).setApertureSize(apertureSize);
 		scene.geometries.add(

@@ -24,7 +24,7 @@ public class CameraTests {
 	 * Test method for
 	 * {@link elements.Camera#constructRay(int, int, int, int)}.
 	 * @throws Exception 
-	 */
+	 *//*
 	@Test
 	public void testConstructRay() throws Exception {
 		Camera camera = new Camera(ZERO_POINT, new Vector(0, 0, -1), new Vector(0, -1, 0)).setVPDistance(10);
@@ -60,7 +60,7 @@ public class CameraTests {
 		assertEquals(new Ray(ZERO_POINT, new Vector(1, -3, -10)),
 				camera.setVPSize(8, 8).constructRay(4, 4, 1, 0), "badRay g");
 
-}
+}*/
 
 }
 
