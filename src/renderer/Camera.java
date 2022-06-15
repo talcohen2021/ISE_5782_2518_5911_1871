@@ -21,7 +21,6 @@ public class Camera {
 	private Vector vTo, vUp, vRight; // axis of the camera - vTo = z , vUp = y, vRight = x
 	private double distance; // distance of the camera from the viewplane
 	private double  width, height ; // width and height of the viewplane
-	private double distance2FocusPlane; // distance of the camera from the focusplane
 	private double  radiusAperture; //radius of the aperture
 	private ImageWriter imageWriter;
 	private RayTraceBase rayTraceBase;
@@ -69,26 +68,22 @@ public class Camera {
 	 * @param distance distance of the focal plane
 	 * @return this (camera)
 	 */
-	public Camera setFPDistance(double fpdistance) throws Exception {
+	public Camera setFocalPlane(double fpdistance) throws Exception {
 		if(this.distance == 0) {
 			throw new Exception("Must set VPdistance first");
 		}
 		//focal plane should be beyond the view plane
 		if(fpdistance > this.distance) {
-			this.distance2FocusPlane = fpdistance;
-			setFPPlane();
+			//creating plane that is perpendicular to vTo and distance2FocusPlane away from camera
+			//thus it is parallel to the view plane
+			Point centralPoint = p0.add(vTo.scale(fpdistance));
+			this.focalPlane = new Plane(centralPoint, vTo);
 		}
 		else 
 			throw new Exception("Focal plane distance must be greater than view pLane distance");
 		return this;
 	}
 	
-	private void setFPPlane() {
-		//creating plane that is perpendicular to vTo and distance2FocusPlane away from camera
-		//thus it is parallel to the view plane
-		Point pc = p0.add(vTo.scale(this.distance2FocusPlane));
-		this.focalPlane = new Plane(pc, vTo);
-	}
 	
 	public void setApertureSize(double radius) {
 		this.radiusAperture = radius;
@@ -181,7 +176,8 @@ public class Camera {
 	}
 	
 	/**
-	 * @brief creates a list of rays for super sampling 
+	 * @brief creates a list of rays within the aperture (that lies on the viewplane) 
+	 * to the focal plane for super sampling 
 	 * @param pixel - central point of aperture
 	 * @param fpIntersection - focal point on focal ray
 	 * @param numOfRays - number of sample rays
@@ -201,7 +197,7 @@ public class Camera {
 			y = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
 			z = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
 			Point newPoint= pixel.add(new Vector(x,y,z));
-			if(newPoint.distance(pixel)<=radiusAperture) {
+			if(newPoint.distance(pixel) <= radiusAperture) {
 				Vector dir = fpIntersection.subtract(newPoint).normalize();
 				sampleRays.add(new Ray(newPoint, dir));
 			}
@@ -274,6 +270,13 @@ public class Camera {
 				List<Ray> superSampleRays = apertureCreateRays(pixel, fpIntersection, numOfRays);//list of rays for super sampling
 				Color pixelColor = this.rayTraceBase.traceRaySuperSample(superSampleRays); //averaged color
 				imageWriter.writePixel(col,row,pixelColor);
+				/*
+			    Point pixel = findPixel(nX, nY, col, row);
+				Ray ray = constructRay(pixel);
+				Color pixelColor = this.rayTraceBase.traceRay(ray);
+				imageWriter.writePixel(col,row,pixelColor);
+				
+				 */
 				
 			}
 		

@@ -43,8 +43,6 @@ public class RayTracerBasic extends RayTraceBase {
 				
 	}
 	
-	
-	
 	@Override
 	public Color traceRaySuperSample(List<Ray> rays) throws Exception{
 		/*
