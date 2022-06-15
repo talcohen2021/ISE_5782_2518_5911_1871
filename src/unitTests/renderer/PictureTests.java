@@ -132,6 +132,8 @@ public class PictureTests {
 	    numOfRays = scan.nextInt();
 	    System.out.println("Input received, picture is being processed.");
 		
+	    scan.close();
+	    
 		camera.setFocalPlane(focalPlaneDistance).setApertureSize(apertureSize);
 		scene.geometries.add(
 				triangle1.setEmission(new Color(WHITE)).setEmission(new Color(BLUE)) 
