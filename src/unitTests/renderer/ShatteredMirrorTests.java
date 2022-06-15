@@ -24,8 +24,6 @@ import scene.Scene;
 import static java.awt.Color.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-
-
 /**
 * @author Yaakovah, Meira, Tali
 *

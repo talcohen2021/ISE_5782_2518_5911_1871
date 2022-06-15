@@ -1,7 +1,3 @@
-/**
-
- * 
- */
 package unitTests.geometries;
 import org.junit.Test;
 
@@ -9,7 +5,7 @@ import primitives.*;
 import geometries.*;
 
 /**
- * @author meira
+ * @author Yaakovah, Meira, Tali
  *
  */
 public class CylinderTests {
@@ -21,7 +17,6 @@ public class CylinderTests {
 	 */
 	@Test
 	public void testGetNormal() throws Exception {
-		//fail("Not yet implemented")
 
 		// ============ Equivalence Partitions Tests ==============
 		
@@ -40,7 +35,6 @@ public class CylinderTests {
 	 */
 	@Test
 	public void testGetNormalBase() throws Exception {
-		//fail("Not yet implemented")
 
 		// ============ Equivalence Partitions Tests ==============
 		
@@ -59,8 +53,7 @@ public class CylinderTests {
 	 */
 	@Test
 	public void testGetNormalTop() throws Exception {
-		//fail("Not yet implemented")
-
+		
 		// ============ Equivalence Partitions Tests ==============
 		
 		Cylinder c = new Cylinder(new Ray(new Point(0,0,0), new Vector(1,1,1)), 1,100);
@@ -73,7 +66,3 @@ public class CylinderTests {
 	}
 
 }
-
-/*For those who create a getNormal for finite cylinder – there are 3 equivalence tests (on the side and on each one of 
-the bases) and two boundaries – the center of the bases. (There is no need to check points on the connection between bases 
-and side of tube, since no points like this will be created in the findIntersections method).*/

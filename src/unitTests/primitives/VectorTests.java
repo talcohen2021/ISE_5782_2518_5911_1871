@@ -1,18 +1,14 @@
-/**
- * 
- */
 package unitTests.primitives;
 
-import static java.lang.System.out;
+
 import org.junit.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import static primitives.Util.isZero;
 
 import primitives.Point;
 import primitives.Vector;
 
 /**
- * @author Meira
+ * @author Yaakovah, Meira, Tali
  *
  */
 public class VectorTests {
@@ -47,7 +43,6 @@ public class VectorTests {
 	public void testCrossProduct() throws Exception {
 		Vector v1 = new Vector(1, 2, 3);
 		Vector v3 = new Vector(0, 3, -2);
-		//fail("Not yet implemented");
 		Vector vr = v1.crossProduct(v3);
 		assert(isZero(vr.length() - v1.length() * v3.length()));
 		assert(isZero(vr.dotProduct(v1)) && isZero(vr.dotProduct(v3)));

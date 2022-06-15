@@ -13,18 +13,28 @@ import renderer.Camera;
 
 import geometries.Intersectable.GeoPoint;
 
+/**
+* @author Yaakovah, Meira, Tali
+*
+*/
 public class CameraIntegrationTests {
 	
+	/**
+	 * @brief set up the camera
+	 * @param cam = the camera
+	 * @param dist = the distance
+	 * @param width
+	 * @param height
+	 */
 	public void cameraSetUp (Camera cam, double dist, double width, double height) {
 		cam.setVPDistance(dist);
 		cam.setVPSize(width, height);
 	}
 	
 	/**
-	 * @param cam the camera
-	 * @param geometry the geometry we're intersecting
-	 * @return the number of intersections between the cameras rays of a 3x3 view plane
-	 *  and the geometry
+	 * @param cam = the camera
+	 * @param geometry = the geometry we're intersecting
+	 * @return the number of intersections between the cameras rays of a 3x3 view plane and the geometry
 	 * @throws Exception 
 	 */
 	public int intersectionCalculator(Camera cam, Geometry geometry) throws Exception {
@@ -41,20 +51,15 @@ public class CameraIntegrationTests {
 		}
 	return count;
 	}
-//trying to comment out
 	
 
 	@Test
 	public void sphereIntegrationTest() throws Exception {
-		//orig
-		//Camera cam = new Camera(new Point(Double3.ZERO), new Vector(0,1,0), new Vector(0,0,-1));
-		//cameraSetUp(cam, 1, 3, 3);
+		
 		/*---- sphere tests------*/
 	
-		//orig (switched vtoandup
 		Camera cam = new Camera(new Point(Double3.ZERO), new Vector(0,0,-1), new Vector(0,-1,0));
 		cameraSetUp(cam, 1, 3, 3); 
-		/*---- sphere tests------*/
 		
 		Sphere sphere = new Sphere(new Point(0,0,-3), 1);
 		
@@ -91,12 +96,11 @@ public class CameraIntegrationTests {
 		Plane plane = new Plane(new Point(0,0,-10), new Vector(0,0,1));
 		assertEquals("there should be 9 intersections a", intersectionCalculator(cam, plane), 9);
 		
-		//tc 2  //this test is failing  there should be 9 intersections b expected:<6> but was:<9>
-		//orig : 
+		//tc 2  
 		plane = new Plane(new Point(0,0,-5), new Vector(0,1, 2));  
 		assertEquals("there should be 9 intersections b", intersectionCalculator(cam, plane), 9);
 		
-		//tc 3 //this test is failing  there should be 6 intersections expected:<4> but was:<6>
+		//tc 3 
 		plane = new Plane(new Point(0,0,-5), new Vector(0,1,1)); 
 		assertEquals("there should be 6 intersections ", intersectionCalculator(cam, plane), 6);
 		

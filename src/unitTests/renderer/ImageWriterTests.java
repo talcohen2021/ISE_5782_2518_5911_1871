@@ -8,9 +8,9 @@ import primitives.Color;
 import renderer.ImageWriter;
 
 /**
- * @author Yaakovah
- *
- */
+* @author Yaakovah, Meira, Tali
+*
+*/
 public class ImageWriterTests {
 
 	/**
@@ -19,10 +19,9 @@ public class ImageWriterTests {
 	@Test
 	public void testWriteToImage() {
 		/*
-		 * ImageWriterTest that will build your first (initial)  image  – an image made up of one color 
-		 * for the background and a second color for the grid. In this test you will build a grid 
+		 * ImageWriterTest that will build initial image  – an image made up of one color 
+		 * for the background and a second color for the grid. Build a grid 
 		 * of 10x16 squares on a screen (ViewPlane) with a resolution of 500 x 800. 
-		 * You may choose whichever colors you wish for the background and grid colors.
 		 * */
 		
 		 int nX = 800;
@@ -40,9 +39,6 @@ public class ImageWriterTests {
 		   
 		 imageWriter.writeToImage();
 			  
-		
-		
-		
 	}
 
 	

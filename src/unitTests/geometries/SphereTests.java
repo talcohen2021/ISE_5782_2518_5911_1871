@@ -13,7 +13,7 @@ import geometries.Intersectable.GeoPoint;
 import geometries.Intersectable.GeoPoint;
 
 /**
- * @author Merekat
+ * @author Yaakovah, Meira, Tali
  *
  */
 public class SphereTests {
@@ -24,7 +24,7 @@ public class SphereTests {
 	 */
 	@Test
 	public void testGetNormal(){
-		//fail("Not yet implemented");
+		
 		// ============ Equivalence Partitions Test ==============
 		try {
 		Sphere s = new Sphere(new Point(0,0,0), 6);

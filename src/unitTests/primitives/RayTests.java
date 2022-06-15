@@ -1,10 +1,5 @@
-/**
- * 
- */
 package unitTests.primitives;
 import org.junit.Test;
-import static org.junit.jupiter.api.Assertions.*;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -16,11 +11,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
-import geometries.Intersectable.GeoPoint;
-import geometries.Plane;
-
 /**
- * @author Yaakovah
+ * @author Yaakovah, Meira, Tali
  *
  */
 public class RayTests {

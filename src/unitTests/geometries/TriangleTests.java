@@ -16,19 +16,11 @@ import primitives.*;
 import geometries.Intersectable.GeoPoint;
 
 /**
- * @author meira
+ * @author Yaakovah, Meira, Tali
  *
  */
 public class TriangleTests {
 
-	/**
-	 * Test method for {@link geometries.Polygon#getNormal(primitives.Point)}.
-	 */
-	//@Test
-	//public void testGetNormal() {
-		//fail("Not yet implemented");
-	//}
-	
 	/**
      * Test method for {@link geometries.Triangle#findIntersections(primitives.Ray)}.
 	 * @throws Exception 
@@ -43,7 +35,6 @@ public class TriangleTests {
 
         
         // ============ Equivalence Partitions Tests ==============
-    	//new error after changing to geopoint - need to discuss
     	//TC00: Ray intersects the triangle in the body
         ray = new Ray(new Point(1, 0, 0), new Vector(5, 5, 5));
         predictedPoint = new GeoPoint(triangle, new Point(4,3,3));

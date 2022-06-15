@@ -33,16 +33,15 @@ import java.util.Scanner;
  */
 public class PictureTests {
 
-	private Scene scene = new Scene("Test scene") //
+	private Scene scene = new Scene("Test scene") 
 			.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15)));
 	
-	private Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-			.setVPSize(200, 200) //
+	private Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) 
+			.setVPSize(200, 200) 
 			.setVPDistance(1000);
 	
-	//private Point trPL = new Point(30, 10, -100); // Triangles test Position of Light
-	private Color trCL = new Color(400, 600, 350); // Triangles test Color of Light
-	private Vector trDL = new Vector(-2, -2, -2); // Triangles test Direction of Light
+	private Color trCL = new Color(400, 600, 350); 
+	private Vector trDL = new Vector(-2, -2, -2); 
 	
 	private Point[] p = { // The Triangles' vertices:
 			new Point(-110, -110, -150), // the shared left-bottom - a - 0
@@ -60,11 +59,9 @@ public class PictureTests {
 	private Material material2 = new Material().setKD(0.9).setKS(0.9).setShininess(500);
 	
 	private Geometry triangle1 = new Triangle(p[0], p[4], p[8]).setMaterial(material); //a,e,i
-	//private Geometry triangle2 = new Triangle(p[2], p[4], p[8]).setMaterial(material2); //c, e, i
 	private Geometry triangle3 = new Triangle(p[0], p[4], p[7]).setMaterial(material); //a, e, h
 	private Geometry triangle4 = new Triangle(p[3], p[4], p[7]).setMaterial(material2); //d, e, h
 	private Geometry triangle5 = new Triangle(p[1], p[4], p[5]).setMaterial(material); //b, e, f
-	//private Geometry triangle6 = new Triangle(p[3], p[4], p[5]).setMaterial(material2); //d, e, f
 	private Geometry triangle7 = new Triangle(p[1], p[4], p[6]).setMaterial(material); //b, e, g
 	private Geometry triangle8 = new Triangle(p[2], p[4], p[6]).setMaterial(material2); //c, e, g
 	
@@ -83,7 +80,6 @@ public class PictureTests {
 				triangle3.setEmission(new Color(WHITE)).setEmission(new Color(BLUE)) 
 					.setMaterial(new Material().setKR(0.5).setKS(0.5).setShininess(30)), 
 				triangle5.setEmission(new Color(WHITE)).setEmission(new Color(BLUE)), 
-				//.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(30)),
 				triangle7.setEmission(new Color(WHITE)).setEmission(new Color(BLUE)),
 				//make shpere on top left
 				new Sphere(new Point(-60, 50, -50), 30d).setEmission(new Color(BLUE)) 
@@ -109,7 +105,7 @@ public class PictureTests {
 
 		
 		ImageWriter imageWriter = new ImageWriter("ourPicture", 500, 500);
-		camera.setImageWriter(imageWriter) //
+		camera.setImageWriter(imageWriter) 
 				.setRayTraceBase(new RayTracerBasic(scene));
 		camera.renderImage();
 		camera.writeToImage(); 		
@@ -141,7 +137,6 @@ public class PictureTests {
 				triangle3.setEmission(new Color(WHITE)).setEmission(new Color(BLUE)) 
 					.setMaterial(new Material().setKR(0.5).setKS(0.5).setShininess(30)), 
 				triangle5.setEmission(new Color(WHITE)).setEmission(new Color(BLUE)), 
-				//.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(30)),
 				triangle7.setEmission(new Color(WHITE)).setEmission(new Color(BLUE)),
 				//make shpere on top left
 				new Sphere(new Point(-60, 50, -50), 30d).setEmission(new Color(BLUE)) 
@@ -161,6 +156,7 @@ public class PictureTests {
 	
 		scene.lights.add(new DirectionalLight(new Color(RED), new Vector(-2,-2,-2)));
 		scene.lights.add(new DirectionalLight(new Color(GREEN), new Vector(0,1,-50)));
+		
 		//create shadows of the spheres
 		scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(60, -50, 0),
 				new Vector(0, 0, -1)).setKL(4E-5).setKQ(2E-7)); 

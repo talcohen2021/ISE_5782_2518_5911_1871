@@ -13,7 +13,7 @@ import geometries.Intersectable.GeoPoint;
 
 //testing(3/4/22)
 /**
- * @author Yaakovah
+ * @author Yaakovah, Meira, Tali
  *
  */
 public class GeometriesTests {
@@ -44,6 +44,7 @@ public class GeometriesTests {
         assertEquals("add to empty failed", geometries.getGeometries(), expected.getGeometries());
     }
 
+	
 	@Test
 	public void testfindIntersections() throws Exception {
 		List<GeoPoint> result = new ArrayList<GeoPoint>();

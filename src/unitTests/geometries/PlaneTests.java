@@ -2,14 +2,9 @@ package unitTests.geometries;
 
 import static org.junit.Assert.assertEquals;
 
-
-//import org.junit.Assert; 
 import org.junit.Test;
 import static org.junit.Assert.assertNull;
-//import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
-
-//import org.junit.jupiter.api.Test;
 
 import geometries.Plane;
 import primitives.*;
@@ -17,8 +12,7 @@ import primitives.*;
 import geometries.Intersectable.GeoPoint;
 
 /**
- * @author Yaakovah
- *
+ * @author Yaakovah, Meira, Tali
  *
  */
 public class PlaneTests {
@@ -30,8 +24,7 @@ public class PlaneTests {
 	 */
 	@Test
 	public void testGetNormalPoint(){
-		//fail("Not yet implemented");
-		
+
 		try {
 			Plane p = new Plane(new Point(1,1,1), new Vector(5,5,5));
 			assertEquals("should be equal", p.getNormal(new Point(1,2,3)).length(), 1, delta);

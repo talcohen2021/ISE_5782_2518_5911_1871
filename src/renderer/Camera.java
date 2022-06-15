@@ -21,40 +21,30 @@ public class Camera {
 	private Vector vTo, vUp, vRight; // axis of the camera - vTo = z , vUp = y, vRight = x
 	private double distance; // distance of the camera from the viewplane
 	private double  width, height ; // width and height of the viewplane
-	private double  radiusAperture; //radius of the aperture
+	private double  radiusAperture; //radius of the aperture (for adjusting the depth of field)
 	private ImageWriter imageWriter;
 	private RayTraceBase rayTraceBase;
-	private Plane focalPlane;
+	private Plane focalPlane; //for adjusting the depth of field
 	
-	
-	/**
-	 * @param p0 the center of the camera from where the vectors start
-	 * @param vUp the up direction
-	 * @param vTo the side direction
-	 * @brief create orthogonal vRight to complete the three axis
-	 */
 	public Camera(Point p0, Vector vTo, Vector vUp)  {
-		//orig :  !isZero(vUp.dotProduct(vTo))
+
 		if(!isZero(vTo.dotProduct(vUp)))
 			throw new IllegalArgumentException("The two vectors must be orthogonal");
 		this.p0 = p0;
-		
 		try {
 			this.vTo = vTo.normalize();
 			this.vUp = vUp.normalize();
-			//orig : added brackets
 			this.vRight = (vTo.crossProduct(vUp)).normalize();
-			// reversed: this.vRight =vUp.crossProduct(vTo).normalize();
 		} catch (Exception e) {
 			System.out.println("Can't have a zero vector");
-		}
-		
+		}	
 	}
 	
 	/**
-	 * @brief set the side of the view plane
-	 * @param width width of the view plane
-	 * @param height height of the view plane
+	 * setter, according to the builder pattern
+	 * @brief set the size of the view plane
+	 * @param width = width of the view plane
+	 * @param height = height of the view plane
 	 * @return this (camera)
 	 */
 	public Camera setVPSize(double width, double height) {
@@ -64,6 +54,7 @@ public class Camera {
 	}
 	
 	/**
+	 * setter, according to the builder pattern
 	 * @brief set the distance of the focal plane from the camera
 	 * @param distance distance of the focal plane
 	 * @return this (camera)
@@ -84,7 +75,6 @@ public class Camera {
 		return this;
 	}
 	
-	
 	public void setApertureSize(double radius) {
 		this.radiusAperture = radius;
 	}
@@ -95,6 +85,7 @@ public class Camera {
 	
 	
 	/**
+	 * setter, according to the builder pattern
 	 * @brief set the distance of the view plane to the camera
 	 * @param distance the distance from camera to view plane
 	 * @return this (camera)
@@ -109,7 +100,7 @@ public class Camera {
 	}
 	 
 	/**
-	 * 
+	 * setter, according to the builder pattern
 	 * @param imageWriter
 	 * @return this (camera)
 	 */
@@ -119,20 +110,13 @@ public class Camera {
 	} 
 		
 	/**
-	 * @para rayTraceBase
+	 * setter, according to the builder pattern
+	 * @param rayTraceBase
 	 * @return this (camera)
 	 */
 	public Camera setRayTraceBase(RayTraceBase rayTraceBase) {
 		this.rayTraceBase = rayTraceBase;
 		return this;
-	}
-		 
-	/**
-	 * lacking clarity on this method
-	 * @return null for now
-	 */
-	public Ray constructRayPixel() {
-		return null;
 	}
 	
 	/**
@@ -144,8 +128,11 @@ public class Camera {
 	 * @return the pixel found
 	 */
 	public Point findPixel(int nX, int nY, int j, int i) {
+		
+		//find the center point of the pixel
 		Point pc = p0.add(vTo.scale(distance));
-		double pixelWidth = width/nX;
+		
+		double pixelWidth = width/nX; 
 		double pixelHeight = height/nY;
 			
 		double yi = -((i - (nY-1)/2d)) * pixelHeight;
@@ -162,7 +149,7 @@ public class Camera {
 	/**
 	 * @brief constructs ray through pixel from camera
 	 * @param pIJ - pixel we construct the ray through
-	 * @return
+	 * @return the constructed ray
 	 */
 	public Ray constructRay(Point pIJ) {
 		try {
@@ -207,8 +194,7 @@ public class Camera {
 		
 		
 	/**
-	 * 
-	 *@brief loop over all the pixels in the view plane, construct a ray for each, and color the pixel
+	 *@brief color all of the pixels
 	 * @throws Exception 
 	 */	
 	public void renderImage() throws Exception {
@@ -228,6 +214,7 @@ public class Camera {
 		int nX = imageWriter.getNx();
 		int nY = imageWriter.getNy();
 		
+		//go through all the pixels, row by row and column by column, and get the color and then write it to the image
 		for(int row = 0; row < nY; ++row )
 			for(int col = 0; col < nX; ++col) {
 				Point pixel = findPixel(nX, nY, col, row);
@@ -240,8 +227,7 @@ public class Camera {
 	}
 	/**
 	 * 
-	 *@brief loop over all the pixels in the view plane, and super sample for each pixel, 
-	 *	and color the pixel with the average color
+	 *@brief color all of the pixels, using supersampling 
 	 *@param numOfRays - the chosen number of rays for super sampling
 	 * @throws Exception 
 	 */	
@@ -262,6 +248,7 @@ public class Camera {
 		int nX = imageWriter.getNx();
 		int nY = imageWriter.getNy();
 		
+		//loop over all the pixels in the view plane, and super sample for each pixel, and color the pixel with the average color
 		for(int row = 0; row < nY; ++row )
 			for(int col = 0; col < nX; ++col) {
 				Point pixel = findPixel(nX, nY, col, row); //original pixel in view plane
@@ -269,23 +256,15 @@ public class Camera {
 				Point fpIntersection = focalPlane.findGeoIntersections(ray).get(0).point; //intersection of ray with focal plane
 				List<Ray> superSampleRays = apertureCreateRays(pixel, fpIntersection, numOfRays);//list of rays for super sampling
 				Color pixelColor = this.rayTraceBase.traceRaySuperSample(superSampleRays); //averaged color
-				imageWriter.writePixel(col,row,pixelColor);
-				/*
-			    Point pixel = findPixel(nX, nY, col, row);
-				Ray ray = constructRay(pixel);
-				Color pixelColor = this.rayTraceBase.traceRay(ray);
-				imageWriter.writePixel(col,row,pixelColor);
-				
-				 */
-				
+				imageWriter.writePixel(col,row,pixelColor);	
 			}
 		
 	}
 	
 	/**
 	 * @brief creates a grid of lines
-	 * @param interval the size of the spacing of the grid
-	 * @param color of the grid
+	 * @param interval = the size of the spacing of the grid
+	 * @param color = color of the grid
 	 */	
 	public void printGrid(int interval, Color color)  {
 		/*
@@ -318,6 +297,5 @@ public class Camera {
 			throw new MissingResourceException("missing resource", "Camera", "");
 		
 		imageWriter.writeToImage();
-		
 	}
 }

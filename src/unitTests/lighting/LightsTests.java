@@ -143,36 +143,4 @@ public class LightsTests {
 		camera2.renderImage(); //
 		camera2.writeToImage(); //
 	}
-	
-	/* bonus
-	//Produce a picture of a sphere lighted by a narrow spot light
-	 
-	@Test
-	public void sphereSpotSharp() throws Exception{
-		scene1.getGeometries().add(sphere);
-		scene1.getLights()
-				.add(new SpotLight(spCL, spPL, new Vector(1, 1, -0.5)).setNarrowBeam(10).setKL(0.001).setKQ(0.00004));
-
-		ImageWriter imageWriter = new ImageWriter("lightSphereSpotSharp", 500, 500);
-		camera1.setImageWriter(imageWriter) //
-				.setRayTraceBase(new RayTracerBasic(scene1)); //
-		camera1.renderImage(); //
-		camera1.writeToImage(); //
-	}
-
-	//Produce a picture of a two triangles lighted by a narrow spot light
-	 
-	@Test
-	public void trianglesSpotSharp() throws Exception {
-		scene2.getGeometries().add(triangle1, triangle2);
-		scene2.getLights().add(new SpotLight(trCL, trPL, trDL).setNarrowBeam(10).setKL(0.001).setKQ(0.00004));
-
-		ImageWriter imageWriter = new ImageWriter("lightTrianglesSpotSharp", 500, 500);
-		camera2.setImageWriter(imageWriter) //
-				.setRayTraceBase(new RayTracerBasic(scene2));//
-		camera2.renderImage(); //
-		camera2.writeToImage(); //
-	}
-	*/
-
 }

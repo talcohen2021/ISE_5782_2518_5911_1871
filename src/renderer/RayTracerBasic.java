@@ -9,7 +9,6 @@ import primitives.Ray;
 import primitives.Vector;
 import scene.Scene;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import geometries.Intersectable.GeoPoint;
@@ -54,8 +53,8 @@ public class RayTracerBasic extends RayTraceBase {
 		if (rays.size()==0)
 			return scene.background;
 		Color averageColor = new Color(0,0,0); //setting to black as the zeros shouldn't affect the average
+	
 		//loop through all rays from aperture to and average the colour of the intersections
-
 		for(int i = 0 ; i < rays.size() ; i++) {
 			Ray singleRay = rays.get(i);
 			GeoPoint closestIntersection = findClosestIntersection(singleRay);
@@ -271,6 +270,7 @@ public class RayTracerBasic extends RayTraceBase {
 	 private Ray getReflectedRay(GeoPoint gpIntersection, Ray ray) throws Exception {
 		    Vector dirRay = ray.getDir();
 		    Vector normal = gpIntersection.geometry.getNormal(gpIntersection.point);
+		    //get angle between ray and refkected ray
 		    double dotProduct = dirRay.dotProduct(normal);
 		    if (dotProduct == 0) 
 		      return null;

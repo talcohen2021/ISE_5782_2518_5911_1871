@@ -12,7 +12,7 @@ import primitives.Ray;
 import primitives.Vector;
 
 /**
- * @author Yaakovah
+ * @author Yaakovah, Meira, Tali
  *
  */
 public class TubeTests {
@@ -25,8 +25,6 @@ public class TubeTests {
 	
 		// ============ Equivalence Partitions Tests ==============
 		//radius: does not equal 0
-
-
 		Tube t = new Tube(new Ray(new Point(0,0,0), new Vector(1,1,1)), 1);
 		assertNotEquals(t.getRadius(), 0, "bad radius for tube");
 	}
@@ -37,7 +35,6 @@ public class TubeTests {
 	 */
 	@Test
 	public void testGetNormal() throws Exception {
-		//fail("Not yet implemented");
 		
 		// =============== Boundary Values Tests ==================
 		// connection between the point on the body and the ray’s head creates a 90 degrees with the ray
