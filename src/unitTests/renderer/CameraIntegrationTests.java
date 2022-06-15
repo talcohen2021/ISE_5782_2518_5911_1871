@@ -31,7 +31,8 @@ public class CameraIntegrationTests {
 		int count = 0;
 		for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < 3; j++) {
-				Ray ray = cam.constructRay(3, 3, j, i);
+				Point pixel = cam.findPixel(j, count, j, i);
+				Ray ray = cam.constructRay(pixel);
 				List<GeoPoint> intersections = geometry.findGeoIntersections(ray);
 				if(intersections != null) {
 					count += intersections.size();

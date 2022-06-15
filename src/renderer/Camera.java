@@ -5,7 +5,12 @@ import primitives.*;
 
 import static primitives.Util.isZero;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.MissingResourceException;
+import java.util.Random;
+
+import geometries.Plane;
 /**
  * @author yaakovah, meira, tali
  *
@@ -16,9 +21,12 @@ public class Camera {
 	private Vector vTo, vUp, vRight; // axis of the camera - vTo = z , vUp = y, vRight = x
 	private double distance; // distance of the camera from the viewplane
 	private double  width, height ; // width and height of the viewplane
-	
+	private double distance2FocusPlane; // distance of the camera from the focusplane
+	private double  radiusAperture; //radius of the aperture
 	private ImageWriter imageWriter;
 	private RayTraceBase rayTraceBase;
+	private Plane focalPlane;
+	
 	
 	/**
 	 * @param p0 the center of the camera from where the vectors start
@@ -56,6 +64,35 @@ public class Camera {
 		return this;
 	}
 	
+	/**
+	 * @brief set the distance of the focal plane from the camera
+	 * @param distance distance of the focal plane
+	 * @return this (camera)
+	 */
+	public Camera setFPDistance(double fpdistance) throws Exception {
+		if(this.distance == 0) {
+			throw new Exception("Must set VPdistance first");
+		}
+		//focal plane should be beyond the view plane
+		if(fpdistance > this.distance) {
+			this.distance2FocusPlane = fpdistance;
+			setFPPlane();
+		}
+		else 
+			throw new Exception("Focal plane distance must be greater than view pLane distance");
+		return this;
+	}
+	
+	private void setFPPlane() {
+		//creating plane that is perpendicular to vTo and distance2FocusPlane away from camera
+		//thus it is parallel to the view plane
+		Point pc = p0.add(vTo.scale(this.distance2FocusPlane));
+		this.focalPlane = new Plane(pc, vTo);
+	}
+	
+	public void setApertureSize(double radius) {
+		this.radiusAperture = radius;
+	}
 	
 	public void setP0(Point p0) {
 		this.p0 = p0;
@@ -68,6 +105,10 @@ public class Camera {
 	 * @return this (camera)
 	 */
 	public Camera setVPDistance(double distance) {
+		if(distance <= 0) {
+			System.out.println("distance must be greater than zero, setting to 1");
+			this.distance = 1;
+		}
 		this.distance = distance;
 		return this;
 	}
@@ -98,29 +139,38 @@ public class Camera {
 	public Ray constructRayPixel() {
 		return null;
 	}
-		
+	
 	/**
-	 * @brief construct a ray from a camera point to a pixel
+	 * @brief find the pixel on the view plane
 	 * @param nX width - # of rows
 	 * @param nY height - # of columns
 	 * @param j index of pixel  width = columns
 	 * @param i index of pixel height = rows
-	 * @return ray from camera to pixel
+	 * @return the pixel found
 	 */
-	public Ray constructRay(int nX, int nY, int j, int i) {
+	public Point findPixel(int nX, int nY, int j, int i) {
+		Point pc = p0.add(vTo.scale(distance));
+		double pixelWidth = width/nX;
+		double pixelHeight = height/nY;
+			
+		double yi = -((i - (nY-1)/2d)) * pixelHeight;
+		double xj = ((j - (nX-1)/2d)) * pixelWidth;
+			
+		Point pIJ = pc;
+		if(!isZero(yi))
+			pIJ = pIJ.add(vUp.scale(yi));
+		if(!isZero(xj))
+			pIJ = pIJ.add(vRight.scale(xj));
+		return pIJ;
+	}
+	
+	/**
+	 * @brief constructs ray through pixel from camera
+	 * @param pIJ - pixel we construct the ray through
+	 * @return
+	 */
+	public Ray constructRay(Point pIJ) {
 		try {
-			Point pc = p0.add(vTo.scale(distance));
-			double pixelWidth = width/nX;
-			double pixelHeight = height/nY;
-				
-			double yi = -((i - (nY-1)/2d)) * pixelHeight;
-			double xj = ((j - (nX-1)/2d)) * pixelWidth;
-				
-			Point pIJ = pc;
-			if(!isZero(yi))
-				pIJ = pIJ.add(vUp.scale(yi));
-			if(!isZero(xj))
-				pIJ = pIJ.add(vRight.scale(xj));
 			Vector dir = pIJ.subtract(p0).normalize();
 			return new Ray(p0, dir);
 				
@@ -128,6 +178,35 @@ public class Camera {
 				System.out.println("Can't have zero vector");
 			}
 		return null;
+	}
+	
+	/**
+	 * @brief creates a list of rays for super sampling 
+	 * @param pixel - central point of aperture
+	 * @param fpIntersection - focal point on focal ray
+	 * @param numOfRays - number of sample rays
+	 * @return list of rays for super sampling
+	 */
+	private List<Ray> apertureCreateRays(Point pixel, Point fpIntersection, int numOfRays) {
+		double x,y,z;
+		double rangeMin = (-1)*radiusAperture;
+		double rangeMax = radiusAperture;
+		List<Ray> sampleRays = new LinkedList<Ray>();
+		Random r = new Random();
+		//here we calculate randomised vector in order to acquire a new random point within our aperture
+		//when it is confirmed as within range we construct a ray from it to our focal point 
+		//and add it to our list
+		for(int i = 0; i < numOfRays; i++ ) {
+			x  = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
+			y = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
+			z = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
+			Point newPoint= pixel.add(new Vector(x,y,z));
+			if(newPoint.distance(pixel)<=radiusAperture) {
+				Vector dir = fpIntersection.subtract(newPoint).normalize();
+				sampleRays.add(new Ray(newPoint, dir));
+			}
+		}
+		return sampleRays;
 	}
 		
 		
@@ -155,8 +234,45 @@ public class Camera {
 		
 		for(int row = 0; row < nY; ++row )
 			for(int col = 0; col < nX; ++col) {
-				Ray ray = constructRay( nX, nY, col, row);
+				Point pixel = findPixel(nX, nY, col, row);
+				Ray ray = constructRay(pixel);
 				Color pixelColor = this.rayTraceBase.traceRay(ray);
+				imageWriter.writePixel(col,row,pixelColor);
+				
+			}
+		
+	}
+	/**
+	 * 
+	 *@brief loop over all the pixels in the view plane, and super sample for each pixel, 
+	 *	and color the pixel with the average color
+	 *@param numOfRays - the chosen number of rays for super sampling
+	 * @throws Exception 
+	 */	
+	public void renderImageSuperSampling(int numOfRays) throws Exception {
+
+		/*
+		 * to loop over all the ViewPlane's pixels. For each pixel it will construct many rays and for each 
+		 * ray it will calculate a color (the ray tracer will return a color). The colors will be averaged and 
+		 *  stored in the corresponding pixel in the image using the writePixel method.
+		 * */
+		
+		if(this.p0 == null || this.vTo == null || this.vUp == null || this.vRight == null)
+			throw new MissingResourceException("missing resource", "Camera", "");
+		
+		if(this.imageWriter == null || this.rayTraceBase == null)
+			throw new MissingResourceException("missing resource", "Camera", "");
+		
+		int nX = imageWriter.getNx();
+		int nY = imageWriter.getNy();
+		
+		for(int row = 0; row < nY; ++row )
+			for(int col = 0; col < nX; ++col) {
+				Point pixel = findPixel(nX, nY, col, row); //original pixel in view plane
+				Ray ray = constructRay(pixel); //ray from camera to view plane
+				Point fpIntersection = focalPlane.findGeoIntersections(ray).get(0).point; //intersection of ray with focal plane
+				List<Ray> superSampleRays = apertureCreateRays(pixel, fpIntersection, numOfRays);//list of rays for super sampling
+				Color pixelColor = this.rayTraceBase.traceRaySuperSample(superSampleRays); //averaged color
 				imageWriter.writePixel(col,row,pixelColor);
 				
 			}

@@ -110,6 +110,46 @@ public class PictureTests {
 		camera.renderImage();
 		camera.writeToImage(); 		
 	}
+	
+	
+	@Test
+	public void makePictureSuper() throws Exception {
+		camera.setFPDistance(1010).setApertureSize(10);
+		scene.geometries.add(
+				triangle1.setEmission(new Color(WHITE)).setEmission(new Color(BLUE)) 
+					.setMaterial(new Material().setKR(0.5).setKS(0.5).setKT(0.2)), 
+				triangle3.setEmission(new Color(WHITE)).setEmission(new Color(BLUE)) 
+					.setMaterial(new Material().setKR(0.5).setKS(0.5).setShininess(30)), 
+				triangle5.setEmission(new Color(WHITE)).setEmission(new Color(BLUE)), 
+				//.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(30)),
+				triangle7.setEmission(new Color(WHITE)).setEmission(new Color(BLUE)),
+				//make shpere on top left
+				new Sphere(new Point(-60, 50, -50), 30d).setEmission(new Color(BLUE)) 
+					.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(30).setKT(new Double3(0.8))),
+				//make 2 little spheres inside the above sphere
+				new Sphere(new Point(-55, 55, -50), 10d).setEmission(new Color(BLACK)) //inner circle higher
+					.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(15).setKR(new Double3(0.5))),
+				new Sphere(new Point(-65, 45, -25), 7.5d).setEmission(new Color(BLACK)) //inner circle lower
+					.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(30).setKR(new Double3(0.5))),
+				new Sphere(new Point(-55, 45, -35), 7.5d).setEmission(new Color(BLACK)) //inner circle lower right
+					.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(25).setKR(new Double3(0.5))),
+				//make sphere on bottom right
+				new Sphere(new Point(60, -50, -50), 30d).setEmission(new Color(BLUE)) 
+					.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(30)));
+	
+		scene.lights.add(new DirectionalLight(new Color(RED), new Vector(-2,-2,-2)));
+		scene.lights.add(new DirectionalLight(new Color(GREEN), new Vector(0,1,-50)));
+		//create shadows of the spheres
+		scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(60, -50, 0),
+				new Vector(0, 0, -1)).setKL(4E-5).setKQ(2E-7)); 
+
+		
+		ImageWriter imageWriter = new ImageWriter("ourPicturesuper", 500, 500);
+		camera.setImageWriter(imageWriter) //
+				.setRayTraceBase(new RayTracerBasic(scene));
+		camera.renderImageSuperSampling(81);
+		camera.writeToImage(); 		
+	}
 
 	/**
 	 * @throws Exception 
@@ -117,7 +157,6 @@ public class PictureTests {
 	 */
 	@Test
 	public void makePicture2() throws Exception {
-	
 		scene.geometries.add(triangle1.setEmission(new Color(BLUE)),  
 				triangle4.setEmission(new Color(YELLOW)),
 				triangle5.setEmission(new Color(BLACK)),

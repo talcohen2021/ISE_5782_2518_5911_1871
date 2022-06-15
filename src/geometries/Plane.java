@@ -102,6 +102,10 @@ public class Plane extends Geometry {
 		
 		return null;
 	}
+	
+	public Geometry setEmission(Color color) {
+		return super.setEmission(color);
+	}
 
 }
 

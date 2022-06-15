@@ -316,7 +316,7 @@ public class ShatteredMirrorTests {
 		
 		@Test
 		public void cube() throws Exception {
-			scene.geometries.add(square1, tri1,tri2, tri3, tri4);//square2,square3);
+			scene.geometries.add(square1);//, tri1,tri2, tri3, tri4);//square2,square3);
 			
 			/*for(int i = 0; i < 145; i+=5) {
 				if(i%2==0) {

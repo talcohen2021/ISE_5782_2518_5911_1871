@@ -43,6 +43,30 @@ public class RayTracerBasic extends RayTraceBase {
 				
 	}
 	
+	
+	
+	@Override
+	public Color traceRaySuperSample(List<Ray> rays) throws Exception{
+		/*
+		 * to search intersections between the rays and the 3DModel of the scene. 
+		 * when there are no intersections the color will be the background color. Otherwise, finds the closest 
+		 * point to the ray's head (by using the method that we implemented in phase 3) and adds the color of it
+		 * finally the average is taken
+		 * */
+		Color averageColor = Color.BLACK; //setting to black as the zeros shouldn't affect the average
+		//loop through all rays from aperture to and average the colour of the intersections
+		for(int i = 0 ; i < rays.size() ; i++) {
+			Ray singleRay = rays.get(i);
+			GeoPoint closestIntersection = findClosestIntersection(singleRay);
+			if(closestIntersection == null)
+				averageColor.add(scene.background);
+			else
+				averageColor.add(calcColor(closestIntersection, singleRay));
+		}
+		return averageColor.scale(1/rays.size());
+				
+	}
+	
 	/**
 	 * @brief adds the object's color to the point's color. supports reflection and refraction
 	 * @param intersection - a Geopoint that is being intersected that we will calculate the color of
