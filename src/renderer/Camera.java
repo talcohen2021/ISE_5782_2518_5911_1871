@@ -1,7 +1,7 @@
 package renderer;
 
 import primitives.*;
-
+import unitTests.primitives.VectorTests;
 
 import static primitives.Util.isZero;
 
@@ -55,7 +55,7 @@ public class Camera {
 	
 	/**
 	 * setter, according to the builder pattern
-	 * @brief set the distance of the focal plane from the camera
+	 * @brief creates the focal plane and makes is fpdistance away
 	 * @param distance distance of the focal plane
 	 * @return this (camera)
 	 */
@@ -86,7 +86,7 @@ public class Camera {
 	
 	/**
 	 * setter, according to the builder pattern
-	 * @brief set the distance of the view plane to the camera
+	 * @brief set the distance of the view plane to the camera, if the distance is <= 0, it automatically makes the distance 1
 	 * @param distance the distance from camera to view plane
 	 * @return this (camera)
 	 */
@@ -120,12 +120,12 @@ public class Camera {
 	}
 	
 	/**
-	 * @brief find the pixel on the view plane
+	 * @brief find the center point of pixel on the view plane
 	 * @param nX width - # of rows
 	 * @param nY height - # of columns
 	 * @param j index of pixel  width = columns
 	 * @param i index of pixel height = rows
-	 * @return the pixel found
+	 * @return the center point of the pixel found
 	 */
 	public Point findPixel(int nX, int nY, int j, int i) {
 		
@@ -148,7 +148,7 @@ public class Camera {
 	
 	/**
 	 * @brief constructs ray through pixel from camera
-	 * @param pIJ - pixel we construct the ray through
+	 * @param pIJ - pixel at the index (i, j) on the viewplane - the pixel we construct the ray through
 	 * @return the constructed ray
 	 */
 	public Ray constructRay(Point pIJ) {
@@ -171,7 +171,7 @@ public class Camera {
 	 * @return list of rays for super sampling
 	 */
 	private List<Ray> apertureCreateRays(Point pixel, Point fpIntersection, int numOfRays) {
-		double x,y,z;
+		double x,y,z = 0;
 		double rangeMin = (-1)*radiusAperture;
 		double rangeMax = radiusAperture;
 		List<Ray> sampleRays = new LinkedList<Ray>();
@@ -180,15 +180,19 @@ public class Camera {
 		//when it is confirmed as within range we construct a ray from it to our focal point 
 		//and add it to our list
 		for(int i = 0; i < numOfRays; i++ ) {
+			//only changing the x and y values bc z should always be on the same plane 
 			x  = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
 			y = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
-			z = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
+			
 			Point newPoint= pixel.add(new Vector(x,y,z));
 			if(newPoint.distance(pixel) <= radiusAperture) {
 				Vector dir = fpIntersection.subtract(newPoint).normalize();
 				sampleRays.add(new Ray(newPoint, dir));
 			}
 		}
+		//adding central ray to our list of sample rays
+		Vector dir = fpIntersection.subtract(pixel).normalize();
+		sampleRays.add(new Ray(pixel, dir));
 		return sampleRays;
 	}
 		
@@ -226,8 +230,7 @@ public class Camera {
 		
 	}
 	/**
-	 * 
-	 *@brief color all of the pixels, using supersampling 
+	 *@brief color all of the pixels, using supersampling (put the info into the buffer)
 	 *@param numOfRays - the chosen number of rays for super sampling
 	 * @throws Exception 
 	 */	
