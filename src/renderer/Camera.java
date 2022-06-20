@@ -25,6 +25,8 @@ public class Camera {
 	private ImageWriter imageWriter;
 	private RayTraceBase rayTraceBase;
 	private Plane focalPlane; //for adjusting the depth of field
+	private int threadsCount = 0; // sets the amount of threads we want to use, when using multithreading
+	private double printInterval = 0; //sets how often we want to print the percent finished we are, when using multithreading
 	
 	public Camera(Point p0, Vector vTo, Vector vUp)  {
 
@@ -120,6 +122,28 @@ public class Camera {
 	}
 	
 	/**
+	 * setter, according to the builder pattern
+	 * @param count = the amount of threads we want to run
+	 * @return this
+	 */
+	public Camera setMultithreading(int count)
+	{
+		threadsCount = count;
+		return this;
+	}
+	
+	/**
+	 * setter, according to the builder pattern
+	 * @param interval = the amount of time we want to wait before printing the progress
+	 * @return this 
+	 */
+	public Camera setDebugPrint(double interval)
+	{
+		printInterval = interval;
+		return this;
+	}
+	
+	/**
 	 * @brief find the center point of pixel on the view plane
 	 * @param nX width - # of rows
 	 * @param nY height - # of columns
@@ -196,6 +220,21 @@ public class Camera {
 		return sampleRays;
 	}
 		
+	/**
+	 * 
+	 * @param nX = number of columns
+	 * @param nY = number of rows
+	 * @param colPixel
+	 * @param rowPixel
+	 * @throws Exception
+	 */
+	public void castRay(int nX, int nY, int colPixel, int rowPixel) throws Exception
+	{
+		Point pixel = findPixel(nX, nY, colPixel, rowPixel);
+		Ray ray = constructRay(pixel);
+		Color pixelColor = this.rayTraceBase.traceRay(ray);
+		imageWriter.writePixel(colPixel,rowPixel,pixelColor);
+	}
 		
 	/**
 	 *@brief color all of the pixels
@@ -218,6 +257,7 @@ public class Camera {
 		int nX = imageWriter.getNx();
 		int nY = imageWriter.getNy();
 		
+		/*what we had before MP2
 		//go through all the pixels, row by row and column by column, and get the color and then write it to the image
 		for(int row = 0; row < nY; ++row )
 			for(int col = 0; col < nX; ++col) {
@@ -227,7 +267,31 @@ public class Camera {
 				imageWriter.writePixel(col,row,pixelColor);
 				
 			}
+		*/
 		
+		Pixel.initialize(nY, nX, printInterval);
+		while(threadsCount-- > 0)
+		{
+			new Thread(() -> {
+				for(Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone())
+					try {
+						castRay(nX, nY, pixel.col, pixel.row);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+			}).start();
+		}
+		Pixel.waitToFinish();
+		
+		/*
+		 * uses one thread, as oppoesed to the many threads it uses in the loop above
+		Pixel.initialize(nY, nX, printInterval);
+		for(int i=0;i<nY;++i){
+		 castRay(nX,nY,j,i);
+		 Pixel.pixelDone();
+		 Pixel.printPixel();
+		}
+		 * */
 	}
 	/**
 	 *@brief color all of the pixels, using supersampling (put the info into the buffer)
