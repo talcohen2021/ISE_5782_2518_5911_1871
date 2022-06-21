@@ -27,6 +27,7 @@ public class Camera {
 	private Plane focalPlane; //for adjusting the depth of field
 	private int threadsCount = 0; // sets the amount of threads we want to use, when using multithreading
 	private double printInterval = 0; //sets how often we want to print the percent finished we are, when using multithreading
+	private int numOfRaysSuperSampling = 0; // number of additional rays to add for supersampling. 0 if no supersampling
 	
 	public Camera(Point p0, Vector vTo, Vector vUp)  {
 
@@ -144,6 +145,16 @@ public class Camera {
 	}
 	
 	/**
+	 * setter, according to the builder pattern
+	 * @param numRays = number of rays to shoot with supersampling. will be 1 if there is no supersampling
+	 * @return
+	 */
+	public Camera setNumOfRaysSuperSampling(int numRays)
+	{
+		numOfRaysSuperSampling = numRays;
+		return this;
+	}
+	/**
 	 * @brief find the center point of pixel on the view plane
 	 * @param nX width - # of rows
 	 * @param nY height - # of columns
@@ -232,7 +243,16 @@ public class Camera {
 	{
 		Point pixel = findPixel(nX, nY, colPixel, rowPixel);
 		Ray ray = constructRay(pixel);
-		Color pixelColor = this.rayTraceBase.traceRay(ray);
+		Color pixelColor;
+		if(numOfRaysSuperSampling!=0)
+		{
+			Point fpIntersection = focalPlane.findGeoIntersections(ray).get(0).point; //intersection of ray with focal plane
+			
+			List<Ray> superSampleRays = apertureCreateRays(pixel, fpIntersection, numOfRaysSuperSampling);//list of rays for super sampling
+			pixelColor = this.rayTraceBase.traceRaySuperSample(superSampleRays); //averaged color
+		}
+		else
+			pixelColor = this.rayTraceBase.traceRay(ray);
 		imageWriter.writePixel(colPixel,rowPixel,pixelColor);
 	}
 		
@@ -257,18 +277,14 @@ public class Camera {
 		int nX = imageWriter.getNx();
 		int nY = imageWriter.getNy();
 		
-		/*what we had before MP2
+		
 		//go through all the pixels, row by row and column by column, and get the color and then write it to the image
 		for(int row = 0; row < nY; ++row )
-			for(int col = 0; col < nX; ++col) {
-				Point pixel = findPixel(nX, nY, col, row);
-				Ray ray = constructRay(pixel);
-				Color pixelColor = this.rayTraceBase.traceRay(ray);
-				imageWriter.writePixel(col,row,pixelColor);
-				
-			}
-		*/
+			for(int col = 0; col < nX; ++col)
+				castRay(nX, nY, col, row);
 		
+		
+		/*
 		Pixel.initialize(nY, nX, printInterval);
 		while(threadsCount-- > 0)
 		{
@@ -282,6 +298,7 @@ public class Camera {
 			}).start();
 		}
 		Pixel.waitToFinish();
+		*/
 		
 		/*
 		 * uses one thread, as oppoesed to the many threads it uses in the loop above
@@ -292,40 +309,6 @@ public class Camera {
 		 Pixel.printPixel();
 		}
 		 * */
-	}
-	/**
-	 *@brief color all of the pixels, using supersampling (put the info into the buffer)
-	 *@param numOfRays - the chosen number of rays for super sampling
-	 * @throws Exception 
-	 */	
-	public void renderImageSuperSampling(int numOfRays) throws Exception {
-
-		/*
-		 * to loop over all the ViewPlane's pixels. For each pixel it will construct many rays and for each 
-		 * ray it will calculate a color (the ray tracer will return a color). The colors will be averaged and 
-		 *  stored in the corresponding pixel in the image using the writePixel method.
-		 * */
-		
-		if(this.p0 == null || this.vTo == null || this.vUp == null || this.vRight == null)
-			throw new MissingResourceException("missing resource", "Camera", "");
-		
-		if(this.imageWriter == null || this.rayTraceBase == null)
-			throw new MissingResourceException("missing resource", "Camera", "");
-		
-		int nX = imageWriter.getNx();
-		int nY = imageWriter.getNy();
-		
-		//loop over all the pixels in the view plane, and super sample for each pixel, and color the pixel with the average color
-		for(int row = 0; row < nY; ++row )
-			for(int col = 0; col < nX; ++col) {
-				Point pixel = findPixel(nX, nY, col, row); //original pixel in view plane
-				Ray ray = constructRay(pixel); //ray from camera to view plane
-				Point fpIntersection = focalPlane.findGeoIntersections(ray).get(0).point; //intersection of ray with focal plane
-				List<Ray> superSampleRays = apertureCreateRays(pixel, fpIntersection, numOfRays);//list of rays for super sampling
-				Color pixelColor = this.rayTraceBase.traceRaySuperSample(superSampleRays); //averaged color
-				imageWriter.writePixel(col,row,pixelColor);	
-			}
-		
 	}
 	
 	/**

@@ -16,6 +16,11 @@ public class Cylinder extends Tube{
 	public Cylinder(Ray axisRay, double radius, double height) {
 		super(axisRay, radius);
 		this.height = height;
+		
+		setMaxX();
+		setMaxY();
+		setMinX();
+		setMinY();
 	}
 	
 	@Override

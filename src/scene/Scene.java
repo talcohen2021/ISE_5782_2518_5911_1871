@@ -22,6 +22,14 @@ public class Scene {
 	public Geometries geometries;
 	public LinkedList<LightSource> lights = new LinkedList<LightSource>();
 	
+	//to be removed
+	public void printMaxMin() {
+		System.out.println("global max X: " + geometries.getMaxX());
+		System.out.println("global max Y: " + geometries.getMaxY());
+		System.out.println("global min X: " + geometries.getMinX());
+		System.out.println("global min Y: " + geometries.getMinY());
+	}
+	
 	public Scene(String name) {
 		this.name = name;
 		this.background = Color.BLACK;
@@ -80,6 +88,8 @@ public class Scene {
 		return this;
 	}
 
+	
+	
 }
 
 

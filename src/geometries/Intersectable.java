@@ -13,6 +13,8 @@ import primitives.Ray;
  */
 public abstract class Intersectable {
 	
+	protected double maxX = 0, maxY = 0, minX = 0, minY = 0;
+	
 	/**
 	 * @author Yaakovah, Meira, Tali
 	 * includes a Geometry and a Point, so that we can reference a point on a geometry as one object
@@ -74,6 +76,40 @@ public abstract class Intersectable {
 	 * Note: according to NVI access should be private (and not protected), however, Java does not allow an abstract method to be private
 	 */
 	protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray) throws Exception;
+	
+	public double getMaxX() {return maxX;}
+	public double getMaxY() {return maxY;}
+	public double getMinX() {return minX;}
+	public double getMinY() {return minY;}
+	
+	public void setMaxX() {maxX = calcMaxX();}
+	public void setMaxY() {maxY = calcMaxY();}
+	public void setMinX() {minX = calcMinX();}
+	public void setMinY() {minY = calcMinY();}
+
+	
+	/**
+	 * 
+	 * @return the x of the rightmost side of the conservative boundary region
+	 */
+	protected abstract double calcMaxX();
+	/**
+	 * 
+	 * @return the y of the bottom-most side of the conservative boundary region
+	 */
+	protected abstract double calcMaxY();
+	
+	/**
+	 * 
+	 * @return the x of the leftmost side of the conservative boundary region
+	 */
+	protected abstract double calcMinX();
+	
+	/**
+	 * 
+	 * @return the y of the top-most side of the conservative boundary region
+	 */
+	protected abstract double calcMinY();
 	
 }
 

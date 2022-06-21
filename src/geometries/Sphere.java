@@ -18,6 +18,11 @@ public class Sphere extends Geometry {
 	public Sphere(Point p, double r) {
 		centre = p;
 		radius = r;
+		
+		setMaxX();
+		setMaxY();
+		setMinX();
+		setMinY();
 	}
 	
 	@Override
@@ -35,10 +40,6 @@ public class Sphere extends Geometry {
 
 	public double getRadius() {
 		return radius;
-	}
-	
-	public Geometry setEmission(Color c) {
-		return super.setEmission(c);
 	}
 
 	/**
@@ -80,5 +81,25 @@ public class Sphere extends Geometry {
 		return results;
 		
 	}	
+
+	@Override
+	protected double calcMaxX() {
+		return centre.getX() + radius;	
+	}
+
+	@Override
+	protected double calcMaxY() {
+		return centre.getY() - radius;
+	}
+
+	@Override
+	protected double calcMinX() {
+		return centre.getX() - radius;
+	}
+
+	@Override
+	protected double calcMinY() {
+		return centre.getY() + radius;
+	}
 
 }

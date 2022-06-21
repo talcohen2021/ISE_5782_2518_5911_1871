@@ -19,6 +19,11 @@ public class Tube extends Geometry{
 	public Tube(Ray axisRay, double radius) {
 		this.axisRay = axisRay;
 		this.radius = radius;
+		
+		setMaxX();
+		setMaxY();
+		setMinX();
+		setMinY();
 	}
 
 	public Ray getAxisRay()
@@ -44,11 +49,34 @@ public class Tube extends Geometry{
 		return point.subtract(o).normalize();
 	}
 
-	
 	@Override
 	public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	protected double calcMaxX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected double calcMaxY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected double calcMinX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected double calcMinY() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

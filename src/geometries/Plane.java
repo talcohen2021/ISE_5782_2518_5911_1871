@@ -41,8 +41,13 @@ public class Plane extends Geometry {
 		Vector crossProduct = vector2.crossProduct(vector1);
 		
 		this.normal = crossProduct.normalize();
+		
+		setMaxX();
+		setMaxY();
+		setMinX();
+		setMinY();
 	}
-	
+
 	public Plane(Point q0, Vector normal) 
 	{
 		this.q0 = q0;
@@ -102,9 +107,29 @@ public class Plane extends Geometry {
 		
 		return null;
 	}
-	
-	public Geometry setEmission(Color color) {
-		return super.setEmission(color);
+
+	@Override
+	protected double calcMaxX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected double calcMaxY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected double calcMinX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected double calcMinY() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

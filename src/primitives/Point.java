@@ -17,6 +17,11 @@ public class Point {
 		this.xyz = new Double3(d1, d2, d3);
 	}
 	
+	public double getX() { return xyz.d1;}
+	
+	public double getY() { return xyz.d2;}
+	
+	public double getZ() { return xyz.d3;}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

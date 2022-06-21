@@ -85,6 +85,10 @@ public class Polygon extends Geometry {
 		}
 		size = vertices.length;
 		
+		setMaxX();
+		setMaxY();
+		setMinX();
+		setMinY();
 	}
 
 	@Override
@@ -97,8 +101,52 @@ public class Polygon extends Geometry {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	public Geometry setEmission(Color c) {
-		return super.setEmission(c);
+
+	@Override
+	protected double calcMaxX() {
+		
+		double tempMax = vertices.get(0).getX();
+		
+		for(int i = 1 ; i < vertices.size(); ++i)
+			if(vertices.get(i).getX() > tempMax)
+				tempMax = vertices.get(i).getX();
+		
+		return tempMax;
+	}
+
+	@Override
+	protected double calcMaxY() {
+		
+		double tempMax = vertices.get(0).getY();
+		
+		for(int i = 1 ; i < vertices.size(); ++i)
+			if(vertices.get(i).getY() < tempMax)
+				tempMax = vertices.get(i).getY();
+		
+		return tempMax;
+	}
+
+	@Override
+	protected double calcMinX() {
+		
+		double tempMin = vertices.get(0).getX();
+		
+		for(int i = 1 ; i < vertices.size(); ++i)
+			if(vertices.get(i).getX() < tempMin)
+				tempMin = vertices.get(i).getX();
+		
+		return tempMin;
+	}
+
+	@Override
+	protected double calcMinY() {
+		
+		double tempMin = vertices.get(0).getY();
+		
+		for(int i = 1 ; i < vertices.size(); ++i)
+			if(vertices.get(i).getY() > tempMin)
+				tempMin = vertices.get(i).getY();
+		
+		return tempMin;
 	}
 }

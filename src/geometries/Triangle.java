@@ -62,11 +62,4 @@ public class Triangle extends Polygon{
 		
 	}
 	
-
-
-	public Geometry setEmission(Color color) {
-		return super.setEmission(color);
-	}
-	
-
 }

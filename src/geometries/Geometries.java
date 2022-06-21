@@ -23,6 +23,11 @@ public class Geometries extends Intersectable {
 		//ArrayList instead of LinkedList bc we are mostly accessing
 		geometries = new ArrayList<Intersectable>() ; 
 		
+		setMaxX();
+		setMaxY();
+		setMinX();
+		setMinY();
+		
 	}
 	
 	public Geometries (Intersectable... geometries) 
@@ -34,6 +39,11 @@ public class Geometries extends Intersectable {
 		
 		for(int i = 0; i < geometries.length; i++) 
 			this.geometries.add(geometries[i]);
+		
+		setMaxX();
+		setMaxY();
+		setMinX();
+		setMinY();
 
 	}
 	
@@ -50,6 +60,11 @@ public class Geometries extends Intersectable {
 	{
 		for(int i = 0; i < geometries.length; i++) 
 			this.geometries.add(geometries[i]);
+		
+		setMaxX();
+		setMaxY();
+		setMinX();
+		setMinY();
 	}
 	
 	@Override
@@ -85,4 +100,75 @@ public class Geometries extends Intersectable {
 		
 		return listOfIntersections;
 	}
+
+	@Override
+	protected double calcMaxX() {
+		
+		//if there are no geometries in the list, return a value which will not mess with comparisions
+		if(geometries.size() ==0)
+			return Double.MIN_VALUE;
+		
+		double tempMax = geometries.get(0).calcMaxX();
+		
+		for(int i = 1 ; i < geometries.size(); ++i)
+			if(geometries.get(i).calcMaxX() > tempMax)
+				tempMax = geometries.get(i).calcMaxX();
+		
+		return tempMax;
+		
+	}
+
+	@Override
+	protected double calcMaxY() {
+		
+		//if there are no geometries in the list, return a value which will not mess with comparisions
+		if(geometries.size() ==0)
+			return Double.MAX_VALUE;
+		
+		double tempMax = geometries.get(0).calcMaxY();
+		
+		for(int i = 1 ; i < geometries.size(); ++i)
+			if(geometries.get(i).calcMaxY() < tempMax)
+				tempMax = geometries.get(i).calcMaxY();
+		
+		return tempMax;
+		
+	}
+
+	@Override
+	protected double calcMinX() {
+		//if there are no geometries in the list, return a value which will not mess with comparisions
+		if(geometries.size() ==0)
+			return Double.MAX_VALUE;
+		
+		double tempMin = geometries.get(0).calcMinX();
+		
+		for(int i = 1 ; i < geometries.size(); ++i)
+			if(geometries.get(i).calcMinX() < tempMin)
+				tempMin = geometries.get(i).calcMinX();
+		
+		return tempMin;
+
+	}
+
+	@Override
+	protected double calcMinY() {
+		
+		//if there are no geometries in the list, return a value which will not mess with comparisions
+		if(geometries.size() ==0)
+			return Double.MIN_VALUE;
+		
+		double tempMin = geometries.get(0).calcMinY();
+		
+		for(int i = 1 ; i < geometries.size(); ++i)
+			if(geometries.get(i).calcMinY() > tempMin)
+				tempMin = geometries.get(i).calcMinY();
+		
+		return tempMin;
+	}
+
+	public void setMaxX() { maxX = calcMaxX();}
+	public void setMinX() { minX = calcMinX();}
+	public void setMaxY() { maxY = calcMaxY();}
+	public void setMinY() { minY = calcMinY();}
 }
