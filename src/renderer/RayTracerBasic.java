@@ -310,4 +310,36 @@ public class RayTracerBasic extends RayTraceBase {
 		 return ray.findClosestGeoPoint(intersections);		 
 		 
 	 }
+	 
+	 @Override
+	 public boolean inConservativeBoundingRegion(Ray ray) throws Exception
+	 {
+		
+		//get the first point that the ray (going thorough a particular pixel) intersects
+		GeoPoint gpIntersection = findClosestIntersection(ray);
+		Point intersection; 
+		
+		if(gpIntersection == null)
+		{
+			return false;
+		}
+		else
+			intersection = gpIntersection.point;
+			
+	
+		double xCoordinateGP = intersection.getX();
+		double yCoordinateGP = intersection.getY();
+		
+		//acquire relevant x and y's for comparison purposes
+		double globalMaxX = scene.geometries.getMaxX();
+		double globalMaxY = scene.geometries.getMaxY();
+		double globalMinX = scene.geometries.getMinX();
+		double globalMinY = scene.geometries.getMinY();
+			
+		//if point falls within the min/max boundaries, return true, otherwise return false
+		return ( xCoordinateGP < globalMaxX && xCoordinateGP > globalMinX
+		  		&& yCoordinateGP > globalMaxY && yCoordinateGP < globalMinY) ? true : false;	  
+	
+		
+	}
 }

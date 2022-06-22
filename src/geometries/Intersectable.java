@@ -111,5 +111,23 @@ public abstract class Intersectable {
 	 */
 	protected abstract double calcMinY();
 	
+	/**
+	 * 
+	 * @param in = the intersectable that we are comparing distance to
+	 * @param distance = the ditance we want to know if we are within
+	 * @return
+	 */
+	public Boolean withinDistance(Intersectable in, double distance)
+	{
+		//need to finish this method
+		double inMaxX = in.getMaxX() + distance;
+		double inMaxY = in.getMaxY() + distance;
+		double inMinX = in.getMinX() + distance;
+		double inMinY = in.getMinY() + distance;
+		
+		
+		return true;
+	}
+	
 }
 

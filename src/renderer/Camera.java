@@ -230,7 +230,7 @@ public class Camera {
 		sampleRays.add(new Ray(pixel, dir));
 		return sampleRays;
 	}
-		
+	
 	/**
 	 * 
 	 * @param nX = number of columns
@@ -239,12 +239,15 @@ public class Camera {
 	 * @param rowPixel
 	 * @throws Exception
 	 */
-	public void castRay(int nX, int nY, int colPixel, int rowPixel) throws Exception
+	private void castRay(int nX, int nY, int colPixel, int rowPixel) throws Exception
 	{
 		Point pixel = findPixel(nX, nY, colPixel, rowPixel);
 		Ray ray = constructRay(pixel);
 		Color pixelColor;
-		if(numOfRaysSuperSampling!=0)
+		
+		//check that the user wants supersampling and that the object hit by the ray
+		//is in the region to do supersampling
+		if(numOfRaysSuperSampling!=0 && rayTraceBase.inConservativeBoundingRegion(ray))
 		{
 			Point fpIntersection = focalPlane.findGeoIntersections(ray).get(0).point; //intersection of ray with focal plane
 			

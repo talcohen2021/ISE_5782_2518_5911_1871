@@ -53,7 +53,14 @@ public class Polygon extends Geometry {
 		plane = new Plane(vertices[0], vertices[1], vertices[2]);
 		//System.out.println(plane.toString());
 		if (vertices.length == 3)
+		{
+			setMaxX();
+			setMaxY();
+			setMinX();
+			setMinY();
 			return; // no need for more tests for a Triangle
+		}
+			
 
 		Vector n = plane.getNormal(new Point(0,0,0));
 

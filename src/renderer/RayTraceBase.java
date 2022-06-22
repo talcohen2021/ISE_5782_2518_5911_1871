@@ -24,9 +24,29 @@ public abstract class RayTraceBase {
 	
 	public Scene getScene() {return scene;}
 	
+	/**
+	 * 
+	 * @param ray
+	 * @return color of the intersection point of the ray
+	 * @throws Exception
+	 */
 	public abstract Color traceRay(Ray ray) throws Exception;
 	
+	/**
+	 * 
+	 * @param rays
+	 * @return average of the colors at the intersection points of the rays
+	 * @throws Exception
+	 */
 	public abstract Color traceRaySuperSample(List<Ray> rays) throws Exception;
+	
+	/**
+	 *
+	 * @param ray = original ray from pixel to picture
+	 * @return if the point that the ray intersects is in the conservative bounding region
+	 * @throws Exception
+	 */
+	public abstract boolean inConservativeBoundingRegion(Ray ray) throws Exception;
 
 }
 

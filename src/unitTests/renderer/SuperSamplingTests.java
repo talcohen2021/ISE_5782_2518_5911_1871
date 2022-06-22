@@ -27,7 +27,7 @@ import java.util.Scanner;
  *
  */
 public class SuperSamplingTests {
-	/*
+	
 	private Scene scene = new Scene("Test scene") 
 			.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15)));
 	
@@ -53,21 +53,7 @@ public class SuperSamplingTests {
 	private Geometry triangle3 = new Triangle(p[0], p[4], p[7]).setMaterial(material); //a, e, h
 	private Geometry triangle5 = new Triangle(p[1], p[4], p[5]).setMaterial(material); //b, e, f
 	private Geometry triangle7 = new Triangle(p[1], p[4], p[6]).setMaterial(material); //b, e, g
-	*/
-	//for the boundary simple test
-	private Scene scene1 = new Scene("Test scene");
-	private Camera camera1 = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-			.setVPSize(150, 150) //
-			.setVPDistance(1000);
-	private Geometry sphere = new Sphere(new Point(0, 0, -50), 50d) //
-			.setEmission(new Color(BLUE).reduce(2)) //
-			.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(300));
-	private Geometry sphere2 = new Sphere(new Point(50, 50, -50), 50d) //
-			.setEmission(new Color(BLUE).reduce(2)) //
-			.setMaterial(new Material().setKD(0.5).setKS(0.5).setShininess(300));
-	private Point spPL = new Point(-50, -50, 25); // Sphere test Position of Light
-	private Color spCL = new Color(800, 500, 0); // Sphere test Color of Light
-/*
+	
 	@Test
 	public void makePictureSuper() throws Exception {
 		
@@ -134,19 +120,6 @@ public class SuperSamplingTests {
 		
 		camera.renderImage();
 		camera.writeToImage(); 		
-	}*/
-	
-	@Test
-	public void sphereSpot() throws Exception {
-		scene1.geometries.add(sphere, sphere2);
-		scene1.printMaxMin();
-		scene1.lights.add(new SpotLight(spCL, spPL, new Vector(1, 1, -0.5)).setKL(0.001).setKQ(0.0001));
-
-		ImageWriter imageWriter = new ImageWriter("simple boundary", 500, 500);
-		camera1.setImageWriter(imageWriter) //
-				.setRayTraceBase(new RayTracerBasic(scene1)); //
-		camera1.renderImage(); //
-		camera1.writeToImage(); //
 	}
 
 }

@@ -1,5 +1,6 @@
 package scene;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class Scene {
 	
 	//to be removed
 	public void printMaxMin() {
+		
 		System.out.println("global max X: " + geometries.getMaxX());
 		System.out.println("global max Y: " + geometries.getMaxY());
 		System.out.println("global min X: " + geometries.getMinX());
@@ -36,6 +38,13 @@ public class Scene {
 		this.ambientLight = new AmbientLight(); 
 		this.geometries = new Geometries();
 	}
+	
+	/**
+	 * 
+	 * @return the number of objects in the scene
+	 */
+	public int getNumberOfObjects() {return geometries.getSize();}
+
 	
 	/**
 	 * setter
@@ -88,7 +97,38 @@ public class Scene {
 		return this;
 	}
 
-	
+	/**
+	 * @brief take the current geometries and make it into hierarchial list 
+	 */
+	public void convertFlatGeometriesToHierarchical()
+	{
+		//create temp list to put all the geometries in hierarchially
+		Geometries tempGeometries = new Geometries();
+		
+		//for each intersectable in geometries
+		for(int i=0;i<getNumberOfObjects();++i)
+		{
+			boolean joinedAboundary = false;
+			
+			//check all the goemetries in tempGeometries and see if the 
+			//intersectable should be part of that boundary 
+			for(int j=0;i<tempGeometries.getSize();++j)
+				
+				//if the intersectable is in the boundary, add it that region
+				if(geometries.geometries.get(i).withinDistance(tempGeometries.geometries.get(j), 35))
+					{
+						((Geometries)(tempGeometries.geometries.get(j))).add(geometries.geometries.get(i));
+						joinedAboundary = true;
+					}
+			//if didnt add the intersectable to any region yet, add it to a new region
+			if(!joinedAboundary)
+			{
+				tempGeometries.add(new Geometries(geometries.geometries.get(i)));
+			}
+		}
+		
+		geometries =  tempGeometries;
+	}
 	
 }
 

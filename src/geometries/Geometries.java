@@ -16,6 +16,12 @@ import primitives.Ray;
 public class Geometries extends Intersectable {
 	
 	public List<Intersectable> geometries;
+	
+	/**
+	 * 
+	 * @return the size of geometries
+	 */
+	public int getSize() {return geometries.size();}
 
 	public Geometries() 
 	{
@@ -171,4 +177,5 @@ public class Geometries extends Intersectable {
 	public void setMinX() { minX = calcMinX();}
 	public void setMaxY() { maxY = calcMaxY();}
 	public void setMinY() { minY = calcMinY();}
+	
 }
