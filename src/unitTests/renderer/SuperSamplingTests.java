@@ -115,8 +115,6 @@ public class SuperSamplingTests {
 		
 		ImageWriter imageWriter = new ImageWriter("ourPicturesuper2", 500, 500);
 		camera.setImageWriter(imageWriter).setRayTraceBase(new RayTracerBasic(scene));
-
-		//camera.setMultithreading(3).setDebugPrint(0.1);
 		
 		camera.renderImage();
 		camera.writeToImage(); 		

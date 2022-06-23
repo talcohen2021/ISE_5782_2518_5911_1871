@@ -15,7 +15,7 @@ import primitives.Ray;
  */
 public class Geometries extends Intersectable {
 	
-	public List<Intersectable> geometries;
+	private List<Intersectable> geometries;
 	
 	/**
 	 * 

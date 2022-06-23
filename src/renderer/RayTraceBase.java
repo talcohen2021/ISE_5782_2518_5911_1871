@@ -38,15 +38,15 @@ public abstract class RayTraceBase {
 	 * @return average of the colors at the intersection points of the rays
 	 * @throws Exception
 	 */
-	public abstract Color traceRaySuperSample(List<Ray> rays) throws Exception;
+	public abstract Color traceRaySuperSample(List<Ray> rays, int region) throws Exception;
 	
 	/**
 	 *
 	 * @param ray = original ray from pixel to picture
-	 * @return if the point that the ray intersects is in the conservative bounding region
+	 * @return which CBR the ray intersects, -1 if none
 	 * @throws Exception
 	 */
-	public abstract boolean inConservativeBoundingRegion(Ray ray) throws Exception;
+	public abstract int conservativeBoundingRegion(Ray ray) throws Exception;
 
 }
 

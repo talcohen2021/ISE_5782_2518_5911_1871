@@ -43,7 +43,7 @@ public class RayTracerBasic extends RayTraceBase {
 	}
 	
 	@Override
-	public Color traceRaySuperSample(List<Ray> rays) throws Exception{
+	public Color traceRaySuperSample(List<Ray> rays, int region) throws Exception{
 		/*
 		 * to search intersections between the rays and the 3DModel of the scene. 
 		 * when there are no intersections the color will be the background color. Otherwise, finds the closest 
@@ -53,11 +53,17 @@ public class RayTracerBasic extends RayTraceBase {
 		if (rays.size()==0)
 			return scene.background;
 		Color averageColor = new Color(0,0,0); //setting to black as the zeros shouldn't affect the average
-	
+		
 		//loop through all rays from aperture and average the colour of the intersections
 		for(int i = 0 ; i < rays.size() ; i++) {
 			Ray singleRay = rays.get(i);
-			GeoPoint closestIntersection = findClosestIntersection(singleRay);
+					
+			GeoPoint closestIntersection;
+			if(region == -1)
+				closestIntersection = findClosestIntersection(singleRay);
+			else
+				closestIntersection = findClosestIntersectionCBR(singleRay, region);
+			
 			//if ray doesnt hit a point, then average in the background color
 			if(closestIntersection == null)
 				averageColor = averageColor.add(scene.background.reduce(rays.size()));
@@ -311,8 +317,26 @@ public class RayTracerBasic extends RayTraceBase {
 		 
 	 }
 	 
+	 /**
+	  * @brief find the closest geoPoint that the ray intersects withinthe boundary (represented by the index)
+	  * @param ray = the ray that we are finding the closest intersection of
+	  * @param index = relevant region in scene's geometries
+	  * @return the closest geoPoint that is intersected by the ray within the relevant region
+	  * @throws Exception
+	  */
+	 private GeoPoint findClosestIntersectionCBR(Ray ray, int index) throws Exception
+	 {
+		 List<GeoPoint> intersections = scene.geometries.getGeometries().get(index).findGeoIntersections(ray);
+		 
+		 if(intersections == null)
+			 return null;
+		 
+		 return ray.findClosestGeoPoint(intersections);		 
+		 
+	 }
+	 
 	 @Override
-	 public boolean inConservativeBoundingRegion(Ray ray) throws Exception
+	 public int conservativeBoundingRegion(Ray ray) throws Exception
 	 {
 		
 		//get the first point that the ray (going thorough a particular pixel) intersects
@@ -320,9 +344,7 @@ public class RayTracerBasic extends RayTraceBase {
 		Point intersection; 
 		
 		if(gpIntersection == null)
-		{
-			return false;
-		}
+			return -1;
 		else
 			intersection = gpIntersection.point;
 			
@@ -336,10 +358,17 @@ public class RayTracerBasic extends RayTraceBase {
 		double globalMinX = scene.geometries.getMinX();
 		double globalMinY = scene.geometries.getMinY();
 			
-		//if point falls within the min/max boundaries, return true, otherwise return false
-		return ( xCoordinateGP < globalMaxX && xCoordinateGP > globalMinX
-		  		&& yCoordinateGP > globalMaxY && yCoordinateGP < globalMinY) ? true : false;	  
-	
+		//if point doesnt fall within the min/max boundaries of scene, return -1 
+		if(!(xCoordinateGP < globalMaxX && xCoordinateGP > globalMinX
+		  		&& yCoordinateGP > globalMaxY && yCoordinateGP < globalMinY))
+			return -1;
+
+		//check which boundary the ray intersects, and return the index representing that CBR
+		for(int i = 0; i < scene.getSize();++i)
+			if(gpIntersection.geometry.withinDistance(scene.geometries.getGeometries().get(i), 0.1))
+				return i;
+			
 		
+		return -1; 
 	}
 }

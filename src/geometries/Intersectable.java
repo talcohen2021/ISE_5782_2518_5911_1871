@@ -114,19 +114,33 @@ public abstract class Intersectable {
 	/**
 	 * 
 	 * @param in = the intersectable that we are comparing distance to
-	 * @param distance = the ditance we want to know if we are within
+	 * @param distance = the distance we want to know if we are that amount away from 'in'
 	 * @return
 	 */
 	public Boolean withinDistance(Intersectable in, double distance)
 	{
-		//need to finish this method
+		//adding a boarder of size 'distance' to the region of 'in', essentially
+		//creating a new region
 		double inMaxX = in.getMaxX() + distance;
-		double inMaxY = in.getMaxY() + distance;
-		double inMinX = in.getMinX() + distance;
+		double inMaxY = in.getMaxY() - distance;
+		double inMinX = in.getMinX() - distance;
 		double inMinY = in.getMinY() + distance;
 		
+		//check if the x values for the two regions overlap
+		boolean isXinRange = (maxX <= inMaxX && maxX >= inMinX)
+				|| (minX <= inMaxX && minX >= inMinX)
+				||(inMaxX <= maxX && inMaxX >= minX)
+				|| (inMinX <= maxX && inMinX >= minX)? true : false;
 		
-		return true;
+		//check if the y values for the two regions overlap
+		boolean isYinRange = (maxY >= inMaxY && maxY <= inMinY)
+				|| (minY >= inMaxY && minY <= inMinY)
+				||(inMaxY >= maxY && inMaxY <= minY)
+				|| (inMaxY >= maxY && inMaxY <= minY)? true :false;
+		
+		//if the 'this' and 'in' are within 'distance' distance from eachother, return true
+		return (isYinRange && isXinRange)? true : false;
+				 
 	}
 	
 }

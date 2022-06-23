@@ -287,14 +287,43 @@ public class BoundaryTests {
 	@Test
 	public void sphereSpot() throws Exception {
 		
+		String choice;
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Type 'yes' if you would like to use the 'depth of field' option and type anything else otherwise: " );
+		choice = scan.nextLine();
 		
-		scene.geometries.add(geometries1, geometries2, triangle3);
+		double focalPlaneDistance = 1000;
+		double apertureSize = 1;
+		int numOfRays = 81;
+		
+		if(choice.equals("yes")) {
+			System.out.println("Please enter your preferred focal plane distance. Must be greater than view plane distance." );
+			focalPlaneDistance = scan.nextDouble();
+			System.out.println("Please enter your preferred aperture size. ");
+		    apertureSize = scan.nextDouble();
+		    System.out.println("Please enter your preferred super sampling size. ");
+		    numOfRays = scan.nextInt();
+		    System.out.println("Input received, picture is being processed.");
+		    
+		    camera.setFocalPlane(focalPlaneDistance).setApertureSize(apertureSize);
+		    camera.setNumOfRaysSuperSampling(numOfRays);
+		}
+		
+		scan.close();
+		
+		
+		//scene.geometries.add(geometries1, geometries2, triangle3);
+		scene.geometries.add(sphere1, sphere2, sphere3, triangle1, triangle2, triangle3);
+		scene.convertFlatGeometriesToHierarchical();
 		scene.printMaxMin();
 		scene.lights.add(new SpotLight(spCL, spPL, new Vector(1, 1, -0.5)).setKL(0.001).setKQ(0.0001));
 
 		ImageWriter imageWriter = new ImageWriter("complex single boundary", 500, 500);
 		camera.setImageWriter(imageWriter) //
 				.setRayTraceBase(new RayTracerBasic(scene)); //
+		
+		camera.setMultithreading(1).setDebugPrint(0.1);
+		
 		camera.renderImage(); //
 		camera.writeToImage(); //
 	}

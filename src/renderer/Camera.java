@@ -25,9 +25,10 @@ public class Camera {
 	private ImageWriter imageWriter;
 	private RayTraceBase rayTraceBase;
 	private Plane focalPlane; //for adjusting the depth of field
-	private int threadsCount = 0; // sets the amount of threads we want to use, when using multithreading
+	private int threadsCount = 1; // sets the amount of threads we want to use, defaulted to 1 if not multithreading
 	private double printInterval = 0; //sets how often we want to print the percent finished we are, when using multithreading
 	private int numOfRaysSuperSampling = 0; // number of additional rays to add for supersampling. 0 if no supersampling
+	private boolean CBR = false;
 	
 	public Camera(Point p0, Vector vTo, Vector vUp)  {
 
@@ -247,12 +248,16 @@ public class Camera {
 		
 		//check that the user wants supersampling and that the object hit by the ray
 		//is in the region to do supersampling
-		if(numOfRaysSuperSampling!=0 && rayTraceBase.inConservativeBoundingRegion(ray))
+		if(numOfRaysSuperSampling!=0)
 		{
+			int regionToSample = -1;//assume not using CBR in which case sample all geometries
+			if(CBR)//if we are using CBR
+				regionToSample = rayTraceBase.conservativeBoundingRegion(ray);
+		
 			Point fpIntersection = focalPlane.findGeoIntersections(ray).get(0).point; //intersection of ray with focal plane
 			
 			List<Ray> superSampleRays = apertureCreateRays(pixel, fpIntersection, numOfRaysSuperSampling);//list of rays for super sampling
-			pixelColor = this.rayTraceBase.traceRaySuperSample(superSampleRays); //averaged color
+			pixelColor = this.rayTraceBase.traceRaySuperSample(superSampleRays, regionToSample); //averaged color
 		}
 		else
 			pixelColor = this.rayTraceBase.traceRay(ray);
@@ -280,38 +285,42 @@ public class Camera {
 		int nX = imageWriter.getNx();
 		int nY = imageWriter.getNy();
 		
-		
-		//go through all the pixels, row by row and column by column, and get the color and then write it to the image
-		for(int row = 0; row < nY; ++row )
-			for(int col = 0; col < nX; ++col)
-				castRay(nX, nY, col, row);
-		
-		
-		/*
-		Pixel.initialize(nY, nX, printInterval);
-		while(threadsCount-- > 0)
+		if(threadsCount != 1)
 		{
-			new Thread(() -> {
-				for(Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone())
-					try {
-						castRay(nX, nY, pixel.col, pixel.row);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-			}).start();
+			Pixel.initialize(nY, nX, printInterval);
+			while(threadsCount-- > 0)
+			{
+				new Thread(() -> {
+					for(Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone())
+						try {
+							castRay(nX, nY, pixel.col, pixel.row);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+				}).start();
+			}
+			Pixel.waitToFinish();
 		}
-		Pixel.waitToFinish();
-		*/
+		else
+		{
+			//go through all the pixels, row by row and column by column, and get the color and then write it to the image
+			//uses one thread, as opposed to the many threads it uses in the loop in the if statement above
+			Pixel.initialize(nY, nX, printInterval);
+			for(int row = 0; row < nY; ++row )
+				for(int col = 0; col < nX; ++col)
+				{
+					castRay(nX,nY,col,row);
+					Pixel.pixelDone();
+					Pixel.printPixel();
+				}
+
+		}
 		
-		/*
-		 * uses one thread, as oppoesed to the many threads it uses in the loop above
-		Pixel.initialize(nY, nX, printInterval);
-		for(int i=0;i<nY;++i){
-		 castRay(nX,nY,j,i);
-		 Pixel.pixelDone();
-		 Pixel.printPixel();
-		}
-		 * */
+		
+		
+		
+	
+		 
 	}
 	
 	/**
