@@ -73,11 +73,35 @@ public class SuperSamplingTests {
 		    apertureSize = scan.nextDouble();
 		    System.out.println("Please enter your preferred super sampling size. ");
 		    numOfRays = scan.nextInt();
-		    System.out.println("Input received, picture is being processed.");
 		    
 		    camera.setFocalPlane(focalPlaneDistance).setApertureSize(apertureSize);
 		    camera.setNumOfRaysSuperSampling(numOfRays);
+		    
+		    System.out.println("Type 'yes' if you would like to use the 'CBR' option and type anything else otherwise: " );
+			choice = scan.nextLine();	
+			
+			if(choice.equals("yes"))
+			{
+				camera.setCBR(true);
+				System.out.println("Please choose your preferred distance for creation of regions: ");
+				double distance = scan.nextDouble();
+				scene.distance = distance;
+			}
 		}
+		
+		System.out.println("Type 'yes' if you would like to use the 'multi-threading' option and type anything else otherwise: " );
+		choice = scan.nextLine();
+		if(choice.equals("yes"))
+		{
+			System.out.println("how manythreads do you want (based on your computer) between 1 and 3 ");
+			int threadCount = scan.nextInt();
+			camera.setMultithreading(threadCount);
+			System.out.println("What print interval would you like? we recommend no more than a second. ");
+			double printInterval = scan.nextDouble();
+			camera.setDebugPrint(printInterval);
+			
+		}
+		System.out.println("Input received, picture is being processed.");
 		
 	    scan.close();
 	    

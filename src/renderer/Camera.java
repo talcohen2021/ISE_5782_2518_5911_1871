@@ -155,6 +155,12 @@ public class Camera {
 		numOfRaysSuperSampling = numRays;
 		return this;
 	}
+	
+	public Camera setCBR(boolean cbr) {
+		CBR = cbr;
+		return this;
+	}
+	
 	/**
 	 * @brief find the center point of pixel on the view plane
 	 * @param nX width - # of rows
