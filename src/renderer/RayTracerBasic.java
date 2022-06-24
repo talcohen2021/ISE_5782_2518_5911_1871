@@ -59,12 +59,12 @@ public class RayTracerBasic extends RayTraceBase {
 			Ray singleRay = rays.get(i);
 					
 			GeoPoint closestIntersection;
-			if(region == -1)
+			if(region == -1) //if the CBR algorithm was not requested by user
 				closestIntersection = findClosestIntersection(singleRay);
 			else
 				closestIntersection = findClosestIntersectionCBR(singleRay, region);
 			
-			//if ray doesnt hit a point, then average in the background color
+			//if ray doesn't hit a point, then average in the background color
 			if(closestIntersection == null)
 				averageColor = averageColor.add(scene.background.reduce(rays.size()));
 			else {
@@ -318,14 +318,14 @@ public class RayTracerBasic extends RayTraceBase {
 	 }
 	 
 	 /**
-	  * @brief find the closest geoPoint that the ray intersects withinthe boundary (represented by the index)
+	  * @brief find the closest geoPoint that the ray intersects within the boundary (represented by the index)
 	  * @param ray = the ray that we are finding the closest intersection of
 	  * @param index = relevant region in scene's geometries
 	  * @return the closest geoPoint that is intersected by the ray within the relevant region
 	  * @throws Exception
 	  */
 	 private GeoPoint findClosestIntersectionCBR(Ray ray, int index) throws Exception
-	 {
+	 {	 //get only the intersections from geometries located in relevant region (indicated by index)
 		 List<GeoPoint> intersections = scene.geometries.getGeometries().get(index).findGeoIntersections(ray);
 		 
 		 if(intersections == null)
@@ -343,7 +343,7 @@ public class RayTracerBasic extends RayTraceBase {
 		GeoPoint gpIntersection = findClosestIntersection(ray);
 		Point intersection; 
 		
-		if(gpIntersection == null)
+		if(gpIntersection == null)//no intersection means no geometry means no superSampling required
 			return -1;
 		else
 			intersection = gpIntersection.point;
@@ -358,14 +358,14 @@ public class RayTracerBasic extends RayTraceBase {
 		double globalMinX = scene.geometries.getMinX();
 		double globalMinY = scene.geometries.getMinY();
 			
-		//if point doesnt fall within the min/max boundaries of scene, return -1 
+		//if point doesn't fall within the min/max boundaries of scene, return -1 
 		if(!(xCoordinateGP < globalMaxX && xCoordinateGP > globalMinX
 		  		&& yCoordinateGP > globalMaxY && yCoordinateGP < globalMinY))
 			return -1;
 
-		//check which boundary the ray intersects, and return the index representing that CBR
+		//otherwise check which boundary the ray intersects, and return the index representing that CBR
 		for(int i = 0; i < scene.getSize();++i)
-			if(gpIntersection.geometry.withinDistance(scene.geometries.getGeometries().get(i), 0.1))
+			if(gpIntersection.geometry.withinDistance(scene.geometries.getGeometries().get(i), 0))
 				return i;
 			
 		

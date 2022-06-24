@@ -138,7 +138,7 @@ public abstract class Intersectable {
 				||(inMaxY >= maxY && inMaxY <= minY)
 				|| (inMaxY >= maxY && inMaxY <= minY)? true :false;
 		
-		//if the 'this' and 'in' are within 'distance' distance from eachother, return true
+		//if the 'this' and 'in' are within 'distance' distance from each other, return true
 		return (isYinRange && isXinRange)? true : false;
 				 
 	}

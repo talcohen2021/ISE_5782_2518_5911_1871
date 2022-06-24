@@ -22,25 +22,7 @@ public class Scene {
 	public AmbientLight ambientLight;
 	public Geometries geometries;
 	public LinkedList<LightSource> lights = new LinkedList<LightSource>();
-	public double distance = 0; //for purposes of CBR
 	
-	//to be removed
-	public void printMaxMin() {
-		
-		for(int i = 0; i<getSize();++i)
-		{
-			System.out.println("i is: " + i);
-			System.out.println("max X: " + geometries.getGeometries().get(i).getMaxX());
-			System.out.println("max Y: " + geometries.getGeometries().get(i).getMaxY());
-			System.out.println("min X: " + geometries.getGeometries().get(i).getMinX());
-			System.out.println("min Y: " + geometries.getGeometries().get(i).getMinY());
-		}
-		
-		System.out.println("global max X: " + geometries.getMaxX());
-		System.out.println("global max Y: " + geometries.getMaxY());
-		System.out.println("global min X: " + geometries.getMinX());
-		System.out.println("global min Y: " + geometries.getMinY());
-	}
 	
 	public Scene(String name) {
 		this.name = name;
@@ -108,19 +90,19 @@ public class Scene {
 	}
 
 	/**
-	 * @brief take the current geometries and make it into hierarchial list 
+	 * @brief take the current geometries and make it into hierarchical list 
 	 */
-	public void convertFlatGeometriesToHierarchical()
+	public void convertFlatGeometriesToHierarchical(double distance)
 	{
-		//create temp list to put all the geometries in hierarchially
+		//create temp list to put all the geometries in hierarchical order
 		Geometries tempGeometries = new Geometries();
 		
 		//for each intersectable in geometries
 		for(int i=0;i<getSize();++i)
 		{
 			//adding the intersectable to appropriate region and returning the index of that region
-			int indexOfRegionAddedTo = addToGeometriesHierarchy(tempGeometries, geometries.getGeometries().get(i));
-			//if didnt add the intersectable to any region yet, add it to a new region
+			int indexOfRegionAddedTo = addToGeometriesHierarchy(tempGeometries, geometries.getGeometries().get(i), distance);
+			//if didn't add the intersectable to any region yet, add it to a new region
 			if(indexOfRegionAddedTo == -1)
 				tempGeometries.add(new Geometries(geometries.getGeometries().get(i)));
 		}
@@ -135,10 +117,10 @@ public class Scene {
 	 * @param i
 	 * @return
 	 */
-	private int addToGeometriesHierarchy(Geometries tempGeometries, Intersectable i) {
+	private int addToGeometriesHierarchy(Geometries tempGeometries, Intersectable i, double distance) {
 		
 		int indexOfLastRegionAddedTo = -1;
-		//check all the goemetries in tempGeometries and see if the 
+		//check all the geometries in tempGeometries and see if the 
 		//intersectable should be part of that boundary 
 		for(int j=0;j<tempGeometries.getSize();++j)
 			
@@ -149,11 +131,11 @@ public class Scene {
 					{
 						//add this group to the index's group
 						((Geometries)(tempGeometries.getGeometries().get(indexOfLastRegionAddedTo))).add(tempGeometries.getGeometries().get(j));
-						//delete this group from the list
+						//delete this group from the list - no copies
 						tempGeometries.getGeometries().remove(tempGeometries.getGeometries().get(j));
 						j--;
 					}
-					else
+					else//intersectable wasn't previously added
 					{
 						((Geometries)(tempGeometries.getGeometries().get(j))).add(i);
 						indexOfLastRegionAddedTo = j;

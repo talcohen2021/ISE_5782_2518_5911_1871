@@ -29,6 +29,8 @@ public class Camera {
 	private double printInterval = 0; //sets how often we want to print the percent finished we are, when using multithreading
 	private int numOfRaysSuperSampling = 0; // number of additional rays to add for supersampling. 0 if no supersampling
 	private boolean CBR = false;
+	public double distanceCBR = 0; //for purposes of CBR
+	
 	
 	public Camera(Point p0, Vector vTo, Vector vUp)  {
 
@@ -156,9 +158,38 @@ public class Camera {
 		return this;
 	}
 	
-	public Camera setCBR(boolean cbr) {
-		CBR = cbr;
-		return this;
+	/**
+	 * @brief sets up CBR for use when needed
+	 * @param cbrInUse
+	 * @param distancecbr
+	 */
+	public void setUpCBR(boolean cbrInUse, double distancecbr){
+		CBR = cbrInUse;
+		distanceCBR = distancecbr;
+		rayTraceBase.scene.convertFlatGeometriesToHierarchical(distanceCBR);
+	}
+	
+	/**
+	 * @brief sets up MultiThreading for use when needed
+	 * @param numOfThreads
+	 * @param printInterval
+	 */
+	public void setUpMultiThreading(int numOfThreads, double printInterval){
+		setMultithreading(numOfThreads);
+		setDebugPrint(printInterval);
+	}
+	
+	/**
+	 * @brief sets up SuperSampling for use when needed
+	 * @param numOfSuperSampleRays
+	 * @param apertureSize
+	 * @param fpDistance
+	 * @throws Exception
+	 */
+	public void setUpSuperSampling(int numOfSuperSampleRays, double apertureSize, double fpDistance) throws Exception{
+		setNumOfRaysSuperSampling(numOfSuperSampleRays);
+		setApertureSize(apertureSize);
+		setFocalPlane(fpDistance);
 	}
 	
 	/**
@@ -321,11 +352,6 @@ public class Camera {
 				}
 
 		}
-		
-		
-		
-		
-	
 		 
 	}
 	
