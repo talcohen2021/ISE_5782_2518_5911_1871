@@ -289,12 +289,19 @@ public class Camera {
 		{
 			int regionToSample = -1;//assume not using CBR in which case sample all geometries
 			if(CBR)//if we are using CBR
+				//if regionToSample = -1, then that means that the ray didnt intersect an object and no need for supersamping 
 				regionToSample = rayTraceBase.conservativeBoundingRegion(ray);
 		
 			Point fpIntersection = focalPlane.findGeoIntersections(ray).get(0).point; //intersection of ray with focal plane
 			
-			List<Ray> superSampleRays = apertureCreateRays(pixel, fpIntersection, numOfRaysSuperSampling);//list of rays for super sampling
-			pixelColor = this.rayTraceBase.traceRaySuperSample(superSampleRays, regionToSample); //averaged color
+			//if not super samping bc ray didnt hit object (in the case of CBR)
+			if(CBR && regionToSample == -1)
+				pixelColor = this.rayTraceBase.traceRay(ray);
+			else
+			{
+				List<Ray> superSampleRays = apertureCreateRays(pixel, fpIntersection, numOfRaysSuperSampling);//list of rays for super sampling
+				pixelColor = this.rayTraceBase.traceRaySuperSample(superSampleRays, regionToSample); //averaged color
+			}
 		}
 		else
 			pixelColor = this.rayTraceBase.traceRay(ray);

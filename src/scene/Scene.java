@@ -91,6 +91,7 @@ public class Scene {
 
 	/**
 	 * @brief take the current geometries and make it into hierarchical list 
+	 * @param distance = the max distance for geometries to be put in the same region
 	 */
 	public void convertFlatGeometriesToHierarchical(double distance)
 	{
@@ -127,10 +128,12 @@ public class Scene {
 			//if the intersectable is in the boundary, add it that region
 			if(i.withinDistance(tempGeometries.getGeometries().get(j), distance))
 				{
+					//if the intersectable was already added to another region
 					if(indexOfLastRegionAddedTo != -1)
 					{
 						//add this group to the index's group
-						((Geometries)(tempGeometries.getGeometries().get(indexOfLastRegionAddedTo))).add(tempGeometries.getGeometries().get(j));
+						((Geometries)(tempGeometries.getGeometries().get(indexOfLastRegionAddedTo)))
+							.add(tempGeometries.getGeometries().get(j));
 						//delete this group from the list - no copies
 						tempGeometries.getGeometries().remove(tempGeometries.getGeometries().get(j));
 						j--;

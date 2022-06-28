@@ -62,6 +62,7 @@ public class RayTracerBasic extends RayTraceBase {
 			if(region == -1) //if the CBR algorithm was not requested by user
 				closestIntersection = findClosestIntersection(singleRay);
 			else
+				//if doing CBR, we only want to find intersections with the geometries in the region
 				closestIntersection = findClosestIntersectionCBR(singleRay, region);
 			
 			//if ray doesn't hit a point, then average in the background color

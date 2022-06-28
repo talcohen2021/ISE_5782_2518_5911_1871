@@ -35,6 +35,7 @@ public abstract class RayTraceBase {
 	/**
 	 * 
 	 * @param rays
+	 * @param region = indicated where to supersample
 	 * @return average of the colors at the intersection points of the rays
 	 * @throws Exception
 	 */
