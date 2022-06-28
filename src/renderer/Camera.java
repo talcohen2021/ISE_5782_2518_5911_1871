@@ -26,7 +26,7 @@ public class Camera {
 	private RayTraceBase rayTraceBase;
 	private Plane focalPlane; //for adjusting the depth of field
 	private int threadsCount = 1; // sets the amount of threads we want to use, defaulted to 1 if not multithreading
-	private double printInterval = 0; //sets how often we want to print the percent finished we are, when using multithreading
+	private double printInterval = 0.1; //sets how often we want to print the percent finished we are, when using multithreading
 	private int numOfRaysSuperSampling = 0; // number of additional rays to add for supersampling. 0 if no supersampling
 	private boolean CBR = false;
 	public double distanceCBR = 0; //for purposes of CBR
